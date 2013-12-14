@@ -1,0 +1,16 @@
+body {
+    background-image: none !important;
+    background-color: #8DA8B9;
+}
+
+#orders {
+    margin-top: 50px;
+}
+
+#order-table {
+    margin-top: 30px !important;
+    width: auto;
+    background-color: white;
+    padding: 20px;
+}
+
