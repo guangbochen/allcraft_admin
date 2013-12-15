@@ -6,15 +6,16 @@
     </div>
 
     <div class="row">
-        <section class="widget" id="today-order">
+        <section class="widget" id="today-orders">
             <header>
                 <h4> <i class="fa fa-calendar-o"></i> Today </h4>
             </header>
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th style="width: 20px"> Id </th>
                         <th style="width: 125px">Order Number</th>
-                        <th> Customer </th>
+                        <th style="width: 200px"> Customer </th>
                         <th>Job</th>
                         <th>Job Title</th>
                         <th>Status</th>
@@ -23,17 +24,19 @@
                 <tbody>
                 </tbody>
             </table>
+            <button class="btn btn-info" id="today-orders-load-more"> Load More </button>
         </section>
 
-        <section class="widget" id="yesterday-order">
+        <section class="widget" id="yesterday-orders">
             <header>
                 <h4> <i class="fa fa-calendar-o"></i> Yesterday </h4>
             </header>
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th style="width: 20px"> Id </th>
                         <th style="width: 125px">Order Number</th>
-                        <th> Customer </th>
+                        <th style="width: 200px"> Customer </th>
                         <th>Job</th>
                         <th>Job Title</th>
                         <th>Status</th>
@@ -42,32 +45,16 @@
                 <tbody>
                 </tbody>
             </table>
+            <button class="btn btn-info" id="yesterday-orders-load-more"> Load More </button>
         </section>
-        <section class="widget">
-            <header>
-                <h4> <i class="fa fa-calendar-o"></i> Day before </h4>
-            </header>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th style="width: 125px">Order Number</th>
-                        <th> Customer </th>
-                        <th>Job</th>
-                        <th>Job Title</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </section>
-        <section class="widget">
+        <section class="widget" id="older-orders">
             <header>
                 <h4> <i class="fa fa-calendar-o"></i> Older </h4>
             </header>
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th style="width: 20px"> Id </th>
                         <th style="width: 125px">Order Number</th>
                         <th> Customer </th>
                         <th>Job</th>
@@ -78,6 +65,7 @@
                 <tbody>
                 </tbody>
             </table>
+            <button class="btn btn-info" id="older-orders-load-more"> Load More </button>
         </section>
     </div>
 </div>

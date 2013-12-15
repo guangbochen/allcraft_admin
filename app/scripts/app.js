@@ -1,14 +1,28 @@
 define ([
 
     'router',
+    'backbone'
 
-], function (Router) {
+], function (Router, Backbone) {
 
+    // Add truncate ability for String prototype
     String.prototype.trunc = function(n, useWordBoundary) {
         var toLong = this.length>n,
                 s_ = toLong ? this.substr(0,n-1) : this;
                 s_ = useWordBoundary && toLong ? s_.substr(0,s_.lastIndexOf(' ')) : s_;
         return  toLong ? s_ + '&hellip;' : s_;
+    };
+
+    String.prototype.replaceAt = function(index, character) {
+        return this.substr(0, index) + character + this.substr(index+character.length);
+    };
+
+    // Add close view ability for Backbone View prototype
+    Backbone.View.prototype.close = function() {
+        this.remove();
+        this.unbind();
+        if (this.onClose)
+            this.onClose();
     };
 
     var initialize = function () {

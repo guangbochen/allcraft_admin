@@ -1,14 +1,15 @@
 {
-    "name": "Allcraft Admin Page",
-    "version": "1.0.0",
-    "dependencies": {
-        "requirejs": "latest",
-        "jquery": "latest",
-        "backbone-amd": "latest",
-        "tidepool-backbone.syphon": "latest",
-        "underscore-amd": "latest",
-        "requirejs-text": "latest",
-        "requirejs-plugins": "~1.0.2",
-        "light-blue-white": "https://github.com/hoandang/light-blue-white.git"
-    }
+  "name": "Allcraft Admin Page",
+  "version": "1.0.0",
+  "dependencies": {
+    "requirejs": "latest",
+    "jquery": "latest",
+    "backbone-amd": "latest",
+    "tidepool-backbone.syphon": "latest",
+    "underscore-amd": "latest",
+    "requirejs-text": "latest",
+    "requirejs-plugins": "~1.0.2",
+    "light-blue-white": "https://github.com/hoandang/light-blue-white.git",
+    "momentjs": "~2.4.0"
+  }
 }

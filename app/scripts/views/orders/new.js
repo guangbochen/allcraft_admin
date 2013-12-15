@@ -3,10 +3,11 @@ define ([
     'underscore',
     'backbone',
     'syphon',
+    'common',
     'views/orders/newOrdersPartial',
     'text!templates/orders/new.html'
 
-], function (_, Backbone, Syphon, NewOrdersPartial, NewOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, NewOrdersPartial, NewOrdersTemplate) {
     'use strict';
 
     var NewOrdersView = Backbone.View.extend({
@@ -16,8 +17,10 @@ define ([
         initialize: function (options) {
             this.ordersCollection = options.ordersCollection;
 
+            _.bindAll (this, 'push', 'render');
+
             // Notify when collection has been added new models
-            this.ordersCollection.on ('notify', this.notify);
+            this.ordersCollection.on ('notify', this.push);
         },
 
         events: {
@@ -25,10 +28,10 @@ define ([
             'submit': 'saveOrders'
         },
 
-        notify: function (ordersCollection) {
+        push: function () {
+            // Send username for private msg and broadcast notification
             console.log ('notify');
-            // unbind notify event to prevent memory leaks and zombies views ?
-            ordersCollection.off ('notify');
+            this.render();
         },
 
         generateOrders: function () {
@@ -45,15 +48,23 @@ define ([
             e.preventDefault();
 
             // Iterate orders input from the user and format them to an array
-            var orders = $.map( Backbone.Syphon.serialize (this), function (order) { return order; });
+            var orders = $.map( Backbone.Syphon.serialize (this), function (order) { 
+                return order; 
+            });
 
             // save orders to local collection and server
             this.ordersCollection.saveOrders (orders);
         },
 
         render: function () {
+
+            // unbind notify event to prevent memory leaks and zombies views ?
             this.$el.html (this.template);
             return this;
+        },
+
+        onClose: function () {
+            this.ordersCollection.off ('notify');
         }
     });
 

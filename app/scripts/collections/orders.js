@@ -22,11 +22,20 @@ define ([
                 dataType: 'json',
                 type: 'post',
                 success: function (response, textStatus, xhr) {
-                    _this.add (response);
-                    _this.trigger ('notify', _this);
+                    _this.trigger ('notify');
                 }
             });
         },
+
+        fetchOrdersByDate: function (query, date, limit) {
+            this.url += '?' + query + '=' + date + '&limit=' + limit + '&offset=' + this.offset;
+            this.fetch();
+        },
+
+        fetchMore: function () {
+            this.url = this.url.replaceAt (this.url.length - 1, this.offset.toString());
+            this.fetch ();
+        }
 
     });
 

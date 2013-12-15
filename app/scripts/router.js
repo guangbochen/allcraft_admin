@@ -10,6 +10,10 @@ define ([
 
     var AppRouter = Backbone.Router.extend ({
 
+        initialize: function () {
+            this.ordersCollection = new OrdersCollection();
+        },
+
         routes: {
 
             '': 'index',
@@ -17,39 +21,33 @@ define ([
             'orders/new': 'newOrders'
         },
 
-        activeHomeSidebar: function () {
-            $('#new-orders').removeClass ('active');
-            $('#view-orders').removeClass ('active');
-            $('#home').addClass ('active');
-        },
-
-        activeNewOrdersSidebar: function () {
-            $('#home').removeClass ('active');
-            $('#view-orders').removeClass ('active');
-            $('#new-orders').addClass ('active');
-        },
-        activeViewOrdersSidebar: function () {
-            $('#home').removeClass ('active');
-            $('#new-orders').removeClass ('active');
-            $('#view-orders').addClass ('active');
-        },
-
         index: function () {
             $('#page-content').html ('<h2> Home page </h2>');
-            this.activeHomeSidebar();
+            this.activeSidebar($('#home'));
         },
 
         viewOrders: function () {
-            var ordersView = new OrdersView ({ ordersCollection: new OrdersCollection() });
-            $('#page-content').html (ordersView.render().el);
-            this.activeViewOrdersSidebar();
+            this.showView (new OrdersView ({ ordersCollection: this.ordersCollection }));
+            this.activeSidebar($('#view-orders'));
         },
 
         newOrders: function () {
-            var newOrdersView = new NewOrdersView({ ordersCollection: new OrdersCollection() });
-            $('#page-content').html (newOrdersView.render().el);
-            this.activeNewOrdersSidebar();
-        }
+            this.showView (new NewOrdersView ({ ordersCollection: this.ordersCollection }));
+            this.activeSidebar($('#new-orders'));
+        },
+
+        activeSidebar: function (selector) {
+            selector.addClass ('active');
+            selector.siblings().removeClass ('active');
+        },
+
+        showView:function (view) {
+            if (this.currentView)
+                this.currentView.close();
+            $('#page-content').html(view.render().el);
+            this.currentView = view;
+            return view;
+        },
     });
 
     return AppRouter;

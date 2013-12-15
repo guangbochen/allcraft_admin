@@ -1,9 +1,13 @@
 /* Global define */
 
-define ([], function () {
+define ([
+    'backbone',
+    'underscore'
+], function (Backbone, _) {
     return {
         // ApiUrl: 'http://hoochcreative.com.au/printee/server/index.php'
-        ApiUrl: 'http://localhost:8888'
+        vent: _.extend ({}, Backbone.Events),
+        ApiUrl: 'http://api.allcraft.dev'
     };
 });
 
