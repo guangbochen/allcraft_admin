@@ -46,12 +46,14 @@ define ([
 
         display: function (collection) {
             collection.each (function (order) {
-                var row = '<tr><td>' + order.get('id') + '</td>' +
+                var row = '<tr>' +
                             '<td>' + order.get('order_number') + '</td>' +
+                            '<td>' + order.get('created_at') + '</td>' +
                             '<td>' + order.get('customer') + '</td>' +
                             '<td>' + order.get('job') + '</td>'+
                             '<td>' + order.get('job_title') + '</td>'+
-                            '<td>{status}</td></tr>';
+                            '<td>{status}</td>' +
+                          '</tr>';
                 
                 collection.selector.append (row);
             });
