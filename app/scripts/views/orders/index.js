@@ -32,7 +32,7 @@ define ([
         },
 
         events: {
-            'click #older-orders-load-more': 'loadMore'
+            'click #older-orders-load-more': 'loadMore',
         },
 
         hide: function () {
@@ -45,18 +45,31 @@ define ([
         },
 
         display: function (collection) {
+            var _this = this;
             collection.each (function (order) {
                 var row = '<tr>' +
+                            '<td> <a href="#/orders/' + order.get('id') + 
+                            '" class="btn btn-default" id="edit-order">Edit</a> </td>' +
                             '<td>' + order.get('order_number') + '</td>' +
                             '<td>' + order.get('created_at') + '</td>' +
                             '<td>' + order.get('customer') + '</td>' +
                             '<td>' + order.get('job') + '</td>'+
                             '<td>' + order.get('job_title') + '</td>'+
-                            '<td>{status}</td>' +
+                            _this.statusColor (order.get('status')) +
                           '</tr>';
                 
                 collection.selector.append (row);
             });
+        },
+
+        statusColor: function (status) {
+            switch (status) 
+            {
+                case 'a': return '<td class="red">' + status + '</td>'; 
+                case 'b': return '<td class="blue">' + status + '</td>';
+                case 'c': return '<td class="green">' + status + '</td>';
+            }
+            return '<td class="white">' + status + '</td>';
         },
 
         render: function () {

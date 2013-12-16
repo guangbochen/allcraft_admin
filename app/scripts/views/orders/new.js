@@ -36,12 +36,13 @@ define ([
         },
 
         generateOrders: function () {
+
             var noOrder = this.$('#number_of_order').val();
+
             // Add the create orders section
             var ordersPlaceholderView = new NewOrdersPartial({ noOrder: noOrder });
             this.$('#orders').html (ordersPlaceholderView.render().el);
-
-            this.$('#order-table').width (this.$('#order-table table').width());
+            this.$('#order-table').width (this.$('#order-table table').width() * 4);
         },
 
         saveOrders: function (e) {

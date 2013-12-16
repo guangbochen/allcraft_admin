@@ -2,10 +2,9 @@ define ([
 
     'underscore',
     'backbone',
-    'syphon',
     'text!templates/orders/newOrderPartial.html'
 
-], function (_, Backbone, Syphon, NewOrderPartialTemplate) {
+], function (_, Backbone, NewOrderPartialTemplate) {
     'use strict';
 
     var OrderPlaceholderView = Backbone.View.extend({
@@ -16,11 +15,13 @@ define ([
 
         initialize: function (options) {
             this.orderId = options.orderId;
+            this.statuses = options.statuses;
         },
 
         render: function () {
-            this.$el.html (this.template ({
-                orderId: this.orderId
+            this.$el.html (this.template ({ 
+                orderId: this.orderId,
+                statuses: this.statuses.models
             }));
             return this;
         }
