@@ -10,10 +10,6 @@ define ([
 
     var AppRouter = Backbone.Router.extend ({
 
-        initialize: function () {
-            this.ordersCollection = new OrdersCollection();
-        },
-
         routes: {
 
             '': 'index',
@@ -27,12 +23,12 @@ define ([
         },
 
         viewOrders: function () {
-            this.showView (new OrdersView ({ ordersCollection: this.ordersCollection }));
+            this.showView (new OrdersView ());
             this.activeSidebar($('#view-orders'));
         },
 
         newOrders: function () {
-            this.showView (new NewOrdersView ({ ordersCollection: this.ordersCollection }));
+            this.showView (new NewOrdersView ());
             this.activeSidebar($('#new-orders'));
         },
 
@@ -41,6 +37,7 @@ define ([
             selector.siblings().removeClass ('active');
         },
 
+        // Clean previous view and open current view
         showView:function (view) {
             if (this.currentView)
                 this.currentView.close();

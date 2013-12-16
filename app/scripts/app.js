@@ -13,6 +13,7 @@ define ([
         return  toLong ? s_ + '&hellip;' : s_;
     };
 
+    // Add replace a char or string at a position for String prototype
     String.prototype.replaceAt = function(index, character) {
         return this.substr(0, index) + character + this.substr(index+character.length);
     };

@@ -4,18 +4,19 @@ define ([
     'backbone',
     'syphon',
     'common',
+    'collections/orders',
     'views/orders/newOrdersPartial',
     'text!templates/orders/new.html'
 
-], function (_, Backbone, Syphon, Common, NewOrdersPartial, NewOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, OrdersCollection, NewOrdersPartial, NewOrdersTemplate) {
     'use strict';
 
     var NewOrdersView = Backbone.View.extend({
 
         template: _.template (NewOrdersTemplate),
 
-        initialize: function (options) {
-            this.ordersCollection = options.ordersCollection;
+        initialize: function () {
+            this.ordersCollection = new OrdersCollection ();
 
             _.bindAll (this, 'push', 'render');
 

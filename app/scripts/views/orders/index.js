@@ -15,10 +15,10 @@ define ([
 
         template: _.template (OrdersTemplate),
 
-        initialize: function (options) {
+        initialize: function () {
 
             // Bind this context to events
-            _.bindAll (this, 'display', 'loadMore');
+            _.bindAll (this, 'display', 'loadMore', 'hide');
 
             this.todayOrders = new OrdersCollection();
             this.todayOrders.on ('sync', this.display);
@@ -28,14 +28,19 @@ define ([
 
             this.olderOrders = new OrdersCollection();
             this.olderOrders.on ('sync', this.display);
+            this.olderOrders.on ('noMore', this.hide);
         },
 
         events: {
             'click #older-orders-load-more': 'loadMore'
         },
 
+        hide: function () {
+            this.olderOrders.selector.parent().siblings('button').prop('disabled', true);
+        },
+
         loadMore: function () {
-            this.olderOrders.offset += 5;
+            this.olderOrders.offset += 10;
             this.olderOrders.fetchMore ();
         },
 
@@ -68,7 +73,7 @@ define ([
                 0, // offset
                 'created_at',  // query type
                 today,  // date
-                5 // limit
+                10 // limit
             ); 
 
             // Fetch yesterday orders collection
@@ -78,7 +83,7 @@ define ([
                 0,
                 'created_at',
                 yesterday,
-                5
+                10
             );
 
             // Fetch older orders collection
@@ -88,7 +93,7 @@ define ([
                 0,
                 'created_before',
                 yesterday,
-                5
+                10
             );
 
             return this;
@@ -104,6 +109,7 @@ define ([
             this.todayOrders.off     ('sync');
             this.yesterdayOrders.off ('sync');
             this.olderOrders.off     ('sync');
+            this.olderOrders.off     ('noMore');
         }
     });
 
