@@ -1,12 +1,10 @@
 <td><input type="text" name="order<%=orderId%>[order_number]"/></td>
 <td>
-    <div class="dropdown">
-        <select name="order<%=orderId%>[status]" class="dropdown-select">
-            <% _.each(statuses, function(status) { %>
-            <option><%=status.get('status')%></option>
-            <% }); %>
-        </select>
-    </div>
+    <select name="order<%=orderId%>[status]" class="form-control">
+        <% _.each(statuses, function(status) { %>
+        <option><%=status.get('status')%></option>
+        <% }); %>
+    </select>
 </td>
 <td><input type="text" name="order<%=orderId%>[job]"/></td>
 <td><input type="text" name="order<%=orderId%>[customer]"/></td>

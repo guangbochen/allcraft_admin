@@ -48,7 +48,7 @@ define ([
             var _this = this;
             collection.each (function (order) {
                 var row = '<tr>' +
-                            '<td> <a href="#/orders/' + order.get('id') + 
+                            '<td> <a href="#/orders/' + order.get('id') + '/edit' +
                             '" class="btn btn-default" id="edit-order">Edit</a> </td>' +
                             '<td>' + order.get('order_number') + '</td>' +
                             '<td>' + order.get('created_at') + '</td>' +

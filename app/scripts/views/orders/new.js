@@ -31,7 +31,6 @@ define ([
 
         push: function () {
             // Send username for private msg and broadcast notification
-            console.log ('notify');
             this.render();
         },
 

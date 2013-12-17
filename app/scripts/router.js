@@ -3,9 +3,10 @@ define ([
     'backbone',
     'collections/orders',
     'views/orders/index',
+    'views/orders/edit',
     'views/orders/new'
 
-], function (Backbone, OrdersCollection, OrdersView, NewOrdersView) {
+], function (Backbone, OrdersCollection, OrdersView, EditOrdersView, NewOrdersView) {
     'use strict';
 
     var AppRouter = Backbone.Router.extend ({
@@ -14,7 +15,8 @@ define ([
 
             '': 'index',
             'orders': 'viewOrders',
-            'orders/new': 'newOrders'
+            'orders/new': 'newOrders',
+            'orders/:id/edit': 'editOrders'
         },
 
         index: function () {
@@ -30,6 +32,11 @@ define ([
         newOrders: function () {
             this.showView (new NewOrdersView ());
             this.activeSidebar($('#new-orders'));
+        },
+
+        editOrders: function (id) {
+            this.showView (new EditOrdersView ({id: id}));
+            this.activeSidebar($('#view-orders'));
         },
 
         activeSidebar: function (selector) {
