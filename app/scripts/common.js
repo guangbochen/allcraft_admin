@@ -2,12 +2,17 @@
 
 define ([
     'backbone',
-    'underscore'
-], function (Backbone, _) {
+    'underscore',
+    'pubnub'
+], function (Backbone, _, ignore) {
     return {
-        // ApiUrl: 'http://hoochcreative.com.au/printee/server/index.php'
-        vent: _.extend ({}, Backbone.Events),
-        ApiUrl: 'http://api.allcraft.dev'
+        pubnub: PUBNUB.init({
+            subscribe_key : 'sub-c-077f7902-66ad-11e3-b1d4-02ee2ddab7fe',
+            publish_key: 'pub-c-8021207d-c906-4f21-ac84-7d5773c9255b'
+        }),
+        // ApiUrl: 'http://hoochcreative.com.au/printee/index.php',
+        ApiUrl: 'http://api.allcraft.dev',
+        vent: _.extend ({}, Backbone.Events)
     };
 });
 

@@ -16,7 +16,8 @@ define ([
             '': 'index',
             'orders': 'viewOrders',
             'orders/new': 'newOrders',
-            'orders/:id/edit': 'editOrders'
+            'orders/:id/edit': 'editOrders',
+            'orders/search': 'searchOrders'
         },
 
         index: function () {
@@ -37,6 +38,11 @@ define ([
         editOrders: function (id) {
             this.showView (new EditOrdersView ({id: id}));
             this.activeSidebar($('#view-orders'));
+        },
+
+        searchOrders: function () {
+            console.log ('search');
+            this.activeSidebar($('#search-orders'));
         },
 
         activeSidebar: function (selector) {

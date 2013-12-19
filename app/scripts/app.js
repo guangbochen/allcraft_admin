@@ -8,8 +8,8 @@ define ([
     // Add truncate ability for String prototype
     String.prototype.trunc = function(n, useWordBoundary) {
         var toLong = this.length>n,
-                s_ = toLong ? this.substr(0,n-1) : this;
-                s_ = useWordBoundary && toLong ? s_.substr(0,s_.lastIndexOf(' ')) : s_;
+        s_ = toLong ? this.substr(0,n-1) : this;
+        s_ = useWordBoundary && toLong ? s_.substr(0,s_.lastIndexOf(' ')) : s_;
         return  toLong ? s_ + '&hellip;' : s_;
     };
 
@@ -25,6 +25,21 @@ define ([
         if (this.onClose)
             this.onClose();
     };
+
+    // var pubnub = PUBNUB.init({
+    //     subscribe_key : 'sub-c-077f7902-66ad-11e3-b1d4-02ee2ddab7fe',
+    //     publish_key: 'pub-c-8021207d-c906-4f21-ac84-7d5773c9255b'
+    // });
+
+    // pubnub.subscribe({ 
+    //     channel : 'printee_notification',
+    //     message: function(message) { 
+    //         //doing things when receives the message
+    //         // console.log(message);
+    //         console.log (message);
+    //         // alert ('Notification was logged');
+    //     }
+    // });
 
     var initialize = function () {
         var router = new Router();

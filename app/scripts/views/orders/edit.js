@@ -3,11 +3,12 @@ define ([
     'underscore',
     'backbone',
     'syphon',
+    'common',
     'models/order',
     'collections/statuses',
     'text!templates/orders/edit.html'
 
-], function (_, Backbone, Syphon, OrderModel, StatusesCollection, EditOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, OrderModel, StatusesCollection, EditOrdersTemplate) {
     'use strict';
 
     var EditOrdersView = Backbone.View.extend ({
@@ -37,6 +38,20 @@ define ([
                     _this.render();
                     alert ('Updated');
                 }
+            });
+
+            var data = {
+                username : "foo",
+                is_creator : true,
+                number_of_orders: "1",
+                subscribers: ["bill"]
+            };
+
+            $.ajax ({
+                url: Common.ApiUrl + '/push',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                type: 'post'
             });
         },
 

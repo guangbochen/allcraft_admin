@@ -12,8 +12,23 @@ define ([
 
         model : OrderModel,
         url: Common.ApiUrl + '/orders',
+        pubnub: Common.pubnub,
 
         initialize: function () {
+            this.bind ('request', this.indicate, this);
+            this.bind ('sync', this.disindicate, this);
+            this.bind ('error', this.showError, this);
+        },
+
+        showError: function () {
+        },
+
+        indicate: function () {
+            $('.indicator').show();
+        },
+
+        disindicate: function () {
+            $('.indicator').hide();
         },
 
         sortBy: function (comparator) {

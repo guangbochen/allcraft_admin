@@ -7,7 +7,8 @@ require.config ({
         syphon     : 'vendor/tidepool-backbone.syphon/lib/amd/backbone.syphon.min',
         text       : 'vendor/requirejs-text/text',
         moment     : 'vendor/momentjs/min/moment.min',
-        propertyParser : 'vendor/requirejs-plugins/src/propertyParser'
+        propertyParser : 'vendor/requirejs-plugins/src/propertyParser',
+        pubnub     : 'vendor/pubnub/web/pubnub.min'
     }
 });
 

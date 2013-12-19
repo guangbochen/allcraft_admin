@@ -31,6 +31,19 @@ define ([
 
         push: function () {
             // Send username for private msg and broadcast notification
+            var data = {
+                username : "foo",
+                is_creator : true,
+                number_of_orders: "3",
+                subscribers: ["bill", "jack", "lucy"]
+            };
+
+            $.ajax ({
+                url: Common.ApiUrl + '/push',
+                data: JSON.stringify(data),
+                dataType: 'json',
+                type: 'post'
+            });
             this.render();
         },
 
