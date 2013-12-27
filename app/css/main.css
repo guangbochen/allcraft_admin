@@ -1,4 +1,4 @@
-@import url(vendor/light-blue-white/css/application.css);
+@import url(/js/vendor/light-blue-white/css/application.css);
 
 body {
     background-image: none !important;
@@ -67,3 +67,5 @@ body {
 .indicator {
     display: none;
 }
+
+//css for the public 

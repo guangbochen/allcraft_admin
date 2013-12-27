@@ -1,16 +1,16 @@
 define ([
-
     'backbone',
     'collections/orders',
     'views/orders/index',
     'views/orders/edit',
-    'views/orders/new'
+    'views/newOrders/new'
 
 ], function (Backbone, OrdersCollection, OrdersView, EditOrdersView, NewOrdersView) {
     'use strict';
 
     var AppRouter = Backbone.Router.extend ({
 
+        //define url routes
         routes: {
 
             '': 'index',
@@ -21,7 +21,7 @@ define ([
         },
 
         index: function () {
-            $('#page-content').html ('<h2> Home page </h2>');
+            $('#page-content').html ('<h2> Welcome to Allcraft </h2>');
             this.activeSidebar($('#home'));
         },
 
@@ -52,11 +52,11 @@ define ([
 
         // Clean previous view and open current view
         showView:function (view) {
-            if (this.currentView)
-                this.currentView.close();
+            // if (this.currentView)
+            //     this.currentView.close();
             $('#page-content').html(view.render().el);
-            this.currentView = view;
-            return view;
+            // this.currentView = view;
+            // return view;
         },
     });
 

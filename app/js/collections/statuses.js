@@ -8,6 +8,9 @@ define ([
 
     'use strict';
 
+    /**
+     * add status collection
+     */
     var StatusesCollection = Backbone.Collection.extend ({ 
 
         model : StatusModel,

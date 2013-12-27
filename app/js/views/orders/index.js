@@ -3,11 +3,11 @@ define ([
     'underscore',
     'backbone',
     'collections/orders',
-    'views/orders/ordersPartial',
-    'text!templates/orders/index.html',
+    // 'views/orders/ordersPartial',
+    'text!/templates/orders/index.html',
     'moment'
 
-], function (_, Backbone, OrdersCollection, OrdersPartialView, OrdersTemplate, moment) {
+], function (_, Backbone, OrdersCollection, OrdersTemplate, moment) {
 
     'use strict';
 

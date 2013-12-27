@@ -4,24 +4,30 @@ define ([
     'backbone',
     'syphon',
     'collections/statuses',
-    'views/orders/newOrderPartial',
-    'text!templates/orders/newOrdersPartial.html'
+    'views/newOrders/newOrderPartial',
+    'text!/templates/newOrders/newOrdersPartial.html'
 
 ], function (_, Backbone, Syphon, StatusesCollection, NewOrderPartial, NewOrdersPartialTemplate) {
     'use strict';
 
     var OrdersPlaceholderView = Backbone.View.extend({
 
+        //compile the new order partial template
+        template: _.template (NewOrdersPartialTemplate),
+        tagName: 'form',
+
+        /**
+         * constructor
+         */
         initialize: function (options) {
             this.noOrder = options.noOrder;
         },
 
-        tagName: 'form',
-
-        template: _.template (NewOrdersPartialTemplate),
-
+        /**
+         * renders the view template, and updates this.el with the new HTML
+         */
         render: function () {
-            // Add the create orders
+            // Load the compiled HTML template into the Backbone "el"
             this.$el.html (this.template);
 
             var _this = this;
@@ -41,10 +47,9 @@ define ([
                 }
             });
 
-
             return this;
         }
-    });
 
+    });
     return OrdersPlaceholderView;
 });

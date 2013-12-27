@@ -6,7 +6,7 @@ define ([
     'common',
     'models/order',
     'collections/statuses',
-    'text!templates/orders/edit.html'
+    'text!/templates/orders/edit.html'
 
 ], function (_, Backbone, Syphon, Common, OrderModel, StatusesCollection, EditOrdersTemplate) {
     'use strict';

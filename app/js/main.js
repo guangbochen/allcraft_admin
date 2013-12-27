@@ -1,5 +1,6 @@
+// app bootstrap for configuring Require.js and loading initally important dependencies
 require.config ({
-    waitSeconds : 15,
+    // waitSeconds : 15,
     paths: {
         jquery     : 'vendor/light-blue-white/lib/jquery/jquery-2.0.3.min',
         underscore : 'vendor/underscore-amd/underscore-min',
@@ -14,11 +15,11 @@ require.config ({
 
 require ([ 
 
+    // Load our app module and pass it to our definition function
     'app'
-
 ], function (App) {
 
+    // The "app" dependency is passed in as "App"
     App.initialize();
-
 });
 

@@ -5,17 +5,23 @@ define ([
     'syphon',
     'common',
     'collections/orders',
-    'views/orders/newOrdersPartial',
-    'text!templates/orders/new.html'
+    'views/newOrders/newOrdersPartial',
+    'text!/templates/newOrders/new.html'
 
 ], function (_, Backbone, Syphon, Common, OrdersCollection, NewOrdersPartial, NewOrdersTemplate) {
     'use strict';
 
     var NewOrdersView = Backbone.View.extend({
 
+        //compile the new order template using the underscore
         template: _.template (NewOrdersTemplate),
 
+        /**
+         * constructor
+         */
         initialize: function () {
+
+            //initialize orders collection
             this.ordersCollection = new OrdersCollection ();
 
             _.bindAll (this, 'push', 'render');
@@ -24,11 +30,17 @@ define ([
             this.ordersCollection.on ('notify', this.push);
         },
 
+        /**
+         * define events for new orders
+         */
         events: {
             'click #generate_orders': 'generateOrders',
             'submit': 'saveOrders'
         },
 
+        /**
+         * push function send broadcast message through pubnub
+         */
         push: function () {
             // Send username for private msg and broadcast notification
             var data = {
@@ -47,8 +59,10 @@ define ([
             this.render();
         },
 
+        /**
+         * generateOrders function creates new orders
+         */
         generateOrders: function () {
-
             var noOrder = this.$('#number_of_order').val();
 
             // Add the create orders section
@@ -57,8 +71,10 @@ define ([
             this.$('#order-table').width (this.$('#order-table table').width() * 4);
         },
 
+        /**
+         * saveOrders function save array of orders through order collection
+         */
         saveOrders: function (e) {
-
             e.preventDefault();
 
             // Iterate orders input from the user and format them to an array
@@ -66,18 +82,22 @@ define ([
                 return order; 
             });
 
-            // save orders to local collection and server
+            // call orders collection and save orders into the server
             this.ordersCollection.saveOrders (orders);
         },
 
-        render: function () {
 
-            // unbind notify event to prevent memory leaks and zombies views ?
+        /**
+         * renders the view template, and updates this.el with the new HTML
+         */
+        render: function () {
+            // Load the compiled HTML template into the Backbone "el"
             this.$el.html (this.template);
             return this;
         },
 
         onClose: function () {
+            // unbind notify event to prevent memory leaks and zombies views ?
             this.ordersCollection.off ('notify');
         }
     });

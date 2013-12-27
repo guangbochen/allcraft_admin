@@ -1,6 +1,7 @@
 /* Global define */
 
 define ([
+    // These are path alias that we configured in our main.js
     'backbone',
     'underscore',
     'pubnub'
@@ -11,7 +12,7 @@ define ([
             publish_key: 'pub-c-8021207d-c906-4f21-ac84-7d5773c9255b'
         }),
         // ApiUrl: 'http://hoochcreative.com.au/printee/index.php',
-        ApiUrl: 'http://api.allcraft.dev',
+        ApiUrl: 'http://api.printee.dev',
         vent: _.extend ({}, Backbone.Events)
     };
 });
