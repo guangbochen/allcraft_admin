@@ -3,16 +3,17 @@ define ([
     'underscore',
     'backbone',
     'syphon',
+    'models/lastOrder',
     'collections/statuses',
     'views/newOrders/newOrderPartial',
     'text!/templates/newOrders/newOrdersPartial.html'
 
-], function (_, Backbone, Syphon, StatusesCollection, NewOrderPartial, NewOrdersPartialTemplate) {
+], function (_, Backbone, Syphon, LastOrder, StatusesCollection, NewOrderPartial, NewOrdersPartialTemplate) {
     'use strict';
 
     var OrdersPlaceholderView = Backbone.View.extend({
 
-        //compile the new order partial template
+        //compile the new orders partial template
         template: _.template (NewOrdersPartialTemplate),
         tagName: 'form',
 
@@ -30,8 +31,20 @@ define ([
             // Load the compiled HTML template into the Backbone "el"
             this.$el.html (this.template);
 
+            //define instances
             var _this = this;
-            var statusesCollection = new StatusesCollection ();
+            var statusesCollection = new StatusesCollection();
+            var lastOrder = new LastOrder();
+            var lastOrderNumber;
+
+            //fetch the last order number
+            lastOrder.fetch ({
+                success: function (models) {
+                    lastOrderNumber = parseInt(models.toJSON().id);
+                }
+            });
+
+            //fetch array of statuses and pass to the newOrderPartial
             statusesCollection.fetch ({
                 success: function (models, response, options) {
                     var orderPlaceholderView = null;
@@ -39,8 +52,9 @@ define ([
                     for (var i = 1; i <= _this.noOrder; i++)
                     {
                         orderPlaceholderView = new NewOrderPartial({ 
-                            orderId: i,
-                            statuses: statusesCollection
+                            count: i,
+                            orderId: lastOrderNumber+i,
+                            statuses: statusesCollection,
                         });
                         _this.$el.find('tbody').append (orderPlaceholderView.render().el);
                     }

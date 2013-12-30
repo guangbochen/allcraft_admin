@@ -1,4 +1,11 @@
-<td><input type="text" name="order<%=orderId%>[order_number]"/></td>
+
+<td>
+    <label><%=count%></label>
+</td>
+<td style="max-width: 160px">
+    <input type="text" name="order<%=orderId%>[order_number]" 
+    value="<%=orderNumber%>" disabled="disabled"/>
+</td>
 <td>
     <select name="order<%=orderId%>[status]" class="form-control">
         <% _.each(statuses, function(status) { %>

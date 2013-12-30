@@ -1,11 +1,12 @@
+<!-- copy order title -->
 <div id="edit-orders-content">
     <div class="row col-md-12">
         <legend class="section">
         <h2 class="page-title"> 
-            <a href="#/orders" class="my-hyperlink">Edit Orders </a> 
+            <a href="#/orders" class="my-hyperlink">Copy Orders </a> 
             <small> 
                 <i class="fa fa-arrow-right"></i>
-                <%=order.order_number%>
+                <%=order.order_number%> (origin)
             </small>
         </h2>
         </legend>
@@ -16,9 +17,10 @@
             <section class="widget">
                 <div class="group">
                     <span class="inline-group">
-                        <label class="control-label" for="order_number"> Order No </label> 
-                        <input type="text" id="order_number" name="order_number" 
-                        value="<%=order.order_number%>" disabled="disabled"/>
+                        <label class="control-label" for="order_number"> Order No. </label>
+                        <input type="text" id="order_number" name="order_number" value="<%=order.order_number%>"
+                        disabled="disabled" class="line-through-text"/>
+                        &nbsp; <span class="badge badge-danger">new</span>
                     </span>
 
                 </div>
@@ -50,13 +52,13 @@
                     <span class="inline-group">
                         <label class="control-label" for="created_at"> Date Created </label>
                         <input type="text" id="created_at" name="created_at" disabled="disabled"
-                        value="<%=order.created_at%>" />
+                        value="<%=order.created_at%>" class="line-through-text"/>
                     </span>
 
                     <span class="inline-group">
                         <label class="control-label" for="updated_at"> Date Updated </label>
                         <input type="text" id="updated_at" name="updated_at" disabled="disabled"
-                        value="<%=order.updated_at%>" />
+                        value="<%=order.updated_at%>" class="line-through-text"/>
                     </span>
                 </div>
 
@@ -178,7 +180,7 @@
 
                 <div class="action-group group">
                     <a href="#/orders"><input type="button" class="btn btn-lg btn-warning" value="Cancel" /></a>
-                    <input type="submit" class="btn btn-lg btn-success" value="Update" />
+                    <input type="submit" class="btn btn-lg btn-success" value="Save as new" />
                 </div>
             </section>
         </form>

@@ -1,18 +1,23 @@
 <div id="new-orders-content">
     <div class="row">
         <div class="col-md-12">
-            <h2 class="page-title">New Orders </h2>
+            <legend class="section"> <h2 class="page-title"> New Orders </h2> </legend>
         </div>
     </div>
 
     <div class="row col-md-12">
-        <input type="text" id="number_of_order" placeholder="Number of order" />
+        <input type="text" id="number_of_order" placeholder="Number of order" class="my-input-field" />
         <button id="generate_orders" type="button" class="btn btn-lg btn-primary">
             <i class="fa fa-plus"></i> New
         </button>
-        <button id="generate_orders" type="button" class="btn btn-lg btn-warning">
+        <button id="clear_orders" type="button" class="btn btn-lg btn-warning">
             <i class="fa fa-trash-o"></i> Clear
         </button>
+
+        <!-- order number validation message -->
+        <ul class="parsley-error-list" style="display: block;">
+            <li class="required" style="display: list-item;" id="order-number-validation"></li>
+        </ul>
     </div>
 
     <div class="row col-md-12" id="orders">

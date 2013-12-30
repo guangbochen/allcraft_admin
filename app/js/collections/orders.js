@@ -10,6 +10,7 @@ define ([
 
     var OrdersCollection = Backbone.Collection.extend ({ 
 
+        //define collection model
         model : OrderModel,
         url: Common.ApiUrl + '/orders',
         pubnub: Common.pubnub,
@@ -20,9 +21,6 @@ define ([
             this.bind ('error', this.showError, this);
         },
 
-        showError: function () {
-        },
-
         indicate: function () {
             $('.indicator').show();
         },
@@ -31,11 +29,17 @@ define ([
             $('.indicator').hide();
         },
 
+        showError: function () {
+        },
+
         sortBy: function (comparator) {
             this.comparator = comparator;
             return this.sort (comparator);
         },
 
+        /**
+         * saveOrders function post json data to the rest server
+         */
         saveOrders: function (orders) {
             var _this = this;
 
@@ -50,16 +54,22 @@ define ([
             });
         },
 
+        /**
+         * fetchOrdersByDate function fetch orders by date from the rest server
+         */
         fetchOrdersByDate: function (query, date, limit) {
             this.url += '?' + query + '=' + date + '&limit=' + limit + '&offset=' + this.offset;
             this.fetch();
         },
 
+        /**
+         * fetchMore function loads older orders by date from the rest server
+         */
         fetchMore: function () {
 
             var _this = this;
-            this.url = this.url.replaceAt (this.url.length - this.pos(this.offset), 
-                                           this.offset.toString());
+            this.url = this.url.replaceAt ( this.url.length - this.pos(this.offset),
+                    this.offset.toString());
             this.fetch ({
                 error: function () {
                     // trigger a custom event here. (the ideal is to hide the load more button)
@@ -77,11 +87,11 @@ define ([
                 return 4;
             else
                 return 1;
-        }
+        },
 
     });
 
     return OrdersCollection;
     
 });
-
+ 

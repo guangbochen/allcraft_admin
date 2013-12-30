@@ -6,9 +6,7 @@ define ([
 
     'use strict';
 
-    /**
-     * add status model
-     */
+    // add status model
     var StatusModel = Backbone.Model.extend ({ 
         urlRoot: Common.ApiUrl + '/statuses'
     }); 

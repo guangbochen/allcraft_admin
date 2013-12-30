@@ -8,14 +8,15 @@ define ([
 
     'use strict';
 
-    /**
-     * add status collection
-     */
     var StatusesCollection = Backbone.Collection.extend ({ 
 
+        //define collection model
         model : StatusModel,
         url: Common.ApiUrl + '/statuses',
 
+        /**
+         * status constructor
+         */
         initialize: function () {
         },
     });

@@ -35,6 +35,7 @@ define ([
          */
         events: {
             'click #generate_orders': 'generateOrders',
+            'click #clear_orders': 'clearOrders',
             'submit': 'saveOrders'
         },
 
@@ -64,11 +65,31 @@ define ([
          */
         generateOrders: function () {
             var noOrder = this.$('#number_of_order').val();
+            //if is valid order number displays new orders
+            if(isFinite(String(noOrder)) && noOrder) {
+                // Add the create orders section
+                var ordersPlaceholderView = new NewOrdersPartial({ noOrder: noOrder });
+                this.$('#orders').html (ordersPlaceholderView.render().el);
+                this.$('#order-table').width (this.$('#order-table table').width() * 4);
+                //removes the error validation 
+                this.$('#number_of_order').removeClass('parsley-validated parsley-error');
+                this.$('#order-number-validation').html('');
+            }
+            else {
+                //display validation message
+                this.$('#number_of_order').focus();
+                this.$('#number_of_order').addClass('parsley-validated parsley-error');
+                this.$('#order-number-validation').html('Invalid order number');
+            }
+        },
 
-            // Add the create orders section
-            var ordersPlaceholderView = new NewOrdersPartial({ noOrder: noOrder });
-            this.$('#orders').html (ordersPlaceholderView.render().el);
-            this.$('#order-table').width (this.$('#order-table table').width() * 4);
+        /**
+         * clearOrders function clean the new orders has been generated
+         */
+        clearOrders: function () {
+            this.$('#number_of_order').focus();
+            this.$('#number_of_order').val('');
+            this.$('#orders').html('');
         },
 
         /**
@@ -85,7 +106,6 @@ define ([
             // call orders collection and save orders into the server
             this.ordersCollection.saveOrders (orders);
         },
-
 
         /**
          * renders the view template, and updates this.el with the new HTML

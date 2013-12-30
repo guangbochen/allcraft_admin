@@ -59,7 +59,6 @@ body {
     margin-right: 20px;
 }
 
-
 .control-label {
     width: 95px !important;
 }
@@ -68,4 +67,44 @@ body {
     display: none;
 }
 
-//css for the public 
+/* css for the public */ 
+.my-input-field {
+    min-height: 33px !important;
+}
+
+.my-hyperlink {
+    color: #ffffff ;
+    text-decoration: none;
+}
+
+.my-hyperlink:hover {
+    color: #000000 ;
+    text-decoration: none;
+}
+
+.section small {
+    font-size: 12px !important;
+    color: #ffffff !important;
+    font-weight: normal !important;
+}
+
+.line-through-text {
+    text-decoration: line-through;
+}
+
+.page-title {
+    margin-top: 0px !important;
+}
+
+.section {
+    padding-top: 0px !important;
+}
+
+.search-form {
+    padding: 0px 5px 0px 0px;
+    margin-top: 0px;
+}
+
+
+
+

@@ -7,9 +7,9 @@ define ([
     'use strict';
 
     // add order model
-    var OrderModel = Backbone.Model.extend ({ 
-        urlRoot: Common.ApiUrl + '/orders'
+    var LastOrderModel = Backbone.Model.extend ({ 
+        urlRoot: Common.ApiUrl + '/orders/last'
     }); 
 
-    return OrderModel;
+    return LastOrderModel;
 });
