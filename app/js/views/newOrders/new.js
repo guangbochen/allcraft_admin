@@ -16,9 +16,8 @@ define ([
         //compile the new order template using the underscore
         template: _.template (NewOrdersTemplate),
 
-        /**
-         * constructor
-         */
+        // constructor
+        // ==========================
         initialize: function () {
 
             //initialize orders collection
@@ -30,18 +29,16 @@ define ([
             this.ordersCollection.on ('notify', this.push);
         },
 
-        /**
-         * define events for new orders
-         */
+        // define events for new orders
+        // ==========================
         events: {
             'click #generate_orders': 'generateOrders',
             'click #clear_orders': 'clearOrders',
             'submit': 'saveOrders'
         },
 
-        /**
-         * push function send broadcast message through pubnub
-         */
+        // push function send broadcast message through pubnub
+        // ==========================
         push: function () {
             // Send username for private msg and broadcast notification
             var data = {
@@ -60,9 +57,8 @@ define ([
             this.render();
         },
 
-        /**
-         * generateOrders function creates new orders
-         */
+        // generateOrders function creates new orders
+        // ==========================
         generateOrders: function () {
             var noOrder = this.$('#number_of_order').val();
             //if is valid order number displays new orders
@@ -71,7 +67,7 @@ define ([
                 var ordersPlaceholderView = new NewOrdersPartial({ noOrder: noOrder });
                 this.$('#orders').html (ordersPlaceholderView.render().el);
                 this.$('#order-table').width (this.$('#order-table table').width() * 4);
-                //removes the error validation 
+                //removes the error message 
                 this.$('#number_of_order').removeClass('parsley-validated parsley-error');
                 this.$('#order-number-validation').html('');
             }
@@ -83,18 +79,16 @@ define ([
             }
         },
 
-        /**
-         * clearOrders function clean the new orders has been generated
-         */
+        // clearOrders function clean the new orders has been generated
+        // ==========================
         clearOrders: function () {
             this.$('#number_of_order').focus();
             this.$('#number_of_order').val('');
             this.$('#orders').html('');
         },
 
-        /**
-         * saveOrders function save array of orders through order collection
-         */
+        // saveOrders function save array of orders through order collection
+        // ==========================
         saveOrders: function (e) {
             e.preventDefault();
 
@@ -107,9 +101,8 @@ define ([
             this.ordersCollection.saveOrders (orders);
         },
 
-        /**
-         * renders the view template, and updates this.el with the new HTML
-         */
+        // renders the view template, and updates this.el with the new HTML
+        // ==========================
         render: function () {
             // Load the compiled HTML template into the Backbone "el"
             this.$el.html (this.template);

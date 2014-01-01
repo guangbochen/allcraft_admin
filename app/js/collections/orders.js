@@ -2,15 +2,15 @@ define ([
 
     'backbone',
     'models/order',
-    'common'
+    'common',
 
-], function (Backbone, OrderModel, Common) {
+], function (Backbone, OrderModel, Common ) {
 
     'use strict';
 
     var OrdersCollection = Backbone.Collection.extend ({ 
 
-        //define collection model
+        //define instances
         model : OrderModel,
         url: Common.ApiUrl + '/orders',
         pubnub: Common.pubnub,
@@ -50,6 +50,8 @@ define ([
                 type: 'post',
                 success: function (response, textStatus, xhr) {
                     _this.trigger ('notify');
+                    //redirect to orders page
+                    window.location.hash = 'orders';
                 }
             });
         },

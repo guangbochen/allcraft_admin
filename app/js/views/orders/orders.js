@@ -3,7 +3,6 @@ define ([
     'underscore',
     'backbone',
     'collections/orders',
-    // 'views/orders/ordersPartial',
     'text!/templates/orders/orders.html',
     'moment'
 
@@ -15,6 +14,8 @@ define ([
 
         template: _.template (OrdersTemplate),
 
+        // Constructor
+        // ==================
         initialize: function () {
 
             // Bind this context to events
@@ -35,24 +36,21 @@ define ([
             'click #older-orders-load-more': 'loadMore',
         },
 
-        /**
-         * hide function disable load more button once it has no orders to load
-         */
+        // hide function disable load more button once it has no orders to load
+        // ==========================
         hide: function () {
             this.olderOrders.selector.parent().siblings('button').prop('disabled', true);
         },
 
-        /**
-         * load more function loads older orders
-         */
+        // load more function loads older orders
+        // ==========================
         loadMore: function () {
             this.olderOrders.offset += 10;
             this.olderOrders.fetchMore ();
         },
 
-        /**
-         * display function add the loaded orders to the html
-         */
+        // display function add the loaded orders to the html
+        // ==========================
         display: function (collection) {
             var _this = this;
             collection.each (function (order) {
@@ -73,9 +71,8 @@ define ([
             });
         },
 
-        /**
-         * statusColor function set the bgcolor of the status column upon its status
-         */
+        // statusColor function set the bgcolor of the status column upon its status
+        // ==========================
         statusColor: function (status) {
             switch (status) 
             {
@@ -86,6 +83,8 @@ define ([
             return '<td class="white">' + status + '</td>';
         },
 
+        // renders the view template, and updates this.el with the new HTML
+        // ==========================
         render: function () {
             this.$el.html ( this.template );
 
@@ -128,9 +127,8 @@ define ([
             return this;
         },
 
-        /**
-         * fetchCollection function loads the orders upon its input paramaters
-         */
+        // fetchCollection function loads the orders upon its input paramaters
+        // ==========================
         fetchCollection: function (collection, selector, offset, query, date, limit) {
             collection.selector = selector;
             collection.offset = offset;

@@ -17,16 +17,14 @@ define ([
         template: _.template (NewOrdersPartialTemplate),
         tagName: 'form',
 
-        /**
-         * constructor
-         */
+        // constructor
+        // ==========================
         initialize: function (options) {
             this.noOrder = options.noOrder;
         },
 
-        /**
-         * renders the view template, and updates this.el with the new HTML
-         */
+        // renders the view template, and updates this.el with the new HTML
+        // ==========================
         render: function () {
             // Load the compiled HTML template into the Backbone "el"
             this.$el.html (this.template);

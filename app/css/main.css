@@ -2,7 +2,11 @@
 
 body {
     background-image: none !important;
-    background-color: #8DA8B9;
+    background-color: #8da8b9;
+}
+
+.fa-print {
+    color: #ffffff;
 }
 
 #orders {
@@ -105,6 +109,23 @@ body {
     margin-top: 0px;
 }
 
+/* css for the edit orders */
+.control-group {
+    margin-bottom: 18px;
+}
 
+.my-pdf {
+    margin-top: -20px;
+}
 
+.submission-form {
+    max-width: 390px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* css for the copy orders */
+.new-icon {
+    margin: 5px;
+}
 
