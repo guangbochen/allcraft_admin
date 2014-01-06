@@ -1,8 +1,8 @@
 <div id="view-orders-content">
     <div class="row">
         <legend class="section"> 
-            <form id="search-form" class="navbar-form pull-right search-form" role="search">
-                <input type="search" class="search-query" placeholder="Search...">
+            <form id="search-orders" class="navbar-form pull-right search-form" role="search">
+                <input id="orders-search-query" type="search" class="search-query" placeholder="Search...">
             </form>
         <!-- <div class="col-md-12"> -->
             <h2 class="page-title">&nbsp;All Orders </h2>
@@ -31,6 +31,9 @@
                 <tbody>
                 </tbody>
             </table>
+            <div id="today-loading-orders">
+                <center><h1><i class="fa fa-spinner fa-spin"></i></h1>loading</center>
+            </div>
             <!-- <button class="btn btn-info" id="today-orders-load-more"> Load More </button> -->
         </section>
 
@@ -54,6 +57,9 @@
                 <tbody>
                 </tbody>
             </table>
+            <div id="yesterday-loading-orders">
+                <center><h1><i class="fa fa-spinner fa-spin"></i></h1>loading</center>
+            </div>
             <!-- <button class="btn btn-info" id="yesterday-orders-load-more"> Load More </button> -->
         </section>
         <section class="widget" id="older-orders">
@@ -76,6 +82,10 @@
                 <tbody>
                 </tbody>
             </table>
+
+            <div id="older-loading-orders">
+                <center><h1><i class="fa fa-spinner fa-spin"></i></h1>loading</center>
+            </div>
             <button class="btn btn-info" id="older-orders-load-more"> Load More </button>
         </section>
     </div>

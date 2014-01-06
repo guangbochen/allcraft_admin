@@ -288,7 +288,7 @@
                 <div class="form-actions">
                     <div class="submission-form">
                         <a href="#/orders"><input type="button" class="btn btn-lg btn-default" value="Cancel" /></a>
-                        <input type="submit" class="btn btn-lg btn-warning" value="Save as new" />
+                        <input type="submit" class="btn btn-lg btn-danger" value="Save as new" />
                     </div>
                 </div>
             </section>
@@ -296,3 +296,20 @@
     </div>
 </div>
 
+<!-- message dialog -->
+<div id="copy-submit-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button id="redirect-to-orders" type="button" class="close">×</button>
+            <h4 class="modal-title">Message</h4>
+        </div>
+        <div class="modal-body">
+            <h4 id="copy-submit-message"></h4>
+        </div>
+        <div class="modal-footer">
+            <button id="redirect-to-orders" type="button" class="btn btn-lg btn-primary">OK</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div>
+</div>

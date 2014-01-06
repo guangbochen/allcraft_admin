@@ -33,29 +33,30 @@ define ([
             var _this = this;
             var statusesCollection = new StatusesCollection();
             var lastOrder = new LastOrder();
-            var lastOrderNumber;
 
-            //fetch the last order number
-            lastOrder.fetch ({
-                success: function (models) {
-                    lastOrderNumber = parseInt(models.toJSON().id);
-                }
-            });
 
             //fetch array of statuses and pass to the newOrderPartial
             statusesCollection.fetch ({
                 success: function (models, response, options) {
-                    var orderPlaceholderView = null;
-                    // Add a single order placeholder
-                    for (var i = 1; i <= _this.noOrder; i++)
-                    {
-                        orderPlaceholderView = new NewOrderPartial({ 
-                            count: i,
-                            orderId: lastOrderNumber+i,
-                            statuses: statusesCollection,
-                        });
-                        _this.$el.find('tbody').append (orderPlaceholderView.render().el);
+
+                //fetch the last order number
+                lastOrder.fetch ({
+                    success: function (models) {
+                        var lastOrderNumber = parseInt(models.toJSON().id);
+
+                        var orderPlaceholderView = null;
+                        // Add a single order placeholder
+                        for (var i = 1; i <= _this.noOrder; i++)
+                        {
+                            orderPlaceholderView = new NewOrderPartial({ 
+                                count: i,
+                                orderId: lastOrderNumber+i,
+                                statuses: statusesCollection,
+                            });
+                            _this.$el.find('tbody').append(orderPlaceholderView.render().el);
+                        }
                     }
+                });
                 }
             });
 

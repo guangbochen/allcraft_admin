@@ -4,12 +4,13 @@ define ([
     'backbone',
     'syphon',
     'common',
-    'modal',
+    'modal', //modal dialog
+    'transition', //dialog transition
     'models/order',
     'collections/statuses',
     'text!/templates/orders/copy.html',
 
-], function (_, Backbone, Syphon, Common, Modal, OrderModel, StatusesCollection, CopyOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, CopyOrdersTemplate) {
     'use strict';
 
     var CopyOrdersView = Backbone.View.extend ({
@@ -26,7 +27,8 @@ define ([
         },
 
         events: {
-            'submit': 'copyOrder'
+            'submit': 'copyOrder',
+            'click #redirect-to-orders': 'redirectToOrders',
         },
 
         // copyOrder function create new order by using the existing orders
@@ -37,6 +39,7 @@ define ([
 
             //serialize the order input
             var input = Backbone.Syphon.serialize (this);
+            var _this = this;
 
             //post new order via ajax
             $.ajax ({
@@ -45,10 +48,28 @@ define ([
                 dataType: 'json',
                 type: 'post',
                 success: function (response, textStatus, xhr) {
-                    alert ('copied');
-                    //redirect to orders page
-                    window.location.hash = 'orders';
+
+                    //display message after complete copy action
+                    _this.$("#copy-submit-message").html(" <i class='fa fa-check-square-o'></i>"
+                        + " Thanks, you have generated a new order '"
+                        + response.order_number+"' successfully.");
+
+                    //display message dialog
+                    _this.$('#copy-submit-dialog').modal({ backdrop: 'static', keyboard: false });
+                    _this.$('#copy-submit-dialog').modal('show');
                 }
+            });
+        },
+
+        // returnToAllOrders function dismiss the dialog and redirect all orders page
+        // ====================================================
+        redirectToOrders: function () {
+            //dismiss the modal dialog
+            this.$('#copy-submit-dialog').modal('hide');
+            //hidden.bs.modal will wait modal transition to complete, then redirect the page
+            this.$('#copy-submit-dialog').on('hidden.bs.modal', function () {
+                //redirect to orders page
+                window.location.hash = 'orders';
             });
         },
 
@@ -68,7 +89,7 @@ define ([
                             //passing data to the template
                             _this.$el.html (_this.template ({
                                 order: model.toJSON(),
-                                statuses: statuses.models
+                                statuses: statuses.models,
                             }));
                         }
                     });

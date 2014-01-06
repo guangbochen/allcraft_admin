@@ -52,6 +52,9 @@ define ([
                     _this.trigger ('notify');
                     //redirect to orders page
                     window.location.hash = 'orders';
+                },
+                error: function () {
+                    alert('Server internal error, please try again or check internet connection.');
                 }
             });
         },
@@ -73,10 +76,9 @@ define ([
             this.url = this.url.replaceAt ( this.url.length - this.pos(this.offset),
                     this.offset.toString());
             this.fetch ({
-                error: function () {
-                    // trigger a custom event here. (the ideal is to hide the load more button)
-                    _this.trigger ('noMore');
-                }
+                success: function(response) {
+                    if(response.length == 0) _this.trigger ('noMore');
+                },
             });
         },
 

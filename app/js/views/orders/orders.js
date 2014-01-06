@@ -34,6 +34,7 @@ define ([
 
         events: {
             'click #older-orders-load-more': 'loadMore',
+            'submit form': 'searchOrders',
         },
 
         // hide function disable load more button once it has no orders to load
@@ -52,6 +53,7 @@ define ([
         // display function add the loaded orders to the html
         // ==========================
         display: function (collection) {
+
             var _this = this;
             collection.each (function (order) {
                 var row = '<tr>' +
@@ -69,6 +71,9 @@ define ([
                 
                 collection.selector.append (row);
             });
+
+            //remove loading icon
+            collection.loading.empty();
         },
 
         // statusColor function set the bgcolor of the status column upon its status
@@ -101,7 +106,8 @@ define ([
                 0, // offset
                 'created_at',  // query type
                 today,  // date
-                10 // limit
+                999, // limit,
+                this.$('#today-loading-orders') // loading icon
             ); 
 
             // Fetch yesterday orders collection
@@ -111,7 +117,8 @@ define ([
                 0,
                 'created_at',
                 yesterday,
-                10
+                999,
+                this.$('#yesterday-loading-orders')
             );
 
             // Fetch older orders collection
@@ -121,18 +128,28 @@ define ([
                 0,
                 'created_before',
                 yesterday,
-                10
+                10,
+                this.$('#older-loading-orders')
             );
 
             return this;
         },
 
+        // search orders by customer, order numbers and status
+        // ====================================================
+        searchOrders: function () {
+            var query = this.$('#orders-search-query').val();
+            console.log(query);
+        },
+
+
         // fetchCollection function loads the orders upon its input paramaters
-        // ==========================
-        fetchCollection: function (collection, selector, offset, query, date, limit) {
+        // ====================================================
+        fetchCollection: function (collection, selector, offset, query, date, limit, loading) {
             collection.selector = selector;
             collection.offset = offset;
             collection.fetchOrdersByDate (query, date, limit);
+            collection.loading = loading;
         },
 
         onClose: function () {

@@ -12,6 +12,7 @@ require.config ({
         moment     : 'vendor/momentjs/min/moment.min',
         propertyParser : 'vendor/requirejs-plugins/src/propertyParser',
         pubnub     : 'vendor/pubnub/web/pubnub.min',
+        maskedInput : 'vendor/light-blue-white/lib/jquery-maskedinput/jquery.maskedinput',
     }
 });
 

@@ -9,8 +9,9 @@ define ([
     'models/order',
     'collections/statuses',
     'text!/templates/orders/edit.html',
+    'maskedInput',
 
-], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, EditOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, EditOrdersTemplate, MaskedInput) {
     'use strict';
 
     var EditOrdersView = Backbone.View.extend ({
@@ -77,6 +78,13 @@ define ([
 
             var _this = this;
             var statuses = new StatusesCollection ();
+            _this.$("#date_in").mask("99/99/9999");
+            jQuery(function($){
+              _this.$("#date_in").mask("99/99/9999");
+              _this.$("#phone").mask("(999) 999-9999");
+              _this.$("#tin").mask("99-9999999");
+              _this. $("#ssn").mask("999-99-9999");
+            });
 
             //fetch an specific order
             this.order.fetch ({
