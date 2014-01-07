@@ -84,7 +84,7 @@ define ([
 
         pos: function (offset) {
             if (offset > 10)
-                 return 2;
+                return 2;
             else if (offset > 100)
                 return 3;
             else if (offset > 1000)

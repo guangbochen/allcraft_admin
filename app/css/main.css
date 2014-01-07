@@ -108,6 +108,18 @@ body {
     padding: 0px 5px 0px 0px;
     margin-top: 0px;
 }
+/* css for orders */
+.fa-refresh {
+    color:white;
+}
+.fa-refresh:hover {
+    color:black;
+}
+
+/* css for public */
+.title-navi:hover {
+    color: #000000 ;
+}
 
 /* css for the edit orders */
 .control-group {
@@ -127,5 +139,19 @@ body {
 /* css for the copy orders */
 .new-icon {
     margin: 5px;
+}
+
+/* css for the search orders */
+.my-search-result {
+    border-left: 5px solid #e5603b;
+    padding: 5px 15px 5px 10px;
+    margin-bottom: 10px;
+}
+
+.off-left-space {
+    padding-left: 0px !important;
+}
+.off-right-space {
+    padding-right: 0px !important;
 }
 

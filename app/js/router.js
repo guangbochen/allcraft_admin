@@ -6,8 +6,10 @@ define ([
     'views/orders/orders',
     'views/orders/edit',
     'views/orders/copy',
+    'views/orders/pdf',
+    'views/search/search',
 
-], function (Backbone, OrdersCollection, HomeView, NewOrdersView, OrdersView, EditOrdersView, CopyOrdersView) {
+], function (Backbone, OrdersCollection, HomeView, NewOrdersView, OrdersView, EditOrdersView, CopyOrdersView, PDFOrdersView, SearchView) {
     'use strict';
 
     var AppRouter = Backbone.Router.extend ({
@@ -19,7 +21,8 @@ define ([
             'orders/new': 'newOrders',
             'orders/:id/edit': 'editOrders',
             'orders/:id/copy': 'copyOrders',
-            'orders/search': 'searchOrders'
+            'orders/:id/pdf': 'pdfOrders',
+            'orders/search': 'searchOrders',
         },
 
         index: function () {
@@ -49,8 +52,13 @@ define ([
         },
 
         searchOrders: function () {
-            console.log ('search');
+            this.showView (new SearchView ());
             this.activeSidebar($('#search-orders'));
+        },
+
+        pdfOrders: function (id) {
+            this.showView (new  PDFOrdersView ({id: id}));
+            this.activeSidebar($('#view-orders'));
         },
 
         activeSidebar: function (selector) {

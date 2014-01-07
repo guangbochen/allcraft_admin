@@ -1,18 +1,20 @@
+<!-- copy order title -->
 <div id="edit-orders-content">
     <div class="row col-md-12">
         <legend class="section">
-        <h2 class="page-title">
-            <a href="#/orders" class="my-hyperlink">
-                <i class="fa fa-chevron-left"></i>
-                Edit Orders </a> 
+        <h3 class="page-title"> 
+            <a href="#/orders" class="my-hyperlink"> All Orders </a> 
+            <i class="fa fa-chevron-left"></i> 
+            <a href="#/orders/<%=order.id%>/edit" class="my-hyperlink"> Edit Orders </a> 
             <small> 
                 <i class="fa fa-arrow-right"></i>
-                <%=order.order_number%>
+                <%=order.order_number%>(PDF)
             </small>
-        </h2>
+        </h3>
         </legend>
     </div>
 
+    <!-- order details -->
     <div class="row col-md-12">
         <form class="form-horizontal label-left">
             <section class="widget">
@@ -21,25 +23,19 @@
                 </div>
                 <br>
 
+                <!-- new line -->
                 <div class="control-group col-md-12">
-                    <!-- preview button for the downloadable pdf file -->
-                    <div class="pull-right my-pdf">
-                        <a href="#/orders/<%=order.id%>/pdf">
-                            <button type="button" class="btn btn-lg btn-inverse"> 
-                                <i class="fa fa-file"></i> Preview PDF File
-                            </button>
-                        </a>
-                    </div>
-
                     <label class="control-label" for="order_number"> Order No. </label> 
                     <div class="form-group">
-                        <div class="col-sm-2 col-space">
+                        <div class="col-sm-2">
                             <input type="text" id="order_number" name="order_number" 
-                            value="<%=order.order_number%>" disabled="disabled" class="form-control" />
+                            value="<%=order.order_number%>" disabled="disabled" class="form-control line-through-text"/>
                         </div>
+                        <div class="col-sm-1 new-icon"><span class="badge badge-danger">new</span></div>
                     </div>
                 </div>
 
+                <!-- new line -->
                 <div class="control-group col-md-12">
                     <label class="control-label" for="status"> Status </label>
                     <div class="form-group">
@@ -57,6 +53,7 @@
                     </div>
                 </div>
 
+                <!-- new line -->
                 <div class="control-group col-md-12">
                     <label class="control-label" for="customer"> Customer </label>
                     <div class="form-group">
@@ -74,7 +71,7 @@
                         <div class="form-group">
                             <div class="col-sm-7">
                             <input type="text" id="created_at" name="created_at" disabled="disabled"
-                             class="form-control" value="<%=order.created_at%>" />
+                             class="form-control line-through-text" value="<%=order.created_at%>" />
                             </div>
                         </div>
                     </div>
@@ -84,7 +81,7 @@
                         <div class="form-group">
                             <div class="col-sm-7">
                             <input type="text" id="updated_at" name="updated_at" disabled="disabled"
-                             class="form-control" value="<%=order.updated_at%>" />
+                             class="form-control line-through-text" value="<%=order.updated_at%>" />
                             </div>
                         </div>
                     </div>
@@ -235,7 +232,7 @@
                     </div>
 
                     <div class="control-group col-md-4">
-                        <label class="control-label" for="production_number"> Production No. </label>
+                        <label class="control-label" for="production_number"> Production No </label>
                         <div class="form-group">
                             <div class="col-sm-7">
                             <input type="text" id="production_number" name="production_number" 
@@ -291,32 +288,10 @@
                 <div class="form-actions">
                     <div class="submission-form">
                         <a href="#/orders"><input type="button" class="btn btn-lg btn-default" value="Cancel" /></a>
-                        <input type="submit" class="btn btn-lg btn-success" value="Save Changes" />
+                        <input type="submit" class="btn btn-lg btn-danger" value="Save as new" />
                     </div>
                 </div>
             </section>
         </form>
     </div>
-</div>
-
-<!-- shows message dialog -->
-<div id="edit-submit-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title" id="myModalLabel2">Message</h4>
-        </div>
-        <div class="modal-body">
-            <h4>
-                <i class="fa fa-check-square-o"></i>
-                 Thanks, order '<%=order.order_number%>' has been updated successfully. 
-            </h4>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
-            <button id="redirect-to-orders" type="button" class="btn btn-primary"> Return to Orders</button>
-        </div>
-    </div><!-- /.modal-content -->
-</div>
 </div>

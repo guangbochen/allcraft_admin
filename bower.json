@@ -12,5 +12,6 @@
     "light-blue-white": "https://github.com/hoandang/light-blue-white.git",
     "momentjs": "~2.4.0",
     "pubnub": "*"
+    // "jsPDF": "https://github.com/MrRio/jsPDF.git"
   }
 }

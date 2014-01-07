@@ -34,7 +34,7 @@ define ([
         events: {
             'click #generate_orders': 'generateOrders',
             'click #clear_orders': 'clearOrders',
-            'submit': 'saveOrders'
+            'submit': 'saveOrders',
         },
 
         // push function send broadcast message through pubnub

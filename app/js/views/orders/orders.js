@@ -3,10 +3,12 @@ define ([
     'underscore',
     'backbone',
     'collections/orders',
+    'collections/searchs',
     'text!/templates/orders/orders.html',
-    'moment'
+    'moment',
+    'views/search/search',
 
-], function (_, Backbone, OrdersCollection, OrdersTemplate, moment) {
+], function (_, Backbone, OrdersCollection, SearchsCollection, OrdersTemplate, moment, SearchView) {
 
     'use strict';
 
@@ -34,7 +36,8 @@ define ([
 
         events: {
             'click #older-orders-load-more': 'loadMore',
-            'submit form': 'searchOrders',
+            'submit': 'searchOrders',
+            'click #orders-refresh': 'render',
         },
 
         // hide function disable load more button once it has no orders to load
@@ -69,11 +72,16 @@ define ([
                             _this.statusColor (order.get('status')) +
                           '</tr>';
                 
+                if(!collection.selector) 
+                {
+                    _this.$('#searched-orders table tbody').append(row);
+                    return;
+                }
                 collection.selector.append (row);
+                //remove loading icon
+                collection.loading.empty();
             });
 
-            //remove loading icon
-            collection.loading.empty();
         },
 
         // statusColor function set the bgcolor of the status column upon its status
@@ -132,14 +140,8 @@ define ([
                 this.$('#older-loading-orders')
             );
 
+            this.$('#searched-orders').hide();
             return this;
-        },
-
-        // search orders by customer, order numbers and status
-        // ====================================================
-        searchOrders: function () {
-            var query = this.$('#orders-search-query').val();
-            console.log(query);
         },
 
 
@@ -157,7 +159,51 @@ define ([
             this.yesterdayOrders.off ('sync');
             this.olderOrders.off     ('sync');
             this.olderOrders.off     ('noMore');
-        }
+        },
+
+        // search orders by customer, order numbers and status
+        // ====================================================
+        searchOrders: function (e) {
+
+            e.preventDefault();
+
+            //get input searching value
+            var value = this.$('#orders-search-query').val();
+            var _this = this;
+
+            //validate searching input
+            if(!value) return;
+
+            //initalise search collection
+            var searchCollection = new SearchsCollection();
+            searchCollection.searchOrdersBy(value);
+            searchCollection.fetch ({
+                success: function (models, response, options) {
+
+                    //refresh the html view
+                    _this.$('#searched-orders table tbody').empty();
+                    _this.$('#searched-orders').show();
+                    _this.$('#all-orders').hide();
+                    _this.$('#searching-result').empty();
+                    _this.$('#orders-search-query').val('');
+
+                    if(models.length == 0) 
+                    {
+                        _this.$('#searching-result').html(
+                            '<section class="my-search-result"> <h2>' +
+                            'No orders found for <Strong>' + value +
+                            '. </strong></h2> </section>');
+                    }
+                    else{
+                        _this.display(models);
+                    }
+                },
+                error: function () {
+                    alert('no relevant searching result is provided');
+                },
+            });
+        },
+
     });
 
     return OrdersView;

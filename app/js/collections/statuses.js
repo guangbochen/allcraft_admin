@@ -2,7 +2,7 @@ define ([
 
     'backbone',
     'models/status',
-    'common'
+    'common',
 
 ], function (Backbone, StatusModel, Common) {
 
@@ -11,7 +11,7 @@ define ([
     var StatusesCollection = Backbone.Collection.extend ({ 
 
         //define collection model
-        model : StatusModel,
+        model: StatusModel,
         url: Common.ApiUrl + '/statuses',
 
         /**

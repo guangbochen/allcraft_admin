@@ -1,0 +1,41 @@
+<div id="view-orders-content">
+    <div class="row">
+        <div class="col-md-7 off-left-space">
+            <h2 class="page-title">&nbsp;Search Orders </h2>
+         </div>
+        <div class="col-md-5 off-right-space">
+            <form id="search-orders" class="navbar-form search-form">
+                    <input id="orders-search-query" type="search" class="search-query form-control" placeholder="Search for order #, customer and status ...">
+            </form>
+         </div>
+        <legend class="section"></legend>
+    </div>
+
+    <div class="row">
+        <section class="widget" id="searched-orders">
+            <header>
+                <h4> <i class="fa fa-calendar-o"></i> Searching Result </h4>
+            </header>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th style="width: 70px"></th>
+                        <th style="width: 70px"></th>
+                        <th style="width: 100px">Order #</th>
+                        <th style="width: 150px"> Created At </th>
+                        <th> Customer </th>
+                        <th>Job</th>
+                        <th>Job Title</th>
+                        <th style="width: 110px">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div id="searching-result">
+                <!-- <center><h1><i class="fa fa-spinner fa-spin"></i></h1>loading</center> -->
+            </div>
+            <!-- <button class="btn btn-info" id="today-orders-load-more"> Load More </button> -->
+        </section>
+    </div>
+</div>
