@@ -12,7 +12,10 @@ require.config ({
         moment     : 'vendor/momentjs/min/moment.min',
         propertyParser : 'vendor/requirejs-plugins/src/propertyParser',
         pubnub     : 'vendor/pubnub/web/pubnub.min',
-        maskedInput : 'vendor/light-blue-white/lib/jquery-maskedinput/jquery.maskedinput',
+        // maskedinput : 'vendor/light-blue-white/lib/jquery-maskedinput/jquery.maskedinput',
+        widget           : 'vendor/jquery-file-upload/js/vendor/jquery.ui.widget',
+        iframe_transport : 'vendor/jquery-file-upload/js/jquery.iframe-transport',
+        fileupload       : 'vendor/jquery-file-upload/js/jquery.fileupload',
     }
 });
 

@@ -58,6 +58,8 @@ define ([
         display: function (collection) {
 
             var _this = this;
+            //remove loading icon
+            if(collection.loading) collection.loading.empty();
             collection.each (function (order) {
                 var row = '<tr>' +
                             '<td> <a href="#/orders/' + order.get('id') + '/edit' +
@@ -72,14 +74,8 @@ define ([
                             _this.statusColor (order.get('status')) +
                           '</tr>';
                 
-                if(!collection.selector) 
-                {
-                    _this.$('#searched-orders table tbody').append(row);
-                    return;
-                }
-                collection.selector.append (row);
-                //remove loading icon
-                collection.loading.empty();
+                if(collection.selector) collection.selector.append (row);
+                else _this.$('#searched-orders table tbody').append(row);
             });
 
         },

@@ -9,9 +9,13 @@ define ([
     'models/order',
     'collections/statuses',
     'text!/templates/orders/edit.html',
-    'maskedInput',
+    // dependency for fileupload
+    'widget',
+    'iframe_transport',
+    'fileupload',
 
-], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, EditOrdersTemplate, MaskedInput) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, EditOrdersTemplate) {
+
     'use strict';
 
     var EditOrdersView = Backbone.View.extend ({
@@ -28,10 +32,46 @@ define ([
         events: {
             'submit': 'updateOrder',
             'click #redirect-to-orders': 'redirectToOrders',
+            // 'change .fileUpload'    : 'displayFileUpload',
+            'click #submit-upload-files': 'redirectToOrders',
         },
 
-        // returnToAllOrders function dismiss the dialog and redirect all orders page
-        // ====================================================
+        /**
+         * returnToAllOrders function dismiss the dialog and redirect all orders page
+         */
+        displayFileUpload: function () {
+
+            // var $fileUpload   = this.$('input:file');
+            // console.log($fileUpload);
+            this.$('#fileupload').fileupload({
+                test: function()
+                {
+                    console.log('hi');
+                },
+                // dataType: 'json',
+                // done: function (e, data) {
+                //     this.$.each(data.result.files, function (index, file) {
+                //         // $('<p/>').text(file.name).appendTo(document.body);
+                //         this.$('<p/>').text(file.name).appendTo(document.body);
+                //         console.log('hi');
+                //     });
+                // }
+            });
+            // $('#fileupload').fileupload({
+            //     /* ... */
+            //     progressall: function (e, data) {
+            //         var progress = parseInt(data.loaded / data.total * 100, 10);
+            //         $('#progress .bar').css(
+            //             'width',
+            //             progress + '%'
+            //         );
+            //     }
+            // });
+        },
+
+        /**
+         * returnToAllOrders function dismiss the dialog and redirect all orders page
+         */
         redirectToOrders: function () {
             //dismiss the modal dialog
             this.$('#edit-submit-dialog').modal('hide');
@@ -78,10 +118,6 @@ define ([
 
             var _this = this;
             var statuses = new StatusesCollection ();
-            _this.$("#date_in").mask("99/99/9999");
-            jQuery(function($){
-              _this.$("#date_in").mask("99/99/9999");
-            });
 
             //fetch an specific order
             this.order.fetch ({

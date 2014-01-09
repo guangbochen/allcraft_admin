@@ -64,7 +64,7 @@ define ([
         display: function (collection) {
 
             var _this = this;
-            _this.$el.html (this.template);
+            _this.$el.html (_this.template);
             collection.each (function (order) {
                 var row = '<tr>' + '<td> <a href="#/orders/' + order.get('id') + '/edit' +
                             '" class="btn btn-default" id="edit-order">Edit</a> </td>' +

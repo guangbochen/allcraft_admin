@@ -108,13 +108,6 @@ body {
     padding: 0px 5px 0px 0px;
     margin-top: 0px;
 }
-/* css for orders */
-.fa-refresh {
-    color:white;
-}
-.fa-refresh:hover {
-    color:black;
-}
 
 /* css for public */
 .title-navi:hover {
@@ -135,7 +128,10 @@ body {
     margin-left: auto !important;
     margin-right: auto !important;
 }
-
+.bar {
+    height: 18px;
+    background: green;
+}
 /* css for the copy orders */
 .new-icon {
     margin: 5px;
