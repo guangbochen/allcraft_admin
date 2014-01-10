@@ -302,23 +302,28 @@
             </section>
         </form>
 
+
+        <!-- manages and displays upload files -->
         <section class="widget">
-            <div class="row">
+            <div class="row col-md-12">
                 <div class="col-md-6">
                     <h2>Upload Manager</h2>
                     <div id="manager-area">
                         <script type="text/javascript">
                         $(function(){
+                            //add order_number to the post data
+                            var order_number = $('#order_number').val();
                             Backbone.TemplateManager.baseUrl = 'templates/{name}';
 
 	                         // Create the upload manager
 	                         window.uploadManager = new Backbone.UploadManager({
-	                             'uploadUrl': 'http://upload-manager.sroze.io/upload',
-	                             <!-- 'uploadUrl': 'http://api.printee.dev/upload', -->
+	                             <!-- 'uploadUrl': 'http://upload-manager.sroze.io/upload', -->
+	                             'uploadUrl': 'http://api.printee.dev/upload',
 	                             'templates': {
 	                                 'main': 'orders/upload-manager.main',
 	                                 'file': 'orders/upload-manager.file'
-	                             }
+	                             },
+                                 'order_number': order_number
 	                         });
 	                         // Render it
 	                         uploadManager.renderTo($('div#manager-area'));
@@ -344,35 +349,32 @@
                         </div>
                     </div>
                  </div>
+
+                 <!-- shows uploaded files -->
                  <div class="col-md-6">
                      <h2>Uploaded files</h2>
-                     <ul id="file-list"></ul>
-                    <script type="text/javascript">
-                    $(function(){
-                        // On file uploaded, refresh list.
-                        window.uploadManager.on('filedone', function () {
-                            <!-- $.get('http://upload-manager.sroze.io/files').done(function(result){ -->
-                            $.get('http://api.printee.dev/files').done(function(result){
-                                var target = $('ul#file-list').empty();
-                                
-                                $.each(result, function (index, file) {
-                                    target.append(
-                                        '<li> hi </li>'
-                                        <!-- '<li>'+file.name+' ('+file.size+' bytes) <a href="http://api.printee.dev/files'+file.download_url+'">Download</a></li>' -->
-                                    );
-                                });
-                            });
-                        });
-                    });
-                    </script>
+                     <div id="uploaded-file-list">
+                         <table class="table table-hover">
+                             <thead>
+                                 <tr>
+                                     <th>Name</th>
+                                     <th>Size</th>
+                                     <th>Uploaded at</th>
+                                     <!-- <th style="width: 70px"></th> -->
+                                 </tr>
+                             </thead>
+                             <tbody></tbody>
+                         </table>
+                     </div>
                  </div>
             </div>
         </section>
-        <!-- </form> -->
+        <!-- end of  manages and displays upload files -->
     </div>
 </div>
 
-<!-- shows message dialog -->
+
+<!-- modal dialog for edit orders -->
 <div id="edit-submit-dialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
 <div class="modal-dialog">
     <div class="modal-content">

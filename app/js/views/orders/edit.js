@@ -8,13 +8,14 @@ define ([
     'transition', //dialog transition
     'models/order',
     'collections/statuses',
+    'collections/files',
     'text!/templates/orders/edit.html',
     // dependency for fileupload
     'widget',
     'iframe_transport',
     'fileupload',
 
-], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, EditOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, FilesCollection, EditOrdersTemplate) {
 
     'use strict';
 
@@ -33,7 +34,7 @@ define ([
             'submit': 'updateOrder',
             'click #redirect-to-orders': 'redirectToOrders',
             // 'change .fileUpload'    : 'displayFileUpload',
-            'click #submit-upload-files': 'redirectToOrders',
+            // 'click #submit-upload-files': 'redirectToOrders',
         },
 
         /**
@@ -96,20 +97,6 @@ define ([
                     _this.$('#edit-submit-dialog').modal('show');
                 },
             });
-
-            // var data = {
-            //     username : "foo",
-            //     is_creator : true,
-            //     number_of_orders: "1",
-            //     subscribers: ["bill"]
-            // };
-
-            // $.ajax ({
-            //     url: Common.ApiUrl + '/push',
-            //     data: JSON.stringify(data),
-            //     dataType: 'json',
-            //     type: 'post'
-            // });
         },
 
         // renders the view template, and updates this.el with the new HTML
@@ -130,6 +117,9 @@ define ([
                                 order: model.toJSON(),
                                 statuses: statuses.models
                             }));
+                            //fetch files via order number
+                            var order_number = model.get('order_number');
+                            _this.loadFiles(order_number);
                         }
                     });
                 }
@@ -137,8 +127,35 @@ define ([
             return this;
         },
 
+        /**
+         * loadFiles function load a list of files when is loaded
+         */
+        loadFiles: function (order_number) {
+
+            var _this = this;
+            var filesCollection = new FilesCollection ();
+
+            filesCollection.fetchFiles(order_number);
+            filesCollection.fetch ({
+                success: function (models, response, options) {
+                    for (var i in response) {
+                        var row = '<tr>'
+                            +'<td><a href="'+ Common.ApiUrl + response[i].download_url + '" target="_blank">'
+                            +response[i].name+'</a></td>'
+                            +'<td>'+response[i].size+'</td>'
+                            +'<td>'+response[i].uploaded_at+'</td>'
+                            //TODO need to add delete file function
+                            // +'<td><button class="btn btn-inverse">Delete</button</td>' 
+                            +'</tr>';
+                        _this.$('#uploaded-file-list table tbody').append(row);
+                    }
+                }
+            });
+        },
+
+
         onClose: function () {
-        }
+        },
     });
 
     return EditOrdersView;

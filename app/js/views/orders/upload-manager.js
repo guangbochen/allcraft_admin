@@ -56,7 +56,8 @@
                 dataType: 'json',
                 url: this.options.uploadUrl,
                 autoUpload: this.options.autoUpload,
-                singleFileUploads: true
+                singleFileUploads: true,
+                formData: { order_number: options.order_number} //add order number of the file belongs to
             });
             
             // Add upload process events handlers
