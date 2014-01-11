@@ -33,7 +33,7 @@ define ([
         events: {
             'submit': 'updateOrder',
             'click #redirect-to-orders': 'redirectToOrders',
-            // 'change .fileUpload'    : 'displayFileUpload',
+            'change .fileUpload'    : 'displayFileUpload',
             // 'click #submit-upload-files': 'redirectToOrders',
         },
 
@@ -42,32 +42,7 @@ define ([
          */
         displayFileUpload: function () {
 
-            // var $fileUpload   = this.$('input:file');
-            // console.log($fileUpload);
-            this.$('#fileupload').fileupload({
-                test: function()
-                {
-                    console.log('hi');
-                },
-                // dataType: 'json',
-                // done: function (e, data) {
-                //     this.$.each(data.result.files, function (index, file) {
-                //         // $('<p/>').text(file.name).appendTo(document.body);
-                //         this.$('<p/>').text(file.name).appendTo(document.body);
-                //         console.log('hi');
-                //     });
-                // }
-            });
-            // $('#fileupload').fileupload({
-            //     /* ... */
-            //     progressall: function (e, data) {
-            //         var progress = parseInt(data.loaded / data.total * 100, 10);
-            //         $('#progress .bar').css(
-            //             'width',
-            //             progress + '%'
-            //         );
-            //     }
-            // });
+            console.log('hi');
         },
 
         /**
@@ -128,7 +103,7 @@ define ([
         },
 
         /**
-         * loadFiles function load a list of files when is loaded
+         * loadFiles function load a list of files belongs to specific order
          */
         loadFiles: function (order_number) {
 
@@ -138,6 +113,8 @@ define ([
             filesCollection.fetchFiles(order_number);
             filesCollection.fetch ({
                 success: function (models, response, options) {
+                    //remove no-files if it has
+                    if(models.length != 0) _this.$('#no-files').empty();
                     for (var i in response) {
                         var row = '<tr>'
                             +'<td><a href="'+ Common.ApiUrl + response[i].download_url + '" target="_blank">'
@@ -147,6 +124,7 @@ define ([
                             //TODO need to add delete file function
                             // +'<td><button class="btn btn-inverse">Delete</button</td>' 
                             +'</tr>';
+
                         _this.$('#uploaded-file-list table tbody').append(row);
                     }
                 }

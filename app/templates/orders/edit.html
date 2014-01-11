@@ -308,6 +308,7 @@
             <div class="row col-md-12">
                 <div class="col-md-6">
                     <h2>Upload Manager</h2>
+                    <p>Note: upload file with same file name and file type will overwrite the existing one.</p>
                     <div id="manager-area">
                         <script type="text/javascript">
                         $(function(){
@@ -329,24 +330,18 @@
 	                         uploadManager.renderTo($('div#manager-area'));
                         });
                         </script>
-                        <div class="upload-manager loading">
-                            <h3 class="popover-title">Upload files</h3>
-                            <div class="popover-content" id="file-list">
-                                <div class="no-data" id="added-files"><em>Add files.</em></div>
-                            </div>
-                            <footer>
-                                <button class="btn btn-warning pull-right hidden" id="cancel-uploads-button"><i class="icon-cancel"></i>Cancel uploads</button>
-                                <span class="btn btn-success fileinput-button" id="fileinput-button">
-                                    <i class="icon-plus"></i>
-                                    <span>Add files...</span>
-                                    <input id="fileupload" type="file" name="files[]" multiple="multiple" class="fileUpload"
-                                    data-url="server/php/">
-                                </span>
-                                <button class="btn btn-primary hidden" id="start-uploads-button">
-                                    <i class="icon-start"></i>Start uploads
-                                </button>
-                            </footer>
+                        <h3 class="popover-title">Upload files</h3>
+                        <div class="popover-content" id="file-list">
+                            <div class="no-data" id="added-files"><em>Add files.</em></div>
                         </div>
+                        <footer>
+                            <button class="btn btn-warning pull-right hidden" id="cancel-uploads-button">Cancel uploads</button>
+                            <span class="btn btn-success fileinput-button" id="fileinput-button">
+                                <span>Add files ...</span>
+                                <input id="fileupload" type="file" name="files[]" multiple="multiple" class="fileUpload">
+                            </span>
+                            <button class="btn btn-primary hidden" id="start-uploads-button">Start uploads</button>
+                        </footer>
                     </div>
                  </div>
 
@@ -365,11 +360,11 @@
                              </thead>
                              <tbody></tbody>
                          </table>
+                         <div class="popover-content" id="no-files"><em>No files.</em></div>
                      </div>
                  </div>
             </div>
-        </section>
-        <!-- end of  manages and displays upload files -->
+        </section> <!-- end of  manages and displays upload files -->
     </div>
 </div>
 

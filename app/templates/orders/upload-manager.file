@@ -1,3 +1,4 @@
+<div class="row" style="padding-bottom: 5px">
 <div class="col-md-6"><span class="name"><%= name %></span></div>
 <div class="col-md-3">
     <span class="size"><%= displaySize(size) %></span>
@@ -8,6 +9,7 @@
     <span class="message hidden"></span>
 </div>
 <div class="col-md-3">
-    <button class="btn btn-warning btn-small" id="btn-cancel"><i class="icon-remove"></i>Cancel</button>
-    <button class="btn btn-small" id="btn-clear">Clear</button>
+    <button class="btn btn-warning btn-sm" id="btn-cancel"><i class="icon-remove"></i>Cancel</button>
+    <button class="btn btn-sm" id="btn-clear">Clear</button>
+</div>
 </div>

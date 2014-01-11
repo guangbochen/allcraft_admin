@@ -43,7 +43,6 @@
             // Merge options
             // this.options = $.extend(this.defaults, this.options);
             this.options = $.extend(this.defaults, options);
-            console.log(this.options);
             
             // Update template name
             this.templateName = this.options.templates.main;
@@ -86,12 +85,36 @@
                 file.fail(error);
             }).on('filedone', function (file, data) {
                 file.done(data.result);
+                this.showsUploadedFiles(data.result);
             });
             
             // When collection changes
             this.files.on('all', this.update, this);
         },
         
+        /**
+         * loadFiles function load a list of files belongs to specific order
+         */
+        showsUploadedFiles: function (response) {
+
+            var ApiUrl =  'http://api.printee.dev';
+            $('#uploaded-file-list table tbody').empty();
+
+            if(response.length != 0) $('#no-files').empty();
+
+            for (var i in response) {
+                console.log(response[i].name);
+                var row = '<tr>'
+                    +'<td><a href="'+ ApiUrl + response[i].download_url + '" target="_blank">'
+                    +response[i].name+'</a></td>'
+                    +'<td>'+response[i].size+'</td>'
+                    +'<td>'+response[i].uploaded_at+'</td>'
+                    //TODO need to add delete file function
+                    // +'<td><button class="btn btn-inverse">Delete</button</td>' 
+                    +'</tr>';
+                $('#uploaded-file-list table tbody').append(row);
+            }
+        },
         /**
          * Render a file.
          * 
@@ -349,7 +372,6 @@
             className: 'upload-manager-file row-fluid',
             
             initialize: function (options) {
-                console.log(options);
                 // this.templateName = this.options.templates.file;
                 this.templateName = options.templates.file;
                 
