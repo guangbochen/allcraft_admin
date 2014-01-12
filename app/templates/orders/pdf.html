@@ -1,297 +1,73 @@
-<!-- copy order title -->
-<div id="edit-orders-content">
-    <div class="row col-md-12">
-        <legend class="section">
-        <h3 class="page-title"> 
-            <a href="#/orders" class="my-hyperlink"> All Orders </a> 
-            <i class="fa fa-chevron-left"></i> 
-            <a href="#/orders/<%=order.id%>/edit" class="my-hyperlink"> Edit Orders </a> 
-            <small> 
-                <i class="fa fa-arrow-right"></i>
-                <%=order.order_number%>(PDF)
-            </small>
-        </h3>
-        </legend>
-    </div>
+    
+<!-- js dependecy for the js pdf plugin -->
+<script  src="js/vendor/jspdf/jspdf.js"></script>
+<script  src="js/vendor/jspdf/jspdf.plugin.standard_fonts_metrics.js"></script>
+<script  src="js/vendor/jspdf/jspdf.plugin.split_text_to_size.js"></script>
+<script  src="js/vendor/jspdf/jspdf.plugin.from_html.js"></script>
 
-    <!-- order details -->
-    <div class="row col-md-12">
-        <form class="form-horizontal label-left">
-            <section class="widget">
-                <div class="control-group">
-                    <button type="button" class="close" onclick="location.href='#/orders';">×</button>
-                </div>
-                <br>
+<!-- this template would be used for generating pdf template,
+     and its view is managed by edit.js file-->
+<div class="row col-md-12 hide" id="job-bag-pdf">
+    <section class="widget">
+        <!-- start of the pdf file --> 
+        <div id="job-bag-title">
+            <h3>Allcraft Job Bag 
+                <small>(<%=order.order_number%>)</small>
+            </h3>
+        </div>
+        <div id="job-bag-body">
+            <p> <strong>Job :</strong><%=order.job%></p>
+            <p><strong>Customer :</strong> <%=order.customer%></p>
+            <p><strong>Job Title :</strong> <%=order.job_title%></p>
+            <p><strong>Qty :</strong> <%=order.qty%></p>
+            <p><strong>Size :</strong> <%=order.size%></p>
+            <p><strong>PP :</strong> <%=order.pp%></p>
+            <p><strong>Stock :</strong> <%=order.stock%></p>
+            <p><strong>GSM :</strong> <%=order.gsm%></p>
+            <p><strong>COL1 :</strong> <%=order.print_slide_one%></p>
+            <p><strong>COL2 :</strong> <%=order.print_slide_two%></p>
+            <p><strong>Date In :</strong> <%=order.date_in%></p>
+            <p><strong>Date Approved :</strong> <%=order.date_approved%></p>
+            <p><strong>Dispatch By :</strong> <%=order.despatch_by%></p>
+            <p><strong>Notes :</strong> <%=order.job_note%></p>
+            <p><strong>Order :</strong> </p>
+            <p><strong>Notes :</strong> </p>
+            <p><strong>Production :</strong> <%=order.production_number%></p>
+        </div>
 
-                <!-- new line -->
-                <div class="control-group col-md-12">
-                    <label class="control-label" for="order_number"> Order No. </label> 
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                            <input type="text" id="order_number" name="order_number" 
-                            value="<%=order.order_number%>" disabled="disabled" class="form-control line-through-text"/>
-                        </div>
-                        <div class="col-sm-1 new-icon"><span class="badge badge-danger">new</span></div>
-                    </div>
-                </div>
+        <script>
+            function demoFromHTML() {
 
-                <!-- new line -->
-                <div class="control-group col-md-12">
-                    <label class="control-label" for="status"> Status </label>
-                    <div class="form-group">
-                        <div class="col-sm-2">
-                        <select name="status" class="form-control input-col-2">
-                            <% _.each(statuses, function(status) { %>
-                                <% if (status.get('status') == order.status) { %>
-                                <option selected="selected"><%=status.get('status')%></option>
-                                <% } else { %>
-                                <option><%=status.get('status')%></option>
-                                <% } %>
-                            <% }); %>
-                        </select>
-                        </div>
-                    </div>
-                </div>
+                var doc = new jsPDF();
 
-                <!-- new line -->
-                <div class="control-group col-md-12">
-                    <label class="control-label" for="customer"> Customer </label>
-                    <div class="form-group">
-                        <div class="col-sm-4">
-                            <input type="text" id="customer" name="customer" value="<%=order.customer%>"
-                            class="form-control" />
-                        </div>
-                    </div>
-                </div>
+                doc.setFont("courier");
+                doc.setFontSize(12);
+                doc.setFontType("normal");
+                doc.text(15, 37, 'Time Started: ______________');
+                doc.text(115, 37, 'Time Finished: ______________');
+                doc.text(15, 50, 'Finished Sheets Run : ______________');
 
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="created_at"> Date Created </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="created_at" name="created_at" disabled="disabled"
-                             class="form-control line-through-text" value="<%=order.created_at%>" />
-                            </div>
-                        </div>
-                    </div>
+                // We'll make our own renderer to skip this editor
+                var specialElementHandlers = {
+                    '#editor': function(element, renderer){
+                            return true;
+                        }
+                };
 
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="updated_at"> Date Updated </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="updated_at" name="updated_at" disabled="disabled"
-                             class="form-control line-through-text" value="<%=order.updated_at%>" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                // All units are in the set measurement for the document
+                // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
+                doc.fromHTML($('#job-bag-title').get(0), 15, 15, {
+                    'width': 170, 
+                    'elementHandlers': specialElementHandlers
+                });
 
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="job"> Job </label> 
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="job" name="job" value="<%=order.job%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                            <label class="control-label" for="job_title"> Job Title </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="job_title" name="job_title" value="<%=order.job_title%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="job_note"> Job Note </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="job_note" name="job_note" value="<%=order.job_note%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="size"> Size </label> 
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="size" name="size" value="<%=order.size%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="pp"> PP </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="pp" name="pp" value="<%=order.pp%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="stock"> Stock </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="stock" name="stock" value="<%=order.stock%>" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="gsm"> GSM </label> 
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="gsm" name="gsm" value="<%=order.gsm%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="print_slide_one"> Print Slide One </label>
-                        <div class="form-group">
-                            <div class="col-sm-7"> 
-                            <input type="text" id="print_slide_one" name="print_slide_one" class="form-control"
-                            value="<%=order.print_slide_one%>"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="print_slide_two"> Print Slide Two</label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="print_slide_two" name="print_slide_two" 
-                            value="<%=order.print_slide_two%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="date_in"> Date In </label> 
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="date_in" name="date_in" value="<%=order.date_in%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="date_approved"> Date Approved </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="date_approved" name="date_approved"  class="form-control"
-                            value="<%=order.date_approved%>" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="date_required"> Date Required </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="date_required" name="date_required" 
-                            value="<%=order.date_required%>" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="qty"> Quantity </label> 
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="qty" name="qty" value="<%=order.qty%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="inv_number"> Inv Number</label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="inv_number" name="inv_number" value="<%=order.inv_number%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="production_number"> Production No </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="production_number" name="production_number" 
-                            value="<%=order.production_number%>" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="ok"> OK </label> 
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="ok" name="ok" value="<%=order.ok%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="despatch_by"> Despatch By </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="despatch_by" name="despatch_by" value="<%=order.despatch_by%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="address"> Address </label>
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="address" name="address" value="<%=order.address%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- new line -->
-                <div class="row col-md-12">
-                    <div class="control-group col-md-4">
-                        <label class="control-label" for="booking"> Booking </label> 
-                        <div class="form-group">
-                            <div class="col-sm-7">
-                            <input type="text" id="booking" name="booking" value="<%=order.booking%>" class="form-control"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- submission button -->
-                <div class="form-actions">
-                    <div class="submission-form">
-                        <a href="#/orders"><input type="button" class="btn btn-lg btn-default" value="Cancel" /></a>
-                        <input type="submit" class="btn btn-lg btn-danger" value="Save as new" />
-                    </div>
-                </div>
-            </section>
-        </form>
-    </div>
+                doc.fromHTML($('#job-bag-body').get(0), 15, 55, {
+                    'width': 170, 
+                    'elementHandlers': specialElementHandlers
+                });
+                doc.text(50, 285, 'Copyright © 2014 Allcraft. All rights reserved.');
+                doc.output('dataurl')
+              }
+        </script>
+    </section>
 </div>

@@ -10,18 +10,20 @@ define ([
     'collections/statuses',
     'collections/files',
     'text!/templates/orders/edit.html',
+    'text!/templates/orders/pdf.html',
     // dependency for fileupload
     'widget',
     'iframe_transport',
     'fileupload',
 
-], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, FilesCollection, EditOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, FilesCollection, EditOrdersTemplate, pdfTemplate) {
 
     'use strict';
 
     var EditOrdersView = Backbone.View.extend ({
 
         template: _.template (EditOrdersTemplate),
+        pdfTemplate: _.template (pdfTemplate),
 
         // constructor
         // ====================================================
@@ -67,8 +69,15 @@ define ([
             var input = Backbone.Syphon.serialize (this);
             var _this = this;
             this.order.save (input, {
-                success: function () {
-                    // _this.render();
+                success: function (model) {
+
+                    // update pdf template to the view
+                    _this.$('#job-bag-pdf').empty();
+                    _this.$el.append(_this.pdfTemplate({
+                        order: model.toJSON(),
+                    }));
+
+                    //display modal dialog
                     _this.$('#edit-submit-dialog').modal('show');
                 },
             });
@@ -92,6 +101,12 @@ define ([
                                 order: model.toJSON(),
                                 statuses: statuses.models
                             }));
+
+                            // append pdf template to the view
+                            _this.$el.append(_this.pdfTemplate({
+                                order: model.toJSON(),
+                            }));
+
                             //fetch files via order number
                             var order_number = model.get('order_number');
                             _this.loadFiles(order_number);
@@ -99,6 +114,8 @@ define ([
                     });
                 }
             });
+
+
             return this;
         },
 

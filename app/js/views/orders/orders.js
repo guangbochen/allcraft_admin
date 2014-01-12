@@ -75,7 +75,7 @@ define ([
                           '</tr>';
                 
                 if(collection.selector) collection.selector.append (row);
-                else _this.$('#searched-orders table tbody').append(row);
+                else   _this.$('#searched-orders table tbody').append(row);
             });
 
         },

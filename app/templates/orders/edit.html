@@ -19,23 +19,23 @@
     </div>
 
     <div class="row col-md-12">
-        <form class="form-horizontal label-left" id="editOrder">
-            <section class="widget">
-                <div class="control-group">
-                    <a href='#/orders'><button type="button" class="close" >×</button></a>
+        <section class="widget">
+            <div class="control-group">
+                <a href='#/orders'><button type="button" class="close" >×</button></a>
+            </div>
+            <br>
+
+            <div class="control-group col-md-12">
+                <!-- preview button for the downloadable pdf file -->
+                <div class="pull-right my-pdf">
+                    <a href="javascript:demoFromHTML()" >
+                        <button class="btn btn-lg btn-info"><i class="fa fa-file"></i> Preview jobBag PDF </button>
+                    </a>
                 </div>
-                <br>
+            </div>
 
+            <form class="form-horizontal label-left" id="editOrder">
                 <div class="control-group col-md-12">
-                    <!-- preview button for the downloadable pdf file -->
-                    <div class="pull-right my-pdf">
-                        <a href="#/orders/<%=order.id%>/pdf">
-                            <button type="button" class="btn btn-lg btn-inverse"> 
-                                <i class="fa fa-file"></i> Preview PDF File
-                            </button>
-                        </a>
-                    </div>
-
                     <label class="control-label" for="order_number"> Order No. </label> 
                     <div class="form-group">
                         <div class="col-sm-2 col-space">
@@ -299,8 +299,8 @@
                         <input type="submit" class="btn btn-lg btn-success" value="Save Changes" />
                     </div>
                 </div>
-            </section>
-        </form>
+            </form>
+        </section>
 
 
         <!-- manages and displays upload files -->

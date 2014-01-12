@@ -93,7 +93,7 @@
         },
         
         /**
-         * loadFiles function load a list of files belongs to specific order
+         * showsUploadedFile function update file list after upload new files
          */
         showsUploadedFiles: function (response) {
 
@@ -103,7 +103,6 @@
             if(response.length != 0) $('#no-files').empty();
 
             for (var i in response) {
-                console.log(response[i].name);
                 var row = '<tr>'
                     +'<td><a href="'+ ApiUrl + response[i].download_url + '" target="_blank">'
                     +response[i].name+'</a></td>'
@@ -115,6 +114,7 @@
                 $('#uploaded-file-list table tbody').append(row);
             }
         },
+
         /**
          * Render a file.
          * 
