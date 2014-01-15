@@ -23,6 +23,14 @@ define ([
             return this;
         },
 
+        events: {
+            'click #logout': 'logout'
+        },
+
+        logout: function () {
+            console.log('logout');
+        },
+
         onClose: function () {
 
         }

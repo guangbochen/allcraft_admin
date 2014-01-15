@@ -6,10 +6,11 @@ define ([
     'views/orders/orders',
     'views/orders/edit',
     'views/orders/copy',
-    'views/orders/pdf',
     'views/search/search',
+    'views/login/login',
 
-], function (Backbone, OrdersCollection, HomeView, NewOrdersView, OrdersView, EditOrdersView, CopyOrdersView, PDFOrdersView, SearchView) {
+], function (Backbone, OrdersCollection, HomeView, NewOrdersView, OrdersView, 
+    EditOrdersView, CopyOrdersView, SearchView, LoginView) {
     'use strict';
 
     var AppRouter = Backbone.Router.extend ({
@@ -21,8 +22,16 @@ define ([
             'orders/new': 'newOrders',
             'orders/:id/edit': 'editOrders',
             'orders/:id/copy': 'copyOrders',
-            'orders/:id/pdf': 'pdfOrders',
             'orders/search': 'searchOrders',
+            'login': 'login',
+        },
+
+        login: function () {
+            // $('#page-content').html ('<h2> Welcome to Allcraft </h2>');
+            this.showView (new LoginView ());
+            // $('body').html(new LoginView().render().el);
+            $('#sidebar').addClass('hide');
+            // this.activeSidebar($('#home'));
         },
 
         index: function () {
@@ -54,11 +63,6 @@ define ([
         searchOrders: function () {
             this.showView (new SearchView ());
             this.activeSidebar($('#search-orders'));
-        },
-
-        pdfOrders: function (id) {
-            this.showView (new  PDFOrdersView ({id: id}));
-            this.activeSidebar($('#view-orders'));
         },
 
         activeSidebar: function (selector) {
