@@ -1,9 +1,10 @@
 define ([
 
-    'router', //request router.js
-    'backbone'
+    'backbone',
+    'router', 
+    'Session'
 
-], function (Router, Backbone) {
+], function (Backbone, Router, Session) {
 
     // Add truncate ability for String prototype
     String.prototype.trunc = function(n, useWordBoundary) {
@@ -41,11 +42,17 @@ define ([
     // });
 
     var initialize = function () {
-        // Pass in and initialize our Router module
-        var router = new Router();
-        Backbone.history.start();
+
+        //validate user login when start the app
+        Session.getAuth (function(response) {
+            // Pass in and initialize our Router module
+            var router = new Router();
+            Backbone.history.start();
+        });
     };
 
     return { initialize: initialize };
 });
+
+
 

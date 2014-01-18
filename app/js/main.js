@@ -18,6 +18,7 @@ require.config ({
         iframe_transport : 'vendor/jquery-file-upload/js/jquery.iframe-transport',
         fileupload       : 'vendor/jquery-file-upload/js/jquery.fileupload',
         httpAuthen       : 'authen/backbone.basicauth', //basic http authen
+        jquery_cookie    : 'vendor/jquery-cookie/jquery.cookie'
     }
 });
 
@@ -25,32 +26,7 @@ require ([
 
     // Load our app module and pass it to our definition function
     'app',
-    'httpAuthen'
 ], function (App) {
-
-    // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
-    $.ajaxSetup({
-
-        // headers: Backbone.BasicAuth.getHeader({
-        //     username: '',
-        //     password: ''
-        // }),
-        // beforeSend: function (xhr)
-        // {
-        //     xhr.setRequestHeader('Authentication', 'authorizationToken');
-        // },
-        statusCode: {
-            401: function(){
-                // Redirec the to the login page.
-                window.location.replace('/#/login');
-             
-            },
-            403: function() {
-                // 403 -- Access denied
-                window.location.replace('/#/denied');
-            }
-        }
-    });
 
     // The "app" dependency is passed in as "App"
     App.initialize();

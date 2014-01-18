@@ -3,6 +3,7 @@ define ([
     'underscore',
     'backbone',
     'text!/templates/home/home.html',
+    'Session',
 
 ], function (_, Backbone, HomeTemplate) {
 
@@ -13,15 +14,9 @@ define ([
         template: _.template (HomeTemplate),
 
         initialize: function () {
+            _.bindAll(this, "logout");
         },
 
-        // renders the view template, and updates this.el with the new HTML
-        // ==========================
-        render: function () {
-            // Load the compiled HTML template into the Backbone "el"
-            this.$el.html (this.template);
-            return this;
-        },
 
         events: {
             'click #logout': 'logout'
@@ -31,9 +26,16 @@ define ([
             console.log('logout');
         },
 
-        onClose: function () {
+        /**
+         * renders the view template, and updates this.el with the new HTML
+         */
+        render: function () {
+            // Load the compiled HTML template into the Backbone "el"
+            this.$el.html (this.template);
+            return this;
+        },
 
-        }
+        onClose: function () { }
     });
 
     return HomeView;

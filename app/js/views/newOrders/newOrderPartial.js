@@ -13,8 +13,9 @@ define ([
         template: _.template (NewOrderPartialTemplate),
         tagName: 'tr',
 
-        // constructor
-        // ==========================
+        /**
+         * constructor
+         */
         initialize: function (options) {
 
             this.count = options.count;
@@ -22,8 +23,10 @@ define ([
             this.statuses = options.statuses;
         },
 
-        // renders the view templates, and update this.el with the new HTML
-        // ==========================
+
+        /**
+         * renders the view templates, and update this.el with the new HTML
+         */
         render: function () {
 
             this.$el.html (this.template ({ 
@@ -36,8 +39,6 @@ define ([
             return this;
         },
 
-        // addOrderNumber function create unique order number
-        // ==========================
         addOrderNumber: function (orderNumber) {
             var str = "" + orderNumber;
             var pad = "00000";

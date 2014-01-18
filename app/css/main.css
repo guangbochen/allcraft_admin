@@ -5,6 +5,12 @@ body {
     background-color: #8da8b9;
 }
 
+.page-loading {
+    padding-top:100px;
+    margin-left:-200px !important;
+    color: #ffffff;
+}
+
 .fa-print {
     color: #ffffff;
 }

@@ -5,10 +5,10 @@ define ([
     'backbone',
     'common',
     'text!/templates/login/index.html',
-    // 'httpAuthen',
-    // 'authen/backbone.basicauth',
+    'Session',
+    'httpAuthen',
 
-], function (_, Backbone, Common, LoginTemplate) {
+], function (_, Backbone, Common, LoginTemplate, Session) {
 
     'use strict';
 
@@ -22,7 +22,7 @@ define ([
 
         events: {
             'submit form': 'login',
-
+            'click .myLogout': 'logout'
         },
 
         /**
@@ -41,27 +41,17 @@ define ([
             }
             else
             {
-                var user = {
+                var credentails = {
                     username: username,
                     password: password
                 };
 
-                $.ajax({
-                    url: this.url,
-                    type: 'POST',
-                    dataType: 'json',
-                    data: user,
-                    headers: Backbone.BasicAuth.getHeader(user),
-                    success: function (data) {
-                        console.log('pass');
-                        // If not, send them back to the home page
-                        window.location.replace('#/');
-                    },
-                    error: function (data, response, message) {
-                        console.log(data);
-                    }
-                });
+                Session.login(credentails);
             }
+        },
+
+        logout : function () {
+            console.log('logout');
         },
 
         /**
@@ -73,9 +63,8 @@ define ([
             return this;
         },
 
-        onClose: function () {
+        onClose: function () {},
 
-        }
     });
 
     return LoginView;

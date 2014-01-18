@@ -13,6 +13,7 @@
     "momentjs": "~2.4.0",
     "pubnub": "*",
     "jspdf": "latest",
-    "jquery-file-upload": "latest"
+    "jquery-file-upload": "latest",
+    "jquery-cookie": "latest"
   }
 }
