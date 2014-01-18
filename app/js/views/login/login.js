@@ -28,8 +28,8 @@ define ([
         /**
          * login function validate user login action
          */
-        login:function (event) {
-            event.preventDefault();
+        login:function (e) {
+            e.preventDefault();
 
             var username = $('#username').val();
             var password = $('#password').val();

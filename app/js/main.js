@@ -18,7 +18,8 @@ require.config ({
         iframe_transport : 'vendor/jquery-file-upload/js/jquery.iframe-transport',
         fileupload       : 'vendor/jquery-file-upload/js/jquery.fileupload',
         httpAuthen       : 'authen/backbone.basicauth', //basic http authen
-        jquery_cookie    : 'vendor/jquery-cookie/jquery.cookie'
+        jquery_cookie    : 'vendor/jquery-cookie/jquery.cookie',
+        select2          : 'vendor/light-blue-white/lib/select2'
     }
 });
 

@@ -5,10 +5,12 @@ define ([
     'syphon',
     'models/lastOrder',
     'collections/statuses',
+    'collections/users',
     'views/newOrders/newOrderPartial',
-    'text!/templates/newOrders/newOrdersPartial.html'
+    'text!/templates/newOrders/newOrdersPartial.html',
+    'select2'
 
-], function (_, Backbone, Syphon, LastOrder, StatusesCollection, NewOrderPartial, NewOrdersPartialTemplate) {
+], function (_, Backbone, Syphon, LastOrder, StatusesCollection, UsersCollection, NewOrderPartial, NewOrdersPartialTemplate ) {
     'use strict';
 
     var OrdersPlaceholderView = Backbone.View.extend({
@@ -23,17 +25,16 @@ define ([
             this.noOrder = options.noOrder;
         },
 
-        // renders the view template, and updates this.el with the new HTML
-        // ==========================
-        render: function () {
-            // Load the compiled HTML template into the Backbone "el"
-            this.$el.html (this.template);
 
+        /**
+         * fetchStatusAndOrderNumber function fetch status 
+         * and generate unique order number
+         */
+        fetchStatusAndOrderNumber: function() {
             //define instances
             var _this = this;
             var statusesCollection = new StatusesCollection();
             var lastOrder = new LastOrder();
-
 
             //fetch array of statuses and pass to the newOrderPartial
             statusesCollection.fetch ({
@@ -55,6 +56,29 @@ define ([
                             }
                         }
                     });
+                }
+            });
+        },
+
+        // renders the view template, and updates this.el with the new HTML
+        // ==========================
+        render: function () {
+            // Load the compiled HTML template into the Backbone "el"
+            this.$el.html (this.template);
+
+            //fetch ordernumber and order status
+            this.fetchStatusAndOrderNumber();
+
+            //fetch assign users
+            var usersCollection = new UsersCollection();
+            usersCollection.fetch({
+                success: function (models, response) {
+                    var users = response.users;
+                    for (var i in users) {
+                        $('#assign-users').append('<option value="'
+                            + users[i].username +'">'
+                            + users[i].username + '</option>');
+                    }
                 }
             });
 

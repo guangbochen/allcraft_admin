@@ -1,8 +1,14 @@
-<input type="text" name="" id="user" class="my-input-field" placeholder="Assign Staff" style="min-width:450px"/>
+
+
+<script>
+$("#assign-users").select2({ placeholder: 'Assign Staff', });
+</script>
+
+<select multiple="" name="assign-users" id="assign-users" style="width:450px" class="my-input-field" tabindex="-1">
+</select>
+
+<!-- <input type="text" name="" id="user" class="my-input-field" placeholder="Assign Staff" style="min-width:450px"/> -->
 <input type="submit" class="btn btn-lg btn-success" value="Save Orders" />
-<!-- <button id="generate_orders" type="submit" class="btn btn-lg btn-success"> -->
-<!--     <i class="fa fa-check"></i> Save -->
-<!-- </button> -->
 <section id="order-table">
     <table class="table table-hover">
         <thead>

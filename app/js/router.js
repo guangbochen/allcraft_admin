@@ -2,15 +2,16 @@ define ([
     'underscore',
     'backbone',
     'views/home/index',
+    'views/home/header',
     'views/newOrders/new',
     'views/orders/orders',
     'views/orders/edit',
     'views/orders/copy',
     'views/search/search',
     'views/login/login',
-    'Session'
+    'Session',
 
-], function (_, Backbone, HomeView, NewOrdersView, OrdersView, 
+], function (_, Backbone, HomeView, HeaderView, NewOrdersView, OrdersView, 
     EditOrdersView, CopyOrdersView, SearchView, LoginView, Session) {
     'use strict';
 
@@ -77,8 +78,15 @@ define ([
         showView:function (view) {
             if (this.currentView) this.currentView.close();
             this.currentView = view;
+
+            //render page header template to the view
+            var headerView = new HeaderView();
+            $('#page-header').html(headerView.render().el);
+
+            //render template to the view
             $('#navigation-wrapper').removeClass('hide');
             $('#page-content').html(view.render().el);
+
             return view;
         },
 

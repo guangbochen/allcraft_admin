@@ -12,26 +12,29 @@ define ([
     var HomeView = Backbone.View.extend({
 
         template: _.template (HomeTemplate),
+        username: '',
 
         initialize: function () {
-            _.bindAll(this, "logout");
+
+            if($.cookie('user')) {
+                var user = JSON.parse($.cookie('user'));
+                this.username = user.username;
+            }
         },
 
 
         events: {
-            'click #logout': 'logout'
-        },
-
-        logout: function () {
-            console.log('logout');
         },
 
         /**
          * renders the view template, and updates this.el with the new HTML
          */
         render: function () {
-            // Load the compiled HTML template into the Backbone "el"
-            this.$el.html (this.template);
+            // Load the compiled HTML template into the Backbone
+            this.$el.html (this.template({
+                    username: this.username
+                })
+            );
             return this;
         },
 

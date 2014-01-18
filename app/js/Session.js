@@ -27,7 +27,7 @@ define([
                     401: function(){
                         // Redirec to the login page.
                         Backbone.history.navigate('#/login', { trigger : true });
-                     
+                        $('#username').focus();
                     },
                     403: function(){
                         alert('permission forbidden');
@@ -39,8 +39,7 @@ define([
         /**
          * login function validate user login through restful api
          */
-        login : function(credentials){
-            console.log('check login');
+        login : function(credentials, callback){
             var that = this;
             var login = $.ajax({
                 url : Common.ApiUrl + '/login',
@@ -67,6 +66,13 @@ define([
                 Backbone.history.navigate('', { trigger : true });
             });
 
+            login.fail(function(response){
+                if(response.status == 401) {
+                    // $('#login-message').html('<center>Incorrect username and password</center>');
+                } else { 
+                    console.log('Server Internal Error');
+                }
+            });
         },
 
         logout : function(callback) { 
@@ -98,6 +104,7 @@ define([
                     })
                 });
             }
+
             // fetch would validate user authorization via rest api
             var Login = this.fetch(); 
             Login.always(callback);
