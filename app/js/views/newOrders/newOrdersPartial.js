@@ -22,7 +22,7 @@ define ([
         // constructor
         // ==========================
         initialize: function (options) {
-            this.noOrder = options.noOrder;
+            this.count = options.count;
         },
 
 
@@ -46,7 +46,7 @@ define ([
                             var lastOrderNumber = parseInt(models.toJSON().id);
                             var orderPlaceholderView = null;
                             // Add a single order placeholder
-                            for (var i = 1; i <= _this.noOrder; i++) {
+                            for (var i = 1; i <= _this.count; i++) {
                                 orderPlaceholderView = new NewOrderPartial({ 
                                     count: i,
                                     orderId: lastOrderNumber+i,

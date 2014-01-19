@@ -7,10 +7,11 @@ define ([
 
     'use strict';
 
-    var UsersCollection = Backbone.Collection.extend ({ 
+    var NotificationCollection = Backbone.Collection.extend ({ 
 
         //define collection model
-        url: Common.ApiUrl + '/users',
+        // model : FileModel,
+        url: Common.ApiUrl + '/notifications',
 
         /**
          * default constructor
@@ -20,7 +21,7 @@ define ([
 
     });
 
-    return UsersCollection;
+    return NotificationCollection;
     
 });
 

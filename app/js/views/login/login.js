@@ -22,7 +22,6 @@ define ([
 
         events: {
             'submit form': 'login',
-            'click .myLogout': 'logout'
         },
 
         /**
@@ -48,10 +47,6 @@ define ([
 
                 Session.login(credentails);
             }
-        },
-
-        logout : function () {
-            console.log('logout');
         },
 
         /**

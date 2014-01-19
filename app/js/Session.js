@@ -39,7 +39,7 @@ define([
         /**
          * login function validate user login through restful api
          */
-        login : function(credentials, callback){
+        login : function(credentials){
             var that = this;
             var login = $.ajax({
                 url : Common.ApiUrl + '/login',
@@ -52,7 +52,6 @@ define([
             login.done(function(response){
                 //save user info into session cookie
                 $.cookie('user', JSON.stringify(response));
-                console.log(response);
 
                 //setup ajax response header
                 $.ajaxSetup({

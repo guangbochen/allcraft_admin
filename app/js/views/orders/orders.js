@@ -7,8 +7,9 @@ define ([
     'text!/templates/orders/orders.html',
     'moment',
     'views/search/search',
+    'Session'
 
-], function (_, Backbone, OrdersCollection, SearchsCollection, OrdersTemplate, moment, SearchView) {
+], function (_, Backbone, OrdersCollection, SearchsCollection, OrdersTemplate, moment, SearchView, Session) {
 
     'use strict';
 
@@ -19,6 +20,8 @@ define ([
         // Constructor
         // ==================
         initialize: function () {
+
+            Session.getAuth ();
 
             // Bind this context to events
             _.bindAll (this, 'display', 'loadMore', 'hide');

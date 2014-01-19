@@ -5,6 +5,10 @@ body {
     background-color: #8da8b9;
 }
 
+.details {
+    font-size: 12px !important;
+
+}
 .hand-cursor {
     cursor: pointer; 
     cursor: hand;

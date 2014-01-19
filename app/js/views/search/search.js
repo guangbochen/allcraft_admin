@@ -5,8 +5,9 @@ define ([
     'collections/orders',
     'collections/searchs',
     'text!/templates/search/search.html',
+    'Session'
 
-], function (_, Backbone, OrdersCollection, SearchsCollection, SearchTemplate) {
+], function (_, Backbone, OrdersCollection, SearchsCollection, SearchTemplate, Session) {
 
     'use strict';
 
@@ -17,6 +18,7 @@ define ([
         // Constructor
         // ==================
         initialize: function () {
+            Session.getAuth ();
         },
 
         events: {

@@ -5,7 +5,7 @@ define ([
     'text!/templates/home/home.html',
     'Session',
 
-], function (_, Backbone, HomeTemplate) {
+], function (_, Backbone, HomeTemplate, Session) {
 
     'use strict';
 
@@ -16,6 +16,7 @@ define ([
 
         initialize: function () {
 
+            Session.getAuth ();
             if($.cookie('user')) {
                 var user = JSON.parse($.cookie('user'));
                 this.username = user.username;

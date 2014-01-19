@@ -1,55 +1,54 @@
+
+<!-- <script> -->
+<!--     function PlaySound(soundObj) { -->
+<!--             var sound = document.getElementById(soundObj); -->
+<!--             sound.Play(); -->
+<!--         } -->
+<!-- </script> -->
+<!-- <embed src="success.mp3" autostart="false" width="0" height="0" id="sound1" enablejavascript="true"> -->
+
 <div class="wrap">
     <header class="page-header">
         <div class="navbar"> 
             <ul class="nav navbar-nav navbar-right pull-right">
                 <li class="dropdown">
-                    <a href="#" title="Messages" id="messages" class="dropdown-toggle" data-toggle="dropdown">
+                    <a title="Messages" id="messages" class="dropdown-toggle hand-cursor" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <!-- <span class="count">0</span> -->
+                        <span class="count">1</span>
                     </a>
-                    <ul id="messages-menu" class="dropdown-menu messages" role="menu">
-                        <li role="presentation">
-                            <a href="#" class="message">
-                                <img src="" alt="">
-                                <div class="details">
-                                    <div class="sender">Michał Rumiancaŭ</div>
-                                    <div class="text">
-                                        Is it really Lore ipsum? Lore ...
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#" class="text-align-center see-all">
-                                See all messages <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    <!-- <ul id="messages-menu" class="dropdown-menu messages" role="menu"> -->
+                    <!--     <li role="presentation"> -->
+                    <!--         <a href="#" class="message"> -->
+                    <!--             <img src="" alt=""> -->
+                    <!--             <div class="details"> -->
+                    <!--                 <div class="sender">Michał Rumiancaŭ</div> -->
+                    <!--                 <div class="text"> -->
+                    <!--                     Is it really Lore ipsum? Lore ... -->
+                    <!--                 </div> -->
+                    <!--             </div> -->
+                    <!--         </a> -->
+                    <!--     </li> -->
+                    <!--     <li role="presentation"> -->
+                    <!--         <a href="#" class="text-align-center see-all"> -->
+                    <!--             See all messages <i class="fa fa-arrow-right"></i> -->
+                    <!--         </a> -->
+                    <!--     </li> -->
+                    <!-- </ul> -->
                 </li>
-                <li class="dropdown">
-                    <a href="#" title="Notification" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell"></i>
-                        <!-- <span class="count">0</span> -->
+                <li class="dropdown" id="notifications">
+                    <a  id="notification-icon" title="Notification" class="dropdown-toggle hand-cursor" data-toggle="dropdown">
+                        <i class="fa fa-group"> </i>
                     </a>
-                    <ul id="support-menu" class="dropdown-menu support" role="menu">
-                        <li role="presentation">
-                            <a href="#" class="support-ticket">
-                                <div class="picture">
-                                    <span class="label label-important"><i class="fa fa-bell-o"></i></span>
-                                </div>
-                                <div class="details">
-                                    Check out this awesome ticket
-                                </div>
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#" class="text-align-center see-all">
-                                See all tickets <i class="fa fa-arrow-right"></i>
-                            </a>
-                        </li>
+                    <ul id="notifications-menu" class="dropdown-menu support" role="menu">
+                        <!-- <li role="presentation"> -->
+                        <!--     <a href="#" class="text-align-center see-all"> -->
+                        <!--         See all tickets <i class="fa fa-arrow-right"></i> -->
+                        <!--     </a> -->
+                        <!-- </li> -->
                     </ul>
                 </li>
                 <li class="divider"></li>
+                <!-- logout button allows user to logout -->
                 <li class="hidden-xs">
                     <a id="logout" class="hand-cursor"><i class="fa fa-sign-out" title="Log out"></i></a>
                     <!-- <button id="logout" class="btn btn-default btn-lg"> -->

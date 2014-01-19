@@ -11,12 +11,14 @@ define ([
     'collections/files',
     'text!/templates/orders/edit.html',
     'text!/templates/orders/pdf.html',
+    'Session',
     // dependency for fileupload
     'widget',
     'iframe_transport',
     'fileupload',
 
-], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, FilesCollection, EditOrdersTemplate, pdfTemplate) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, 
+    StatusesCollection, FilesCollection, EditOrdersTemplate, pdfTemplate, Session) {
 
     'use strict';
 
@@ -28,6 +30,7 @@ define ([
         // constructor
         // ====================================================
         initialize: function (options) {
+            Session.getAuth ();
             _.bindAll (this, 'updateOrder');
             this.order = new OrderModel ({id: options.id});
         },
@@ -83,6 +86,35 @@ define ([
             });
         },
 
+        /**
+         * loadFiles function load a list of files belongs to specific order
+         */
+        loadFiles: function (order_number) {
+
+            var _this = this;
+            var filesCollection = new FilesCollection ();
+
+            filesCollection.fetchFiles(order_number);
+            filesCollection.fetch ({
+                success: function (models, response, options) {
+                    //remove no-files if it has
+                    if(models.length != 0) _this.$('#no-files').empty();
+                    for (var i in response) {
+                        var row = '<tr>'
+                            +'<td><a href="'+ Common.ApiUrl + response[i].download_url + '" target="_blank">'
+                            +response[i].name+'</a></td>'
+                            +'<td>'+response[i].size+'</td>'
+                            +'<td>'+response[i].uploaded_at+'</td>'
+                            //TODO need to add delete file function
+                            // +'<td><button class="btn btn-inverse">Delete</button</td>' 
+                            +'</tr>';
+
+                        _this.$('#uploaded-file-list table tbody').append(row);
+                    }
+                }
+            });
+        },
+
         // renders the view template, and updates this.el with the new HTML
         // ====================================================
         render: function () {
@@ -119,34 +151,6 @@ define ([
             return this;
         },
 
-        /**
-         * loadFiles function load a list of files belongs to specific order
-         */
-        loadFiles: function (order_number) {
-
-            var _this = this;
-            var filesCollection = new FilesCollection ();
-
-            filesCollection.fetchFiles(order_number);
-            filesCollection.fetch ({
-                success: function (models, response, options) {
-                    //remove no-files if it has
-                    if(models.length != 0) _this.$('#no-files').empty();
-                    for (var i in response) {
-                        var row = '<tr>'
-                            +'<td><a href="'+ Common.ApiUrl + response[i].download_url + '" target="_blank">'
-                            +response[i].name+'</a></td>'
-                            +'<td>'+response[i].size+'</td>'
-                            +'<td>'+response[i].uploaded_at+'</td>'
-                            //TODO need to add delete file function
-                            // +'<td><button class="btn btn-inverse">Delete</button</td>' 
-                            +'</tr>';
-
-                        _this.$('#uploaded-file-list table tbody').append(row);
-                    }
-                }
-            });
-        },
 
 
         onClose: function () {

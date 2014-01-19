@@ -11,7 +11,7 @@ define ([
     var OrdersCollection = Backbone.Collection.extend ({ 
 
         //define instances
-        model : OrderModel,
+        // model : OrderModel,
         url: Common.ApiUrl + '/orders',
         pubnub: Common.pubnub,
 
@@ -51,10 +51,12 @@ define ([
                 success: function (response, textStatus, xhr) {
                     _this.trigger ('notify');
                     //redirect to orders page
+                    //TODO trigger notify once created order successfully
+                    alert('generated orders successfully');
                     window.location.hash = 'orders';
                 },
                 error: function () {
-                    alert('Server internal error, please try again or check internet connection.');
+                    alert('Server internal error, failed to generate new orders.');
                 }
             });
         },

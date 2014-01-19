@@ -25,7 +25,6 @@ define ([
          */
         searchOrdersBy: function (value) {
             this.url += '?q=' + value ;
-            console.log(this.url);
             this.fetch();
         },
     });

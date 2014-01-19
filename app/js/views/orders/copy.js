@@ -9,8 +9,9 @@ define ([
     'models/order',
     'collections/statuses',
     'text!/templates/orders/copy.html',
+    'Session',
 
-], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, CopyOrdersTemplate) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, CopyOrdersTemplate, Session) {
     'use strict';
 
     var CopyOrdersView = Backbone.View.extend ({
@@ -22,6 +23,7 @@ define ([
         // constructor
         // ==========================
         initialize: function (options) {
+            Session.getAuth ();
             _.bindAll (this, 'copyOrder');
             this.order = new OrderModel ({id: options.id});
         },

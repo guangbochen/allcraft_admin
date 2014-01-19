@@ -2,9 +2,10 @@ define ([
 
     'backbone',
     'router', 
-    'Session'
+    'Session',
+    'views/home/header'
 
-], function (Backbone, Router, Session) {
+], function (Backbone, Router, Session, HeaderView) {
 
     // Add truncate ability for String prototype
     String.prototype.trunc = function(n, useWordBoundary) {
@@ -26,20 +27,24 @@ define ([
         if (this.onClose) this.onClose();
     };
 
-    // var pubnub = PUBNUB.init({
-    //     subscribe_key : 'sub-c-077f7902-66ad-11e3-b1d4-02ee2ddab7fe',
-    //     publish_key: 'pub-c-8021207d-c906-4f21-ac84-7d5773c9255b'
-    // });
 
-    // pubnub.subscribe({ 
-    //     channel : 'printee_notification',
-    //     message: function(message) { 
-    //         //doing things when receives the message
-    //         // console.log(message);
-    //         console.log (message);
-    //         // alert ('Notification was logged');
-    //     }
-    // });
+    //initalise pubnub
+    var pubnub = PUBNUB.init({
+        subscribe_key : 'sub-c-077f7902-66ad-11e3-b1d4-02ee2ddab7fe',
+        publish_key: 'pub-c-8021207d-c906-4f21-ac84-7d5773c9255b'
+    });
+
+    //trigger pull message action when receives push notification
+    pubnub.subscribe({ 
+        channel : 'allcraft_push_notification',
+        message: function(message) { 
+
+            //pull notification and private message when receives the push notification
+            var headerView = new HeaderView();
+            headerView.pullNotification(message);
+            console.log(message);
+        }
+    });
 
     var initialize = function () {
 

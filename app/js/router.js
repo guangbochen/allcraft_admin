@@ -70,12 +70,16 @@ define ([
         },
 
         login: function () {
-            this.showView (new LoginView ());
+            // this.showView (new LoginView ());
+            var loginView = new LoginView();
             $('#navigation-wrapper').addClass('hide');
+            $('#page-content').html(loginView.render().el);
         },
 
         // Clean previous view and open current view
         showView:function (view) {
+
+            
             if (this.currentView) this.currentView.close();
             this.currentView = view;
 
@@ -88,6 +92,7 @@ define ([
             $('#page-content').html(view.render().el);
 
             return view;
+
         },
 
     });

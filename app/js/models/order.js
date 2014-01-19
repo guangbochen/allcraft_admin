@@ -1,6 +1,6 @@
 define ([
     'backbone',
-    'common'
+    'common',
 
 ], function (Backbone, Common) {
 
@@ -8,7 +8,10 @@ define ([
 
     // add order model
     var OrderModel = Backbone.Model.extend ({ 
-        urlRoot: Common.ApiUrl + '/orders'
+        urlRoot: Common.ApiUrl + '/orders',
+
+        initialize: function(){
+        },
     }); 
 
     return OrderModel;
