@@ -13,7 +13,6 @@ define ([
         //define instances
         // model : OrderModel,
         url: Common.ApiUrl + '/orders',
-        pubnub: Common.pubnub,
 
         initialize: function () {
             this.bind ('request', this.indicate, this);
@@ -50,13 +49,9 @@ define ([
                 type: 'post',
                 success: function (response, textStatus, xhr) {
                     _this.trigger ('notify');
-                    //redirect to orders page
-                    //TODO trigger notify once created order successfully
-                    alert('generated orders successfully');
-                    window.location.hash = 'orders';
                 },
                 error: function () {
-                    alert('Server internal error, failed to generate new orders.');
+                    alert('WARNNING: server internal error, failed to generate new orders.');
                 }
             });
         },

@@ -40,10 +40,9 @@ define ([
          * pullNotification
          */
         pullNotification : function (message) {
-            console.log('hi');
             $('#notification-icon').append('<div id="notification-count"> <span class="count">1</span> </div>');
             $('#notifications-menu').prepend(' <li role="presentation"> ' 
-                + '<a href="#" class="support-ticket"> '
+                + '<a href="#/notifications" class="support-ticket"> '
                 + '<div class="picture"> <span class="label label-important"><i class="fa fa-bookmark"></i></span> </div>'
                 + '<div class="details"> ' + message.description
                 + '</div> </a> </li>');
@@ -63,7 +62,7 @@ define ([
 
         seeAllNotifications : function () {
             $('#notifications-menu').append(' <li role="presentation"> '
-                            + '<a href="#" class="text-align-center see-all"> '
+                            + '<a href="#/notifications" class="text-align-center see-all"> '
                             + 'See all notifications <i class="fa fa-arrow-right"></i> </a> </li>');
         },
 
@@ -77,11 +76,12 @@ define ([
 
             this.notifications.fetch({
                 success: function (models, response){
-                    for (var i in response) {
+                    var notifications = response.notifications;
+                    for (var i in notifications) {
                         $('#notifications-menu').append(' <li role="presentation"> ' 
-                            + '<a class="support-ticket"> '
+                            + '<a href="#/notifications" class="support-ticket"> '
                             + '<div class="picture"> <span class="label label-success"><i class="fa fa-bookmark"></i></span> </div>'
-                            + '<div class="details"> ' + response[i].description
+                            + '<div class="details"> ' + notifications[i].description
                             + '</div> </a> </li>');
                     };
 

@@ -28,10 +28,10 @@ define ([
             //initialize orders collection
             this.ordersCollection = new OrdersCollection ();
             // _.bindAll (this, 'push', 'render');
-            _.bindAll (this, 'render');
+            _.bindAll (this, 'render', 'clearOrders');
 
             // Notify when collection has been added new models
-            // this.ordersCollection.on ('notify', this.push);
+            this.ordersCollection.on('notify', this.notify);
         },
 
         /**
@@ -71,9 +71,9 @@ define ([
          * clearOrders function clean the new orders has been generated
          */
         clearOrders: function () {
-            this.$('#number_of_order').focus();
-            this.$('#number_of_order').val('');
-            this.$('#orders').html('');
+            $('#number_of_order').focus();
+            $('#number_of_order').val('');
+            $('#orders').html('');
         },
 
         /**
@@ -99,6 +99,23 @@ define ([
             };
             // call orders collection and save orders into the server
             this.ordersCollection.saveOrders (data);
+            $('#save-orders').html('<i class="fa fa-spinner fa-spin"></i>')
+        },
+
+        /**
+         * notify function generates notification once generate order successfully
+         */
+        notify : function() {
+
+            //TODO display decent notification 
+            $('#save-orders').html('Save Orders')
+            $('#orders').html('');
+            $('#number_of_order').focus();
+            $('#number_of_order').val('');
+            alert('generated orders successfully');
+
+            //redirect to orders page
+            // window.location.hash = 'orders';
         },
 
         /**
@@ -112,7 +129,7 @@ define ([
 
         onClose: function () {
             // unbind notify event to prevent memory leaks and zombies views ?
-            // this.ordersCollection.off ('notify');
+            this.ordersCollection.off ('notify');
         }
     });
 

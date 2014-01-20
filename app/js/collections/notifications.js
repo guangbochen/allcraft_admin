@@ -19,6 +19,14 @@ define ([
         initialize: function () {
         },
 
+        /**
+         * fetchByPagi function fetches notification in pagination
+         */
+        fetchByPagi: function (offset, limit) {
+            this.url = Common.ApiUrl + '/notifications';
+            this.url += '?' + 'offset=' + offset + '&limit=' + limit;
+        },
+
     });
 
     return NotificationCollection;

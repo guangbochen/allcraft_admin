@@ -4,8 +4,9 @@ define ([
     'backbone',
     'text!/templates/home/home.html',
     'Session',
+    'collections/messages',
 
-], function (_, Backbone, HomeTemplate, Session) {
+], function (_, Backbone, HomeTemplate, Session, MessagesCollection) {
 
     'use strict';
 
@@ -21,10 +22,17 @@ define ([
                 var user = JSON.parse($.cookie('user'));
                 this.username = user.username;
             }
+
         },
 
 
         events: {
+        },
+
+        fetchMessages : function () {
+            var messagesCollection = new MessagesCollection();
+            var count = messagesCollection.countUnreadMessags();
+            console.log(count);
         },
 
         /**
@@ -36,6 +44,8 @@ define ([
                     username: this.username
                 })
             );
+
+            this.fetchMessages();
             return this;
         },
 

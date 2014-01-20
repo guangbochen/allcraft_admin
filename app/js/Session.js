@@ -107,7 +107,15 @@ define([
             // fetch would validate user authorization via rest api
             var Login = this.fetch(); 
             Login.always(callback);
-        }
+        },
+
+        /**
+         * getUsername function return logged in username
+         */
+        getUsername : function() {
+            var user = JSON.parse($.cookie('user'));
+            return user.username;
+        },
     
     });
 

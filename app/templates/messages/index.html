@@ -1,0 +1,42 @@
+<section class="widget">
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+    <li class="active"><i class="fa fa-envelope-o"> Messages</i></li>
+    </ol>
+</section>
+
+<div class="row">
+    <div class="col-md-12 ">
+        <section class="widget">
+            <fieldset>
+                            <!-- <legend>Account Edit Form <small>Some explanation text</small></legend> -->
+                            <legend id="folder-title" class="folder-title">Message Inbox 
+                                <small >(<span id="unread_message">0</span> unread messages)</small>
+                            </legend>
+            </fieldset>
+            <hr>
+            <div class="body">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr class="table-header">
+                        <th>Id</th>
+                        <th>Sender</th>
+                        <th>Receiver</th>
+                        <th>Created at</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody id="messages-table-body">
+                    </tbody>
+                </table>
+                <!-- shows pagination --> 
+                <div class="clearfix">
+                    <div class="pull-right">
+                        <ul class="pagination no-margin" id='messages-paginations'>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

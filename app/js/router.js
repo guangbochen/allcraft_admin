@@ -9,10 +9,12 @@ define ([
     'views/orders/copy',
     'views/search/search',
     'views/login/login',
+    'views/notifications/notifications',
+    'views/messages/messages',
     'Session',
 
-], function (_, Backbone, HomeView, HeaderView, NewOrdersView, OrdersView, 
-    EditOrdersView, CopyOrdersView, SearchView, LoginView, Session) {
+], function (_, Backbone, HomeView, HeaderView, NewOrdersView, OrdersView, EditOrdersView, CopyOrdersView, 
+    SearchView, LoginView, NotificationsView, MessagesView, Session) {
     'use strict';
 
     var AppRouter = Backbone.Router.extend ({
@@ -26,6 +28,8 @@ define ([
             'orders/:id/copy': 'copyOrders',
             'orders/search': 'searchOrders',
             'login': 'login',
+            'notifications': 'notifications',
+            'messages': 'messages',
         },
 
         before : function () {
@@ -64,16 +68,21 @@ define ([
             this.activeSidebar($('#search-orders'));
         },
 
-        activeSidebar: function (selector) {
-            selector.addClass ('active');
-            selector.siblings().removeClass ('active');
-        },
-
         login: function () {
             // this.showView (new LoginView ());
             var loginView = new LoginView();
             $('#navigation-wrapper').addClass('hide');
             $('#page-content').html(loginView.render().el);
+        },
+
+        notifications: function () {
+            this.showView (new NotificationsView());
+            this.activeSidebar($('#home'));
+        },
+
+        messages: function () {
+            this.showView (new MessagesView());
+            this.activeSidebar($('#home'));
         },
 
         // Clean previous view and open current view
@@ -93,6 +102,11 @@ define ([
 
             return view;
 
+        },
+
+        activeSidebar: function (selector) {
+            selector.addClass ('active');
+            selector.siblings().removeClass ('active');
         },
 
     });
