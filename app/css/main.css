@@ -5,6 +5,13 @@ body {
     background-color: #8da8b9;
 }
 
+.my-section {
+    border-bottom-style:solid;
+    border-width:1px;
+    border-color:#ffffff;
+    margin-bottom: 20px;
+}
+
 .table-header th{
     font-weight:600;
 }
@@ -194,3 +201,12 @@ body {
     color: #1984CC;
 }
 
+/* css for new orders */
+.margin-top {
+    margin-top:20px;
+}
+.new-order-alert {
+    font-family:verdana; 
+    font-size:14px; 
+    color:#606A69
+}

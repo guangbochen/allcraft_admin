@@ -48,6 +48,7 @@ define ([
          */
         generateOrders: function () {
             var count = this.$('#number_of_order').val();
+            $('#new-order-alert').addClass('hide');
             //if is valid order number displays new orders
             if(isFinite(String(count)) && count) {
                 // Add the create orders section
@@ -74,6 +75,7 @@ define ([
             $('#number_of_order').focus();
             $('#number_of_order').val('');
             $('#orders').html('');
+            $('#new-order-alert').addClass('hide');
         },
 
         /**
@@ -107,15 +109,12 @@ define ([
          */
         notify : function() {
 
-            //TODO display decent notification 
+            //display notification once generate new orders
             $('#save-orders').html('Save Orders')
             $('#orders').html('');
             $('#number_of_order').focus();
             $('#number_of_order').val('');
-            alert('generated orders successfully');
-
-            //redirect to orders page
-            // window.location.hash = 'orders';
+            $('#new-order-alert').removeClass('hide');
         },
 
         /**

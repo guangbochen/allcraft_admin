@@ -40,7 +40,6 @@ define ([
                 success: function (models, response) {
                     var count = response.unread_messages;
                     $('#unread-messages').html(count);
-                    console.log(count);
                 }
             });
         },

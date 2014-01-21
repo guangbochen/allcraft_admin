@@ -8,10 +8,13 @@ define ([
     'transition', //dialog transition
     'models/order',
     'collections/statuses',
+    'collections/users',
     'text!/templates/orders/copy.html',
     'Session',
+    'select2',
 
-], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, StatusesCollection, CopyOrdersTemplate, Session) {
+], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, 
+    StatusesCollection, UsersCollection, CopyOrdersTemplate, Session) {
     'use strict';
 
     var CopyOrdersView = Backbone.View.extend ({
@@ -38,18 +41,18 @@ define ([
          * copyOrder function create new order by using the existing orders
          */
         copyOrder: function (e) {
-
             e.preventDefault();
 
             //serialize the order input
             var input = Backbone.Syphon.serialize (this);
             var creator = JSON.parse($.cookie('user')).username;
             var _this = this;
+            var subscribers = _this.$('#assigned-users').val();
 
             var data = {
                 creator : creator,
                 number_of_orders: '1',
-                subscribers: [],
+                subscribers: subscribers,
                 orders: input
             };
 
@@ -60,7 +63,6 @@ define ([
                 dataType: 'json',
                 type: 'post',
                 success: function (response, textStatus, xhr) {
-
                     //get new generated order number
                     for(var i in response) var order_number = response[i].order_number;
 
@@ -90,6 +92,24 @@ define ([
         },
 
         /**
+         * this function add assign users to the select box
+         */
+        addAssignUsers : function () {
+            //fetch assign users
+            var usersCollection = new UsersCollection();
+            usersCollection.fetch({
+                success: function (models, response) {
+                    var users = response.users;
+                    for (var i in users) {
+                        $('#assigned-users').append('<option value="'
+                            + users[i].username +'">'
+                            + users[i].username + '</option>');
+                    }
+                }
+            });
+        },
+
+        /**
          * renders the view template, and updates this.el with the new HTML
          */
         render: function () {
@@ -108,10 +128,12 @@ define ([
                                 order: model.toJSON(),
                                 statuses: statuses.models,
                             }));
+                            _this.addAssignUsers();
                         }
                     });
                 }
             });
+
             return this;
         },
 

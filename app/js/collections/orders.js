@@ -52,6 +52,7 @@ define ([
                 },
                 error: function () {
                     alert('WARNNING: server internal error, failed to generate new orders.');
+                    $('#save-orders').html('Save Orders')
                 }
             });
         },

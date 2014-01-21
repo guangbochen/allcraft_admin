@@ -22,7 +22,6 @@
                     <button type="button" class="close" onclick="location.href='#/orders';">×</button>
                 </div>
                 <br>
-
                 <!-- new line -->
                 <div class="control-group col-md-12">
                     <label class="control-label" for="order_number"> Order No. </label> 
@@ -281,6 +280,19 @@
                             <input type="text" id="booking" name="booking" value="<%=order.booking%>" class="form-control"/>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- displaying assign staff --> 
+                <script>
+                $("#assigned-users").select2({ placeholder: 'Assign Staff', });
+                </script>
+                <!-- new line -->
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <label class="control-label" for="booking"><span class="badge badge-success"> Assign Staff<span> </label> 
+                        <select multiple="" id="assigned-users" style="width:500px" class="my-input-field" tabindex="-1">
+                        </select>
                     </div>
                 </div>
 
