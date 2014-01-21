@@ -42,7 +42,6 @@ define ([
             //pull notification and private message when receives the push notification
             var headerView = new HeaderView();
             headerView.pullNotification(message);
-            console.log(message);
         }
     });
 

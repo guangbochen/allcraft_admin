@@ -9,12 +9,11 @@
     <div class="col-md-12 ">
         <section class="widget">
             <fieldset>
-                            <!-- <legend>Account Edit Form <small>Some explanation text</small></legend> -->
-                            <legend id="folder-title" class="folder-title">Message Inbox 
-                                <small >(<span id="unread_message">0</span> unread messages)</small>
-                            </legend>
+                <legend id="folder-title" class="folder-title">Message Inbox 
+                    <small >(<span id="unread_message">0</span> unread messages)</small>
+                </legend>
             </fieldset>
-            <hr>
+            <button class="btn btn-primary" id="mark-all-as-read"> Mark all as read</button>
             <div class="body">
                 <table class="table table-hover table-striped">
                     <thead>
@@ -24,6 +23,7 @@
                         <th>Receiver</th>
                         <th>Created at</th>
                         <th>Description</th>
+                        <th>Stuats</th>
                     </tr>
                     </thead>
                     <tbody id="messages-table-body">

@@ -18,6 +18,11 @@ define ([
          */
         initialize: function (options) {
             this.messages = options;
+            this.is_read = options.is_read;
+            if(this.is_read == 0)
+                this.is_read = '<span class="badge badge-danger">Unread</span>';
+            else
+                this.is_read = '<span class="badge badge-success">Read</span>';
         },
 
 
@@ -28,6 +33,7 @@ define ([
 
             this.$el.html (this.template ({ 
                 messages : this.messages,
+                is_read : this.is_read,
             }));
             return this;
         },

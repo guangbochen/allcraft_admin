@@ -8,14 +8,16 @@ define ([
     'Session',
     'collections/messages',
     'views/messages/message',
+    'views/home/header',
 
-], function (_, Backbone, Common, MessagesTemplate, Session, MessageCollection, MessageView) {
+], function (_, Backbone, Common, MessagesTemplate, Session, MessageCollection, MessageView, HeaderView) {
 
     'use strict';
 
     var MessagesView = Backbone.View.extend({
 
         template: _.template (MessagesTemplate),
+        url: Common.ApiUrl + '/messages/setRead',
         limit:  10,
 
         /**
@@ -29,6 +31,7 @@ define ([
 
         events: {
             'click li': 'fetchMessagesByPagi',
+            'click #mark-all-as-read': 'markAllMessagesAsRead',
         },
 
         /**
@@ -45,27 +48,30 @@ define ([
             this.fetchMessages(offset,this.limit, this.receiver);
         },
 
+        displayMessages : function (response) {
+            var that = this;
+            $('#messages-table-body').empty();
+            // Add a single order placeholder
+            var messages = response.messages;
+            for (var i in messages) {
+                var messageView = new MessageView(messages[i]);
+                that.$el.find('tbody').append(messageView.render().el);
+            }
+            //update count of unread messages
+            $('#unread_message').html(response.unread_messages);
+        
+        },
+
         /**
          * this method fetches notifcation from restful server
          */
         fetchMessages : function (offset, limit, receiver) {
             var that = this;
-
             this.messages.fetchByPagi(offset, limit, receiver);
 
             this.messages.fetch ({
                 success: function (models, response) {
-                    var messageView = null;
-                    $('#messages-table-body').empty();
-                    // Add a single order placeholder
-                    var messages = response.messages;
-                    for (var i in messages) {
-                        messageView = new MessageView(messages[i]);
-                        that.$el.find('tbody').append(messageView.render().el);
-                    }
-
-                    //update count of unread messages
-                    $('#unread_message').html(response.unread_messages);
+                    that.displayMessages(response);
                 }
             });
         },
@@ -79,6 +85,7 @@ define ([
             this.messages.fetch ({
                 success: function (models, response) {
                     var pages = Math.ceil(response.count/that.limit);
+                    $('#messages-paginations') .empty();
                     for(var i=1; i<=pages; i++){
                         if(i === 1) 
                             $('#messages-paginations') .append('<li class="active hand-cursor"><a>'+i+'</a></li>');
@@ -90,6 +97,34 @@ define ([
                 }
             });
         },
+
+        /**
+         * this function set all unread messages status into read
+         */
+        markAllMessagesAsRead : function () {
+            var that = this;
+            var receiver = Session.getUsername();
+            var data = { 'username' : receiver}
+
+            // update messages status 
+            $.ajax ({
+                url: this.url,
+                data: JSON.stringify (data),
+                dataType: 'json',
+                type: 'post',
+                success: function (response) {
+                    // update message box in the header
+                    var headerView = new HeaderView();
+                    headerView.loadMessages();
+
+                    // update messages status
+                    that.displayMessages(response);
+                    that.showsPaginations();
+                }
+            });
+        },
+
+
         /**
          * renders the view template, and updates this.el with the new HTML
          */

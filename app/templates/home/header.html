@@ -11,37 +11,27 @@
     <header class="page-header">
         <div class="navbar"> 
             <ul class="nav navbar-nav navbar-right pull-right">
-                <li class="dropdown">
-                    <a title="Messages" id="messages" class="dropdown-toggle hand-cursor" data-toggle="dropdown">
+
+                <!-- shows messages --> 
+                <li class="dropdown" id="messages">
+                    <a title="Messages" class="dropdown-toggle hand-cursor" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="count">1</span>
+                        <div id="messages-count"> </div>
                     </a>
-                    <!-- <ul id="messages-menu" class="dropdown-menu messages" role="menu"> -->
-                    <!--     <li role="presentation"> -->
-                    <!--         <a href="#" class="message"> -->
-                    <!--             <img src="" alt=""> -->
-                    <!--             <div class="details"> -->
-                    <!--                 <div class="sender">Michał Rumiancaŭ</div> -->
-                    <!--                 <div class="text"> -->
-                    <!--                     Is it really Lore ipsum? Lore ... -->
-                    <!--                 </div> -->
-                    <!--             </div> -->
-                    <!--         </a> -->
-                    <!--     </li> -->
-                    <!--     <li role="presentation"> -->
-                    <!--         <a href="#" class="text-align-center see-all"> -->
-                    <!--             See all messages <i class="fa fa-arrow-right"></i> -->
-                    <!--         </a> -->
-                    <!--     </li> -->
-                    <!-- </ul> -->
+                    <ul id="messages-menu" class="dropdown-menu support" role="menu">
+                    </ul>
                 </li>
+
+                <!-- shows notifications -->
                 <li class="dropdown" id="notifications">
-                    <a id="notification-icon" title="Notification" class="dropdown-toggle hand-cursor" data-toggle="dropdown">
+                    <a title="Notification" class="dropdown-toggle hand-cursor" data-toggle="dropdown">
                         <i class="fa fa-group"> </i>
+                        <div id="notifications-count"> </div>
                     </a>
                     <ul id="notifications-menu" class="dropdown-menu support" role="menu">
                     </ul>
                 </li>
+
                 <li class="divider"></li>
                 <!-- logout button allows user to logout -->
                 <li class="hidden-xs">

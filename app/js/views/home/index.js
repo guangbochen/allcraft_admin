@@ -15,6 +15,9 @@ define ([
         template: _.template (HomeTemplate),
         username: '',
 
+        /**
+         * constructor
+         */
         initialize: function () {
 
             Session.getAuth ();
@@ -25,14 +28,21 @@ define ([
 
         },
 
+        events: { },
 
-        events: {
-        },
-
+        /**
+         * fetchMessages function fetches count of unread message
+         */
         fetchMessages : function () {
             var messagesCollection = new MessagesCollection();
-            var count = messagesCollection.countUnreadMessags();
-            console.log(count);
+            messagesCollection.countUnreadMessags();
+            messagesCollection.fetch({
+                success: function (models, response) {
+                    var count = response.unread_messages;
+                    $('#unread-messages').html(count);
+                    console.log(count);
+                }
+            });
         },
 
         /**
