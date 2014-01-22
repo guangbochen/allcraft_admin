@@ -2,7 +2,7 @@ define([
 
     'backbone',
     'router',
-    'Common',
+    'common',
     'httpAuthen',
     'jquery_cookie',
 

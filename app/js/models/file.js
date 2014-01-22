@@ -11,7 +11,17 @@ define ([
     var FileModel = Backbone.Model.extend ({ 
         urlRoot: Common.ApiUrl + '/files',
 
-        initialize: function(){
+        initialize: function () {
+            this.bind ('request', this.indicate, this);
+            this.bind ('sync', this.disindicate, this);
+        },
+
+        indicate: function () {
+            $('#indicator').show();
+        },
+
+        disindicate: function () {
+            $('#indicator').hide();
         },
     }); 
 

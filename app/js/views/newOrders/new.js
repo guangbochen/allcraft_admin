@@ -53,18 +53,18 @@ define ([
             if(isFinite(String(count)) && count) {
                 // Add the create orders section
                 var ordersPlaceholderView = new NewOrdersPartial({ count: count });
-                this.$('#orders').html (ordersPlaceholderView.render().el);
-                this.$('#order-table').width (this.$('#order-table table').width() * 4);
+                $('#orders').html (ordersPlaceholderView.render().el);
+                $('#order-table').width (this.$('#order-table table').width() * 4);
 
                 //removes the error message 
-                this.$('#number_of_order').removeClass('parsley-validated parsley-error');
-                this.$('#order-number-validation').html('');
+                $('#number_of_order').removeClass('parsley-validated parsley-error');
+                $('#order-number-validation').html('');
             }
             else {
                 //display validation message
-                this.$('#number_of_order').focus();
-                this.$('#number_of_order').addClass('parsley-validated parsley-error');
-                this.$('#order-number-validation').html('Invalid order number');
+                $('#number_of_order').focus();
+                $('#number_of_order').addClass('parsley-validated parsley-error');
+                $('#order-number-validation').html('Invalid order number');
             }
         },
 

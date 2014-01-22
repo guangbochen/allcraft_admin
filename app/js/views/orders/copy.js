@@ -12,6 +12,7 @@ define ([
     'text!/templates/orders/copy.html',
     'Session',
     'select2',
+    'maskedinput',
 
 ], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, 
     StatusesCollection, UsersCollection, CopyOrdersTemplate, Session) {
@@ -62,18 +63,22 @@ define ([
                 data: JSON.stringify (data),
                 dataType: 'json',
                 type: 'post',
+                beforeSend: function() {
+                    $('#copyOrder').html('<i class="fa fa-spinner fa-spin"></i>');
+                },
                 success: function (response, textStatus, xhr) {
                     //get new generated order number
                     for(var i in response) var order_number = response[i].order_number;
 
                     //display message after complete copy action
-                    _this.$("#copy-submit-message").html(" <i class='fa fa-check-square-o'></i>"
+                    $("#copy-submit-message").html(" <i class='fa fa-check-square-o'></i>"
                         + " Thanks, you have generated a new order '"
                         + order_number+"' successfully.");
 
                     //display message dialog
-                    _this.$('#copy-submit-dialog').modal({ backdrop: 'static', keyboard: false });
-                    _this.$('#copy-submit-dialog').modal('show');
+                    $('#copy-submit-dialog').modal({ backdrop: 'static', keyboard: false });
+                    $('#copy-submit-dialog').modal('show');
+                    $('#copyOrder').html('Save Changes');
                 }
             });
         },
@@ -83,9 +88,9 @@ define ([
          */
         redirectToOrders: function () {
             //dismiss the modal dialog
-            this.$('#copy-submit-dialog').modal('hide');
+            $('#copy-submit-dialog').modal('hide');
             //hidden.bs.modal will wait modal transition to complete, then redirect the page
-            this.$('#copy-submit-dialog').on('hidden.bs.modal', function () {
+            $('#copy-submit-dialog').on('hidden.bs.modal', function () {
                 //redirect to orders page
                 window.location.hash = 'orders';
             });
@@ -129,6 +134,11 @@ define ([
                                 statuses: statuses.models,
                             }));
                             _this.addAssignUsers();
+
+                            //mask date input formart
+                            $("#date_in").mask("99/99/9999 99:99");
+                            $("#date_approved").mask("99/99/9999 99:99");
+                            $("#date_required").mask("99/99/9999 99:99");
                         }
                     });
                 }

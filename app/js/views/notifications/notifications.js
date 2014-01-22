@@ -16,7 +16,7 @@ define ([
     var NotificationsView = Backbone.View.extend({
 
         template: _.template (NotificationsTemplate),
-        limit:  10,
+        limit:  7,
 
         /**
          * constructor

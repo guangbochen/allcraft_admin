@@ -10,7 +10,6 @@ define ([
     var NotificationCollection = Backbone.Collection.extend ({ 
 
         //define collection model
-        // model : FileModel,
         url: Common.ApiUrl + '/notifications',
 
         /**

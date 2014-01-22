@@ -19,7 +19,7 @@
         <form class="form-horizontal label-left">
             <section class="widget">
                 <div class="control-group">
-                    <button type="button" class="close" onclick="location.href='#/orders';">×</button>
+                    <button type="button" class="close"><a href="#/orders">×</a></button>
                 </div>
                 <br>
                 <!-- new line -->
@@ -184,7 +184,7 @@
                         <label class="control-label" for="date_in"> Date In </label> 
                         <div class="form-group">
                             <div class="col-sm-7">
-                            <input type="text" id="date_in" name="date_in" value="<%=order.date_in%>" class="form-control"/>
+                            <input type="text" id="date_in" name="date_in" value="<%=order.date_in%>" class="form-control" placeholder="dd/mm/yyyy hh:mm"/>
                             </div>
                         </div>
                     </div>
@@ -194,7 +194,7 @@
                         <div class="form-group">
                             <div class="col-sm-7">
                             <input type="text" id="date_approved" name="date_approved"  class="form-control"
-                            value="<%=order.date_approved%>" />
+                            value="<%=order.date_approved%>" placeholder="dd/mm/yyyy hh:mm"/>
                             </div>
                         </div>
                     </div>
@@ -204,7 +204,7 @@
                         <div class="form-group">
                             <div class="col-sm-7">
                             <input type="text" id="date_required" name="date_required" 
-                            value="<%=order.date_required%>" class="form-control" />
+                            value="<%=order.date_required%>" class="form-control" placeholder="dd/mm/yyyy hh:mm"/>
                             </div>
                         </div>
                     </div>
@@ -300,7 +300,7 @@
                 <div class="form-actions">
                     <div class="submission-form">
                         <a href="#/orders"><input type="button" class="btn btn-lg btn-default" value="Cancel" /></a>
-                        <input type="submit" class="btn btn-lg btn-success" value="Save as new" />
+                        <button class="btn btn-lg btn-success" id="copyOrder">Save as new</button>
                     </div>
                 </div>
             </section>
@@ -313,14 +313,15 @@
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <button id="redirect-to-orders" type="button" class="close">×</button>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h4 class="modal-title">Message</h4>
         </div>
         <div class="modal-body">
             <h4 id="copy-submit-message"></h4>
         </div>
         <div class="modal-footer">
-            <button id="redirect-to-orders" type="button" class="btn btn-lg btn-primary">OK</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
+            <button id="redirect-to-orders" type="button" class="btn btn-primary"> Return to Orders</button>
         </div>
     </div><!-- /.modal-content -->
 </div>

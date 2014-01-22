@@ -96,8 +96,8 @@ define ([
             var that = this;
             this.notificationsCollection.fetch({
                 success: function (models, response){
-                    $('#notifcations-menu').empty();
                     var notifications = response.notifications;
+                    $('#notifications-menu').empty();
                     for (var i in notifications) {
                         $('#notifications-menu').append(' <li role="presentation"> ' 
                             + '<a href="#/notifications" class="support-ticket"> '
@@ -152,8 +152,8 @@ define ([
         render: function () {
 
             //load notifications and messages
-            this.loadNotifications();
             this.loadMessages();
+            this.loadNotifications();
 
             // Load the compiled HTML template into the Backbone "el"
             this.$el.html (this.template());

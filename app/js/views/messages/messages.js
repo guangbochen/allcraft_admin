@@ -18,7 +18,7 @@ define ([
 
         template: _.template (MessagesTemplate),
         url: Common.ApiUrl + '/messages/setRead',
-        limit:  10,
+        limit:  7,
 
         /**
          * constructor
@@ -106,6 +106,7 @@ define ([
             var receiver = Session.getUsername();
             var data = { 'username' : receiver}
 
+            $('#mark-all-as-read').html('<i class="fa fa-spinner fa-spin"></i>');
             // update messages status 
             $.ajax ({
                 url: this.url,
@@ -120,7 +121,13 @@ define ([
                     // update messages status
                     that.displayMessages(response);
                     that.showsPaginations();
+                    $('#mark-all-as-read').html('Mark all as read');
+                },
+                error : function (){
+                    alert('Server internal error, please try again')
+                    $('#mark-all-as-read').html('Mark all as read');
                 }
+                
             });
         },
 

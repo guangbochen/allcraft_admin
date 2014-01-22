@@ -8,6 +8,10 @@
  */
 (function(Backbone){
     Backbone.UploadManager = Backbone.DeferedView.extend({
+
+        fileUrl :  'http://api.printee.dev',
+        // fileUrl :  'http://hoochcreative.com.au/allcraft_api/server',
+
         /**
          * Default options, that will be merged with the passed.
          * 
@@ -95,16 +99,14 @@
         /**
          * showsUploadedFile function update file list after upload new files
          */
-        showsUploadedFiles: function (response) {
-
-            var ApiUrl =  'http://api.printee.dev';
-            $('#uploaded-file-list table tbody').empty();
+        showsUploadedFiles: function require(response) {
 
             if(response.length != 0) $('#no-files').empty();
+            $('#uploaded-file-list table tbody').empty();
 
             for (var i in response) {
                 var row = '<tr>'
-                    +'<td><a href="'+ ApiUrl + response[i].download_url + '" target="_blank">'
+                    +'<td><a href="'+ this.fileUrl + response[i].download_url + '" target="_blank">'
                     +response[i].name+'</a></td>'
                     +'<td>'+response[i].size+'</td>'
                     +'<td>'+response[i].uploaded_at+'</td>'
@@ -113,6 +115,7 @@
                     +'</tr>';
                 $('#uploaded-file-list table tbody').append(row);
             }
+            
         },
 
         /**
@@ -422,7 +425,7 @@
              */
             hasFailed: function (error)
             {
-                $('span.message', this.el).html('<i class="icon-error"></i> '+error);
+                $('span.message', this.el).html('<i class="fa fa-frown-o" style="color:red"> '+ error +'</i> ');
             },
             
             /**
@@ -431,7 +434,7 @@
              */
             hasDone: function (result)
             {
-                $('span.message', this.el).html('<i class="icon-success"></i> Uploaded');
+                $('span.message', this.el).html('<i class="fa fa-check" style="color:green"> Uploaded</i>');
             },
             
             /**

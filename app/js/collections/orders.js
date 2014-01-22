@@ -11,24 +11,20 @@ define ([
     var OrdersCollection = Backbone.Collection.extend ({ 
 
         //define instances
-        // model : OrderModel,
+        model : OrderModel,
         url: Common.ApiUrl + '/orders',
 
         initialize: function () {
             this.bind ('request', this.indicate, this);
             this.bind ('sync', this.disindicate, this);
-            this.bind ('error', this.showError, this);
         },
 
         indicate: function () {
-            $('.indicator').show();
+            $('#indicator').show();
         },
 
         disindicate: function () {
-            $('.indicator').hide();
-        },
-
-        showError: function () {
+            $('#indicator').hide();
         },
 
         sortBy: function (comparator) {

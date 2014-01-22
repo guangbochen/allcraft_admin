@@ -1,11 +1,12 @@
 define ([
 
+    'jquery',
     'backbone',
     'router', 
     'Session',
     'views/home/header'
 
-], function (Backbone, Router, Session, HeaderView) {
+], function ($, Backbone, Router, Session, HeaderView) {
 
     // Add truncate ability for String prototype
     String.prototype.trunc = function(n, useWordBoundary) {

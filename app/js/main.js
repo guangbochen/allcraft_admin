@@ -12,14 +12,14 @@ require.config ({
         moment     : 'vendor/momentjs/min/moment.min',
         propertyParser : 'vendor/requirejs-plugins/src/propertyParser',
         pubnub     : 'vendor/pubnub/web/pubnub.min',
-        // maskedinput : 'vendor/light-blue-white/lib/jquery-maskedinput/jquery.maskedinput',
+        maskedinput : 'vendor/light-blue-white/lib/jquery-maskedinput/jquery.maskedinput',
         // plugin for file upload
         widget           : 'vendor/jquery-file-upload/js/vendor/jquery.ui.widget',
         iframe_transport : 'vendor/jquery-file-upload/js/jquery.iframe-transport',
         fileupload       : 'vendor/jquery-file-upload/js/jquery.fileupload',
         httpAuthen       : 'authen/backbone.basicauth', //basic http authen
         jquery_cookie    : 'vendor/jquery-cookie/jquery.cookie',
-        select2          : 'vendor/light-blue-white/lib/select2'
+        select2          : 'vendor/light-blue-white/lib/select2',
     }
 });
 

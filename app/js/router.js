@@ -1,4 +1,5 @@
 define ([
+    'jquery',
     'underscore',
     'backbone',
     'views/home/index',
@@ -13,7 +14,7 @@ define ([
     'views/messages/messages',
     'Session',
 
-], function (_, Backbone, HomeView, HeaderView, NewOrdersView, OrdersView, EditOrdersView, CopyOrdersView, 
+], function ($, _, Backbone, HomeView, HeaderView, NewOrdersView, OrdersView, EditOrdersView, CopyOrdersView, 
     SearchView, LoginView, NotificationsView, MessagesView, Session) {
     'use strict';
 
@@ -73,6 +74,7 @@ define ([
             var loginView = new LoginView();
             $('#navigation-wrapper').addClass('hide');
             $('#page-content').html(loginView.render().el);
+            $('#indicator').hide();
         },
 
         notifications: function () {
@@ -88,18 +90,17 @@ define ([
         // Clean previous view and open current view
         showView:function (view) {
 
+            //render page header template to the view
+            var headerView = new HeaderView();
+            $('#page-header').html(headerView.render().el);
             
             if (this.currentView) this.currentView.close();
             this.currentView = view;
 
-            //render page header template to the view
-            var headerView = new HeaderView();
-            $('#page-header').html(headerView.render().el);
-
             //render template to the view
             $('#navigation-wrapper').removeClass('hide');
             $('#page-content').html(view.render().el);
-
+            $('#indicator').hide();
             return view;
 
         },

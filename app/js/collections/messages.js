@@ -11,7 +11,6 @@ define ([
     var MessagesCollection = Backbone.Collection.extend ({ 
 
         //define collection model
-        // model : FileModel,
         url: Common.ApiUrl + '/messages',
 
         /**

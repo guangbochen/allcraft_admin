@@ -16,6 +16,7 @@ define ([
     'widget',
     'iframe_transport',
     'fileupload',
+    'maskedinput',
 
 ], function (_, Backbone, Syphon, Common, Modal, Transition, OrderModel, 
     StatusesCollection, FilesCollection, EditOrdersTemplate, pdfTemplate, Session) {
@@ -26,13 +27,14 @@ define ([
 
         template: _.template (EditOrdersTemplate),
         pdfTemplate: _.template (pdfTemplate),
+        // downloadFileUrl: 'http://hoochcreative.com.au/allcraft_api/server',
 
         // constructor
         // ====================================================
         initialize: function (options) {
             Session.getAuth ();
             _.bindAll (this, 'updateOrder');
-            this.order = new OrderModel ({id: options.id});
+            this.orderModel = new OrderModel ({id: options.id});
         },
 
         events: {
@@ -69,9 +71,18 @@ define ([
 
             e.preventDefault();
 
+            //serialize the order input
             var input = Backbone.Syphon.serialize (this);
+            var creator = JSON.parse($.cookie('user')).username;
             var _this = this;
-            this.order.save (input, {
+
+            var data = {
+                creator : creator,
+                number_of_orders: '1',
+                orders: input,
+            };
+
+            this.orderModel.save (data, {
                 success: function (model) {
 
                     // update pdf template to the view
@@ -101,7 +112,7 @@ define ([
                     if(models.length != 0) _this.$('#no-files').empty();
                     for (var i in response) {
                         var row = '<tr>'
-                            +'<td><a href="'+ Common.ApiUrl + response[i].download_url + '" target="_blank">'
+                            +'<td><a href="'+ Common.fileUrl + response[i].download_url + '" target="_blank">'
                             +response[i].name+'</a></td>'
                             +'<td>'+response[i].size+'</td>'
                             +'<td>'+response[i].uploaded_at+'</td>'
@@ -123,7 +134,7 @@ define ([
             var statuses = new StatusesCollection ();
 
             //fetch an specific order
-            this.order.fetch ({
+            this.orderModel.fetch ({
                 success: function (model, response, options) {
                     //fetch all statuses
                     statuses.fetch ({
@@ -142,6 +153,11 @@ define ([
                             //fetch files via order number
                             var order_number = model.get('order_number');
                             _this.loadFiles(order_number);
+
+                            //mask date input formart
+                            $("#date_in").mask("99/99/9999 99:99");
+                            $("#date_approved").mask("99/99/9999 99:99");
+                            $("#date_required").mask("99/99/9999 99:99");
                         }
                     });
                 }
