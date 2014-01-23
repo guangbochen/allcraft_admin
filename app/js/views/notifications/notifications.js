@@ -4,7 +4,7 @@ define ([
     'underscore',
     'backbone',
     'common',
-    'text!/templates/notifications/index.html',
+    'text!templates/notifications/index.html',
     'Session',
     'collections/notifications',
     'views/notifications/notification',
@@ -22,6 +22,9 @@ define ([
          * constructor
          */
         initialize: function () {
+            //validate user authen
+            Session.getAuth ();
+
             _.bindAll (this, 'fetchNotificationsByPagi');
             this.notifications = new NotificationCollection();
         },

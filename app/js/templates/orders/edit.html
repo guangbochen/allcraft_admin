@@ -2,7 +2,6 @@
 <!-- js dependecy for the file upload manager -->
 <script  src="js/views/orders/upload-defered-view.js"></script>
 <script  src="js/views/orders/upload-manager.js"></script>
-<script  src="js/common.js"></script>
 
 <div id="edit-orders-content">
     <div class="row col-md-12">
@@ -297,9 +296,8 @@
                 <!-- submission button -->
                 <div class="form-actions">
                     <div class="submission-form">
-                        <a href="#/orders"><input type="button" class="btn btn-lg btn-default" value="Cancel" /></a>
-                        <button class="btn btn-lg btn-success" id="saveOrder">Save Changes</button>
-                        <!-- <button class="btn btn-lg btn-success"><i class="fa fa-spinner fa-spin"> </i></button> -->
+                        <a href="#/orders"><input type="button" class="btn btn-lg btn-default" value="Cancel"/></a>
+                        <button class="btn btn-lg btn-success" id="update-order"> Save Changes </button>
                     </div>
                 </div>
             </form>
@@ -321,11 +319,11 @@
 
 	                         // Create the upload manager
 	                         window.uploadManager = new Backbone.UploadManager({
-	                             'uploadUrl': 'http://api.printee.dev/upload',
-	                             <!-- 'uploadUrl': 'http://allcraftapi.hoochcreative.com.au/upload', -->
+	                             <!-- 'uploadUrl': 'http://api.printee.dev/upload', -->
+	                             'uploadUrl': 'http://allcraftapi.hoochcreative.com.au/upload',
 	                             'templates': {
-	                                 'main': 'orders/upload-manager.main',
-	                                 'file': 'orders/upload-manager.file'
+	                                 'main': '/js/templates/orders/upload-manager.main',
+	                                 'file': '/js/templates/orders/upload-manager.file'
 	                             },
                                  'order_number': order_number
 	                         });

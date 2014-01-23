@@ -6,7 +6,7 @@ define ([
     'common',
     'collections/orders',
     'views/newOrders/newOrdersPartial',
-    'text!/templates/newOrders/new.html',
+    'text!templates/newOrders/new.html',
     'Session'
 
 ], function (_, Backbone, Syphon, Common, OrdersCollection, NewOrdersPartial, NewOrdersTemplate, Session) {
@@ -27,7 +27,6 @@ define ([
 
             //initialize orders collection
             this.ordersCollection = new OrdersCollection ();
-            // _.bindAll (this, 'push', 'render');
             _.bindAll (this, 'render', 'clearOrders');
 
             // Notify when collection has been added new models

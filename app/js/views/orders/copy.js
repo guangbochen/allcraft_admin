@@ -9,7 +9,7 @@ define ([
     'models/order',
     'collections/statuses',
     'collections/users',
-    'text!/templates/orders/copy.html',
+    'text!templates/orders/copy.html',
     'Session',
     'select2',
     'maskedinput',
@@ -78,7 +78,7 @@ define ([
                     //display message dialog
                     $('#copy-submit-dialog').modal({ backdrop: 'static', keyboard: false });
                     $('#copy-submit-dialog').modal('show');
-                    $('#copyOrder').html('Save Changes');
+                    $('#copyOrder').html('Save as new');
                 }
             });
         },

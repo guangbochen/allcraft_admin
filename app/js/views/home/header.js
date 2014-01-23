@@ -4,7 +4,7 @@ define ([
     'underscore',
     'backbone',
     'common',
-    'text!/templates/home/header.html',
+    'text!templates/home/header.html',
     'Session',
     'collections/notifications',
     'collections/messages',
@@ -134,10 +134,13 @@ define ([
                     };
 
                     //append count of unread message to header view
-                    if(response.unread_messages != 0)
+                    if(response.unread_messages != 0) {
                         $('#messages-count').append('<span class="count">'+ response.unread_messages + '</span>');
-                    else
+                        $('.unread-messages').html(response.unread_messages);
+                    } else {
                         $('#messages-count').empty();
+                        $('.unread-messages').empty();
+                    }
 
                     // append see all messages button
                     that.appendSeeAllButtonToMessages();
@@ -151,12 +154,12 @@ define ([
          */
         render: function () {
 
+            // Load the compiled HTML template into the Backbone "el"
+            this.$el.html (this.template());
             //load notifications and messages
             this.loadMessages();
             this.loadNotifications();
 
-            // Load the compiled HTML template into the Backbone "el"
-            this.$el.html (this.template());
             return this;
         },
 

@@ -2,7 +2,7 @@ define ([
 
     'underscore',
     'backbone',
-    'text!/templates/home/home.html',
+    'text!templates/home/home.html',
     'Session',
     'collections/messages',
 

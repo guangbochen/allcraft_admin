@@ -2,7 +2,7 @@ define ([
 
     'underscore',
     'backbone',
-    'text!/templates/notifications/notification.html',
+    'text!templates/notifications/notification.html',
 
 ], function (_, Backbone, NotificationTemplate) {
     'use strict';

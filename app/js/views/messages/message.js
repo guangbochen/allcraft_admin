@@ -3,7 +3,7 @@ define ([
 
     'underscore',
     'backbone',
-    'text!/templates/messages/message.html',
+    'text!templates/messages/message.html',
 
 ], function (_, Backbone, MessageTemplate) {
     'use strict';

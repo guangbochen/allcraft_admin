@@ -11,23 +11,13 @@ define ([
     var FilesCollection = Backbone.Collection.extend ({ 
 
         //define collection model
-        model : FileModel,
+        // model : FileModel,
         url: Common.ApiUrl + '/files',
 
         /**
          * default constructor
          */
         initialize: function () {
-            this.bind ('request', this.indicate, this);
-            this.bind ('sync', this.disindicate, this);
-        },
-
-        indicate: function () {
-            $('#indicator').show();
-        },
-
-        disindicate: function () {
-            $('#indicator').hide();
         },
 
         /**

@@ -11,7 +11,7 @@ define ([
     var SearchCollection = Backbone.Collection.extend ({ 
 
         //define collection model
-        model : SearchModel,
+        // model : SearchModel,
         url: Common.ApiUrl + '/search',
 
         /**

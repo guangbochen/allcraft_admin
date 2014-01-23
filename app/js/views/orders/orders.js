@@ -4,7 +4,7 @@ define ([
     'backbone',
     'collections/orders',
     'collections/searchs',
-    'text!/templates/orders/orders.html',
+    'text!templates/orders/orders.html',
     'moment',
     'views/search/search',
     'Session'

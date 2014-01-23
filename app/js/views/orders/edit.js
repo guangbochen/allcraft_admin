@@ -9,8 +9,8 @@ define ([
     'models/order',
     'collections/statuses',
     'collections/files',
-    'text!/templates/orders/edit.html',
-    'text!/templates/orders/pdf.html',
+    'text!templates/orders/edit.html',
+    'text!templates/orders/pdf.html',
     'Session',
     // dependency for fileupload
     'widget',
@@ -27,7 +27,6 @@ define ([
 
         template: _.template (EditOrdersTemplate),
         pdfTemplate: _.template (pdfTemplate),
-        // downloadFileUrl: 'http://hoochcreative.com.au/allcraft_api/server',
 
         // constructor
         // ====================================================
@@ -41,7 +40,6 @@ define ([
             'submit': 'updateOrder',
             'click #redirect-to-orders': 'redirectToOrders',
             'change .fileUpload'    : 'displayFileUpload',
-            // 'click #submit-upload-files': 'redirectToOrders',
         },
 
         /**
@@ -84,7 +82,6 @@ define ([
 
             this.orderModel.save (data, {
                 success: function (model) {
-
                     // update pdf template to the view
                     _this.$('#job-bag-pdf').empty();
                     _this.$el.append(_this.pdfTemplate({
@@ -126,8 +123,9 @@ define ([
             });
         },
 
-        // renders the view template, and updates this.el with the new HTML
-        // ====================================================
+        /**
+         * renders the view template, and updates this.el with the new HTML
+         */
         render: function () {
 
             var _this = this;
@@ -163,14 +161,10 @@ define ([
                 }
             });
 
-
             return this;
         },
 
-
-
-        onClose: function () {
-        },
+        onClose: function () {},
     });
 
     return EditOrdersView;

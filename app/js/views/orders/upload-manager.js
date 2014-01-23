@@ -9,8 +9,8 @@
 (function(Backbone){
     Backbone.UploadManager = Backbone.DeferedView.extend({
 
-        fileUrl :  'http://api.printee.dev',
-        // fileUrl :  'http://hoochcreative.com.au/allcraft_api/server',
+        // fileUrl :  'http://api.printee.dev',
+        fileUrl :  'http://hoochcreative.com.au/allcraft_api/server',
 
         /**
          * Default options, that will be merged with the passed.
@@ -18,8 +18,8 @@
          */
         defaults: {
             templates: {
-                main: '/templates/upload-manager.main.default',
-                file: '/templates/upload-manager.file.default'
+                main: 'templates/upload-manager.main.default',
+                file: 'templates/upload-manager.file.default'
             },
             uploadUrl: '/upload',
             autoUpload: false

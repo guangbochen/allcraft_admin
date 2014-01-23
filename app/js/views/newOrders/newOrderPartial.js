@@ -2,7 +2,7 @@ define ([
 
     'underscore',
     'backbone',
-    'text!/templates/newOrders/newOrderPartial.html'
+    'text!templates/newOrders/newOrderPartial.html'
 
 ], function (_, Backbone, NewOrderPartialTemplate) {
     'use strict';

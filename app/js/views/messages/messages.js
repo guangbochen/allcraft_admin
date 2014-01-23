@@ -4,7 +4,7 @@ define ([
     'underscore',
     'backbone',
     'common',
-    'text!/templates/messages/index.html',
+    'text!templates/messages/index.html',
     'Session',
     'collections/messages',
     'views/messages/message',
@@ -24,6 +24,9 @@ define ([
          * constructor
          */
         initialize: function () {
+            //validate user authen
+            Session.getAuth ();
+
             _.bindAll (this, 'fetchMessagesByPagi');
             this.messages = new MessageCollection();
             this.receiver = Session.getUsername();

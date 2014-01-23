@@ -4,7 +4,7 @@ define ([
     'underscore',
     'backbone',
     'common',
-    'text!/templates/login/index.html',
+    'text!templates/login/index.html',
     'Session',
     'httpAuthen',
 

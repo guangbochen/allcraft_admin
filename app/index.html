@@ -41,12 +41,26 @@
                         <span class="name"> Orders </span>
                     </a>
                 </li>
-                <li id="search-orders">
-                    <a href="#/orders/search">
-                        <i class="fa fa-search"></i> 
-                        <span class="name"> Search Orders </span>
+                <li id="view-messages">
+                    <a href="#/messages">
+                        <i class="fa fa-envelope-o"></i> 
+                        <span class="name"> Messages </span>
+                        <span class="badge badge-danger unread-messages"></span>
                     </a>
                 </li>
+                <li id="view-notifications">
+                    <a href="#/notifications">
+                        <i class="fa fa-group"></i> 
+                        <span class="name"> Notifications </span>
+                        <span class="badge badge-success unread-notifications"></span>
+                    </a>
+                </li>
+                <!-- <li id="search-orders"> -->
+                <!--     <a href="#/orders/search"> -->
+                <!--         <i class="fa fa-search"></i> --> 
+                <!--         <span class="name"> Search Orders </span> -->
+                <!--     </a> -->
+                <!-- </li> -->
             </ul>
         </nav>
 
@@ -54,13 +68,11 @@
         <div class="wrap" id="page-header"></div>
     </div> <!-- end of navigation wrapper -->
 
-    <div id="indicator" class="wrap">
-        <h2 class="page-loading">
-            <center><i class="fa fa-spinner fa-spin"></i> Loading ...  </center>
-        </h2>
-    </div>
 
     <div class="wrap">
+        <div id="indicator">
+            <h2 class="page-loading"><center><i class="fa fa-spinner fa-spin"></i> Loading ...  </center></h2>
+        </div>
         <!-- page contents in the right side -->
         <div class="content container" id="page-content">
         </div>

@@ -16,7 +16,7 @@
         templates: {},
         
         // Base loading template URL
-        baseUrl: '/templates/{name}',
+        baseUrl: 'templates222/{name}',
         
         // Templates that are currently loading
         loadings: new Array(),

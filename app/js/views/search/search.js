@@ -4,7 +4,7 @@ define ([
     'backbone',
     'collections/orders',
     'collections/searchs',
-    'text!/templates/search/search.html',
+    'text!templates/search/search.html',
     'Session'
 
 ], function (_, Backbone, OrdersCollection, SearchsCollection, SearchTemplate, Session) {

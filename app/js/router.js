@@ -55,6 +55,7 @@ define ([
         },
 
         editOrders: function (id) {
+            var orderModel = 
             this.showView (new EditOrdersView ({id: id}));
             this.activeSidebar($('#view-orders'));
         },
@@ -70,7 +71,6 @@ define ([
         },
 
         login: function () {
-            // this.showView (new LoginView ());
             var loginView = new LoginView();
             $('#navigation-wrapper').addClass('hide');
             $('#page-content').html(loginView.render().el);
@@ -79,12 +79,12 @@ define ([
 
         notifications: function () {
             this.showView (new NotificationsView());
-            this.activeSidebar($('#home'));
+            this.activeSidebar($('#view-notifications'));
         },
 
         messages: function () {
             this.showView (new MessagesView());
-            this.activeSidebar($('#home'));
+            this.activeSidebar($('#view-messages'));
         },
 
         // Clean previous view and open current view

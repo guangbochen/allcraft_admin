@@ -7,7 +7,7 @@ define ([
     'collections/statuses',
     'collections/users',
     'views/newOrders/newOrderPartial',
-    'text!/templates/newOrders/newOrdersPartial.html',
+    'text!templates/newOrders/newOrdersPartial.html',
     'select2'
 
 ], function (_, Backbone, Syphon, LastOrder, StatusesCollection, UsersCollection, NewOrderPartial, NewOrdersPartialTemplate ) {
