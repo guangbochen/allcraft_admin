@@ -7,8 +7,8 @@ define ([
 ], function (Backbone, _, ignore) {
     return {
         ApiUrl: 'http://allcraftapi.hoochcreative.com.au',
-        // ApiUrl: 'http://api.printee.dev',
         fileUrl: 'http://hoochcreative.com.au/allcraft_api/server',
+        // ApiUrl: 'http://api.printee.dev',
         // fileUrl: 'http://api.printee.dev',
         vent: _.extend ({}, Backbone.Events),
         

@@ -1,11 +1,11 @@
 
-
 <script>
-$("#assign-users").select2({ placeholder: 'Assign Staff', });
+$("#assigned-users").select2({ placeholder: 'Assign Staff', });
 </script>
 
-<select multiple=""  id="assign-users" style="width:500px" class="my-input-field" tabindex="-1">
+<select multiple="" id="assigned-users" style="width:500px" class="my-input-field" tabindex="-1">
 </select>
+
 <button id="save-orders" class="btn btn-lg btn-success"> Save Orders </button>
 <section id="order-table">
     <table class="table table-hover">
@@ -39,5 +39,8 @@ $("#assign-users").select2({ placeholder: 'Assign Staff', });
         <tbody>
         </tbody>
     </table>
+    <div id="generating-new-orders">
+        <center><h2><i class="fa fa-refresh fa-spin"></i><small> creating ... </small></h2></center>
+    </div>
 </section>
 

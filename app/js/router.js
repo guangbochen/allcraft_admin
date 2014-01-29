@@ -2,6 +2,8 @@ define ([
     'jquery',
     'underscore',
     'backbone',
+    'collections/users',
+    'collections/statuses',
     'views/home/index',
     'views/home/header',
     'views/newOrders/new',
@@ -14,8 +16,8 @@ define ([
     'views/messages/messages',
     'Session',
 
-], function ($, _, Backbone, HomeView, HeaderView, NewOrdersView, OrdersView, EditOrdersView, CopyOrdersView, 
-    SearchView, LoginView, NotificationsView, MessagesView, Session) {
+], function ($, _, Backbone, UsersCollection, StatusesCollection, HomeView, HeaderView, NewOrdersView, 
+    OrdersView, EditOrdersView, CopyOrdersView, SearchView, LoginView, NotificationsView, MessagesView, Session) {
     'use strict';
 
     var AppRouter = Backbone.Router.extend ({
@@ -33,13 +35,17 @@ define ([
             'messages': 'messages',
         },
 
-        before : function () {
-        
-            console.log('before');
+        /**
+         * constructor
+         */
+        initialize: function () {
+            this.usersCollection = new UsersCollection();
+            this.statusesCollection = new StatusesCollection();
+            this.statusesCollection.fetch();
+            this.usersCollection.fetch();
         },
 
         index: function () {
-            // $('#page-content').html ('<h2> Welcome to Allcraft </h2>');
             this.showView (new HomeView ());
             this.activeSidebar($('#home'));
         },
@@ -50,18 +56,29 @@ define ([
         },
 
         newOrders: function () {
-            this.showView (new NewOrdersView ());
+            this.showView (new NewOrdersView ({
+                usersCollection: this.usersCollection,
+                statusesCollection: this.statusesCollection,
+            }));
             this.activeSidebar($('#new-orders'));
         },
 
         editOrders: function (id) {
             var orderModel = 
-            this.showView (new EditOrdersView ({id: id}));
+            this.showView (new EditOrdersView ({
+                id: id,
+                usersCollection: this.usersCollection,
+                statusesCollection: this.statusesCollection,
+            }));
             this.activeSidebar($('#view-orders'));
         },
 
         copyOrders: function (id) {
-            this.showView (new CopyOrdersView ({id: id}));
+            this.showView (new CopyOrdersView ({ 
+                id: id, 
+                usersCollection: this.usersCollection,
+                statusesCollection: this.statusesCollection,
+            }));
             this.activeSidebar($('#view-orders'));
         },
 
@@ -90,12 +107,12 @@ define ([
         // Clean previous view and open current view
         showView:function (view) {
 
+            if (this.currentView) this.currentView.close();
+            this.currentView = view;
+
             //render page header template to the view
             var headerView = new HeaderView();
             $('#page-header').html(headerView.render().el);
-            
-            if (this.currentView) this.currentView.close();
-            this.currentView = view;
 
             //render template to the view
             $('#navigation-wrapper').removeClass('hide');

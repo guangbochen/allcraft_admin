@@ -1,10 +1,11 @@
 define ([
 
+    'jquery',
     'underscore',
     'backbone',
     'text!templates/newOrders/newOrderPartial.html'
 
-], function (_, Backbone, NewOrderPartialTemplate) {
+], function ($, _, Backbone, NewOrderPartialTemplate) {
     'use strict';
 
     var OrderPlaceholderView = Backbone.View.extend({
@@ -29,17 +30,20 @@ define ([
          */
         render: function () {
 
-            this.$el.html (this.template ({ 
+            this.$el.html (this.template ({
                 //load the default order id and status collection
                 orderId: this.orderId,
                 statuses: this.statuses.models,
                 count: this.count,
-                orderNumber: this.addOrderNumber(this.orderId),
+                orderNumber: this.generateOrderNumber(this.orderId),
             }));
             return this;
         },
 
-        addOrderNumber: function (orderNumber) {
+        /**
+         * this function generates unique order number
+         */
+        generateOrderNumber: function (orderNumber) {
             var str = "" + orderNumber;
             var pad = "00000";
             str = pad.substring(0, pad.length - str.length) + str;

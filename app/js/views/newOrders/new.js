@@ -1,5 +1,6 @@
 define ([
 
+    'jquery',
     'underscore',
     'backbone',
     'syphon',
@@ -9,25 +10,25 @@ define ([
     'text!templates/newOrders/new.html',
     'Session'
 
-], function (_, Backbone, Syphon, Common, OrdersCollection, NewOrdersPartial, NewOrdersTemplate, Session) {
+], function ($, _, Backbone, Syphon, Common, OrdersCollection, NewOrdersPartial, NewOrdersTemplate, Session) {
     'use strict';
 
     var NewOrdersView = Backbone.View.extend({
 
-        //compile the new order template using the underscore
         template: _.template (NewOrdersTemplate),
 
         /**
          * constructor
          */
-        initialize: function () {
+        initialize: function (options) {
 
             //validate user authen
             Session.getAuth ();
 
             //initialize orders collection
             this.ordersCollection = new OrdersCollection ();
-            _.bindAll (this, 'render', 'clearOrders');
+            this.usersCollection = options.usersCollection;
+            this.statusesCollection = options.statusesCollection;
 
             // Notify when collection has been added new models
             this.ordersCollection.on('notify', this.notify);
@@ -50,14 +51,18 @@ define ([
             $('#new-order-alert').addClass('hide');
             //if is valid order number displays new orders
             if(isFinite(String(count)) && count) {
-                // Add the create orders section
-                var ordersPlaceholderView = new NewOrdersPartial({ count: count });
-                $('#orders').html (ordersPlaceholderView.render().el);
-                $('#order-table').width (this.$('#order-table table').width() * 4);
+                // append new generated order to the view
+                var ordersPlaceholderView = new NewOrdersPartial({ 
+                    count: count,
+                    usersCollection: this.usersCollection,
+                    statusesCollection: this.statusesCollection,
+                });
+                $('#orders').html(ordersPlaceholderView.render().el);
+                $('#order-table').width(this.$('#order-table table').width() * 4);
 
                 //removes the error message 
                 $('#number_of_order').removeClass('parsley-validated parsley-error');
-                $('#order-number-validation').html('');
+                $('#order-number-validation').empty();
             }
             else {
                 //display validation message
@@ -88,7 +93,7 @@ define ([
             var orders = $.map( Backbone.Syphon.serialize (this), function (order) { 
                 return order; 
             });
-            var assigned_user = that.$('#assign-users').val();
+            var assigned_user = that.$('#assigned-users').val();
             var count = that.$('#number_of_order').val();
             var creator = JSON.parse($.cookie('user')).username;
 
@@ -98,8 +103,9 @@ define ([
                 subscribers: assigned_user,
                 orders: orders
             };
+
             // call orders collection and save orders into the server
-            this.ordersCollection.saveOrders (data);
+            this.ordersCollection.saveOrders(data);
             $('#save-orders').html('<i class="fa fa-spinner fa-spin"></i>')
         },
 

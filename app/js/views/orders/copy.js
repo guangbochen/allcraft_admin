@@ -27,13 +27,24 @@ define ([
          * constructor
          */
         initialize: function (options) {
-            Session.getAuth ();
-            _.bindAll (this, 'copyOrder');
+
             this.order = new OrderModel ({id: options.id});
+            this.usersCollection = options.usersCollection;
+            this.statusesCollection = options.statusesCollection;
+
+            //reset the render if the sync is called
+            this.usersCollection.on ('sync reset', this.render, this);
+            this.statusesCollection.on ('sync reset', this.render, this);
+
+            // Fetch only when users or statuses collection is empty
+            if (this.usersCollection.length === 0) 
+                this.usersCollection.fetch ();
+            if (this.statusesCollection.length === 0) 
+                this.statusesCollection.fetch ();
         },
 
         events: {
-            'submit': 'copyOrder',
+            'click #copy-order': 'copyOrder',
             'click #redirect-to-orders': 'redirectToOrders',
         },
 
@@ -57,20 +68,13 @@ define ([
                 orders: input
             };
 
-            //post new order via ajax
-            $.ajax ({
-                url: this.url,
-                data: JSON.stringify (data),
-                dataType: 'json',
-                type: 'post',
-                beforeSend: function() {
-                    $('#copyOrder').html('<i class="fa fa-spinner fa-spin"></i>');
-                },
-                success: function (response, textStatus, xhr) {
+            var newOrder = new OrderModel();
+            newOrder.save(data, {
+                success: function (models, response) {
                     //get new generated order number
                     for(var i in response) var order_number = response[i].order_number;
 
-                    //display message after complete copy action
+                    // //display message after complete copy action
                     $("#copy-submit-message").html(" <i class='fa fa-check-square-o'></i>"
                         + " Thanks, you have generated a new order '"
                         + order_number+"' successfully.");
@@ -78,7 +82,6 @@ define ([
                     //display message dialog
                     $('#copy-submit-dialog').modal({ backdrop: 'static', keyboard: false });
                     $('#copy-submit-dialog').modal('show');
-                    $('#copyOrder').html('Save as new');
                 }
             });
         },
@@ -92,7 +95,7 @@ define ([
             //hidden.bs.modal will wait modal transition to complete, then redirect the page
             $('#copy-submit-dialog').on('hidden.bs.modal', function () {
                 //redirect to orders page
-                window.location.hash = 'orders';
+                Backbone.history.navigate('#/orders', { trigger : true });
             });
         },
 
@@ -100,18 +103,15 @@ define ([
          * this function add assign users to the select box
          */
         addAssignUsers : function () {
-            //fetch assign users
-            var usersCollection = new UsersCollection();
-            usersCollection.fetch({
-                success: function (models, response) {
-                    var users = response.users;
-                    for (var i in users) {
-                        $('#assigned-users').append('<option value="'
-                            + users[i].username +'">'
-                            + users[i].username + '</option>');
-                    }
+            this.usersCollection.each (function (user) {
+                var users = user.toJSON().users;
+                for (var i in users) {
+                    $('#assigned-users').append('<option value="'
+                        + users[i].username +'">'
+                        + users[i].username + '</option>');
                 }
-            });
+            }, this);
+
         },
 
         /**
@@ -125,22 +125,17 @@ define ([
             //fetch an specific order
             this.order.fetch ({
                 success: function (model, response, options) {
-                    //fetch all statuses
-                    statuses.fetch ({
-                        success: function () {
-                            //passing data to the template
-                            _this.$el.html (_this.template ({
-                                order: model.toJSON(),
-                                statuses: statuses.models,
-                            }));
-                            _this.addAssignUsers();
+                    //passing data to the template
+                    _this.$el.html (_this.template ({
+                        order: model.toJSON(),
+                        statuses: _this.statusesCollection.models,
+                    }));
 
-                            //mask date input formart
-                            $("#date_in").mask("99/99/9999 99:99");
-                            $("#date_approved").mask("99/99/9999 99:99");
-                            $("#date_required").mask("99/99/9999 99:99");
-                        }
-                    });
+                    _this.addAssignUsers();
+                    //mask date input formart
+                    $("#date_in").mask("99/99/9999 99:99");
+                    $("#date_approved").mask("99/99/9999 99:99");
+                    $("#date_required").mask("99/99/9999 99:99");
                 }
             });
 

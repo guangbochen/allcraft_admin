@@ -16,6 +16,17 @@ define ([
          * default constructor
          */
         initialize: function () {
+            this.bind ('request', this.indicate, this);
+            this.bind ('sync', this.disindicate, this);
+        },
+
+        indicate: function () {
+            $('#notifications-indicator').show();
+            $('#notifications-table-body').empty();
+        },
+
+        disindicate: function () {
+            $('#notifications-indicator').hide();
         },
 
         /**

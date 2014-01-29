@@ -16,8 +16,11 @@ define ([
          * constructor
          */
         initialize: function (options) {
+
             this.notifications = options;
             this.assigned_users = 'None';
+
+            //if the notification has subscriber
             if(options.ownSubscribers) {
                 this.subscribers = options.ownSubscribers;
                 this.assigned_users = '';
@@ -27,7 +30,6 @@ define ([
                 }
             }
         },
-
 
         /**
          * renders the view templates, and update this.el with the new HTML

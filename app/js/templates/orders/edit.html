@@ -19,7 +19,7 @@
     </div>
 
     <div class="row col-md-12">
-        <section class="widget">
+        <section class="widget" id="job-bag-preview">
             <div class="control-group">
                 <a href='#/orders'><button type="button" class="close" >×</button></a>
             </div>
@@ -290,6 +290,19 @@
                             <input type="text" id="booking" name="booking" value="<%=order.booking%>" class="form-control"/>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- displaying assign staff --> 
+                <script>
+                $("#assigned-users").select2({ placeholder: 'Assign Staff', });
+                </script>
+                <!-- new line -->
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <label class="control-label" for="booking"><span class="badge badge-success"> Assign Staff<span> </label> 
+                        <select multiple="" id="assigned-users" style="width:500px" class="my-input-field" tabindex="-1">
+                        </select>
                     </div>
                 </div>
 

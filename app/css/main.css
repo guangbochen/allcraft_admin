@@ -201,6 +201,15 @@ body {
     color: #1984CC;
 }
 
+#notifications-indicator {
+    margin-bottom:20px;
+}
+
+/* css for messages */
+#messages-indicator {
+    margin-bottom:20px;
+}
+
 /* css for new orders */
 .margin-top {
     margin-top:20px;
@@ -209,4 +218,7 @@ body {
     font-family:verdana; 
     font-size:14px; 
     color:#606A69
+}
+#generating-new-orders {
+    max-width: 1248px;
 }

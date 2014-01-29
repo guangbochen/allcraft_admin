@@ -1,4 +1,3 @@
-
 define ([
 
     'underscore',
@@ -9,14 +8,16 @@ define ([
     'collections/notifications',
     'views/notifications/notification',
 
-], function (_, Backbone, Common, NotificationsTemplate, Session, NotificationCollection, NotificationView) {
+], function (_, Backbone, Common, NotificationsTemplate, Session,
+    NotificationCollection, NotificationView) {
 
     'use strict';
 
     var NotificationsView = Backbone.View.extend({
 
         template: _.template (NotificationsTemplate),
-        limit:  7,
+        limit:  15,
+        offset: 0,
 
         /**
          * constructor
@@ -25,18 +26,20 @@ define ([
             //validate user authen
             Session.getAuth ();
 
-            _.bindAll (this, 'fetchNotificationsByPagi');
+            //initialise instance
             this.notifications = new NotificationCollection();
+            this.hasPagi = false;
+
         },
 
         events: {
-            'click li': 'fetchNotificationsByPagi',
+            'click li': 'fetchNotificationsInPagi',
         },
 
         /**
-         * this functions fetchs notifications in pagination by click pages
+         * this functions fetchs notifications in pagination when click page numbers
          */
-        fetchNotificationsByPagi : function (ev) {
+        fetchNotificationsInPagi : function (ev) {
 
             var target = $(ev.currentTarget);
             var page = target.text()
@@ -48,13 +51,12 @@ define ([
         },
 
         /**
-         * this method fetches notifcation from restful server
+         * this function fetches notifcations from rest api
          */
         fetchNotifications : function (offset, limit) {
             var that = this;
 
-            if(offset != undefined && limit)
-                this.notifications.fetchByPagi(offset, limit);
+            this.notifications.fetchByPagi(offset, limit);
 
             this.notifications.fetch ({
                 success: function (models, response) {
@@ -65,42 +67,41 @@ define ([
                     for (var i in notifications) {
                         notificationView = new NotificationView(notifications[i]);
                         that.$el.find('tbody').append(notificationView.render().el);
-                    }
+                    };
 
+                    // dispalays paginations if is not shown
+                    if(that.hasPagi === false){
+                        that.showsPaginations(response.count);
+                        that.hasPagi = true;
+                    }
                 }
             });
         },
 
         /**
-         * showsPaginations function add pagination pages to the view
+         * showsPaginations function append pagination pages to the view
          */
-        showsPaginations : function(){
+        showsPaginations : function(count){
 
-            var that = this;
-            this.notifications.fetch ({
-                success: function (models, response) {
-                    var pages = Math.ceil(response.count/that.limit);
-                    for(var i=1; i<=pages; i++){
-                        if(i === 1) 
-                            $('#notifications-paginations') .append('<li class="active hand-cursor"><a>'+i+'</a></li>');
-                        else
-                            $('#notifications-paginations').append('<li class="hand-cursor"><a>'+i+'</a></li>');
-                    
-                    };
+            var pages = Math.ceil(count/this.limit);
+            for(var i=1; i<=pages; i++){
+                if(i === 1) 
+                    $('#notifications-paginations').append('<li class="active hand-cursor"><a>'+i+'</a></li>');
+                else
+                    $('#notifications-paginations').append('<li class="hand-cursor"><a>'+i+'</a></li>');
+            
+            };
 
-                }
-            });
         },
 
         /**
          * renders the view template, and updates this.el with the new HTML
          */
         render: function () {
-            // Load the compiled HTML template into the Backbone "el"
             this.$el.html (this.template);
 
-            //fetch notifications and append to the view
-            this.fetchNotifications();
+            // fetch notifications and append to the view
+            this.fetchNotifications(this.offset, this.limit);
             this.showsPaginations();
 
             return this;

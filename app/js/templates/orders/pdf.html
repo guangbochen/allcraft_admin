@@ -15,26 +15,25 @@
                 <small>(<%=order.order_number%>)</small>
             </h3>
         </div>
-        <div id="job-bag-body">
-            <p> <strong>Job :</strong><%=order.job%></p>
-            <p><strong>Customer :</strong> <%=order.customer%></p>
-            <p><strong>Job Title :</strong> <%=order.job_title%></p>
-            <p><strong>Qty :</strong> <%=order.qty%></p>
-            <p><strong>Size :</strong> <%=order.size%></p>
-            <p><strong>PP :</strong> <%=order.pp%></p>
-            <p><strong>Stock :</strong> <%=order.stock%></p>
-            <p><strong>GSM :</strong> <%=order.gsm%></p>
-            <p><strong>COL1 :</strong> <%=order.print_slide_one%></p>
-            <p><strong>COL2 :</strong> <%=order.print_slide_two%></p>
-            <p><strong>Date In :</strong> <%=order.date_in%></p>
-            <p><strong>Date Approved :</strong> <%=order.date_approved%></p>
-            <p><strong>Dispatch By :</strong> <%=order.despatch_by%></p>
-            <p><strong>Notes :</strong> <%=order.job_note%></p>
-            <p><strong>Order :</strong> </p>
-            <p><strong>Notes :</strong> </p>
-            <p><strong>Production :</strong> <%=order.production_number%></p>
+        <div id="job-bag-body" style="font-size:15px">
+            <p> <strong>Job: </strong> <%=order.job%></p>
+            <p><strong>Customer: </strong> <%=order.customer%></p>
+            <p><strong>Job Title:</strong> <%=order.job_title%></p>
+            <p><strong>Qty: </strong> <%=order.qty%></p>
+            <p><strong>Size:</strong> <%=order.size%></p>
+            <p><strong>PP: </strong> <%=order.pp%></p>
+            <p><strong>Stock: </strong> <%=order.stock%></p>
+            <p><strong>GSM: </strong> <%=order.gsm%></p>
+            <p><strong>COL1: </strong> <%=order.print_slide_one%></p>
+            <p><strong>COL2: </strong> <%=order.print_slide_two%></p>
+            <p><strong>Date In: </strong> <%=order.date_in%></p>
+            <p><strong>Date Approved: </strong> <%=order.date_approved%></p>
+            <p><strong>Dispatch By: </strong> <%=order.despatch_by%></p>
+            <p><strong>Notes: </strong> <%=order.job_note%></p>
+            <p><strong>Order: </strong> </p>
+            <p><strong>Notes: </strong> </p>
+            <p><strong>Production: </strong> <%=order.production_number%></p>
         </div>
-
         <script>
             function demoFromHTML() {
 
@@ -66,7 +65,7 @@
                     'elementHandlers': specialElementHandlers
                 });
                 doc.text(50, 280, 'Copyright © 2014 Allcraft. All rights reserved.');
-                doc.output('dataurl')
+                doc.output('dataurlnewwindow'); 
               }
         </script>
     </section>

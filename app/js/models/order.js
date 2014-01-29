@@ -17,15 +17,13 @@ define ([
         },
 
         indicate: function () {
-            $('#indicator').show();
-            $('#update-order').html('<i class="fa fa-spinner fa-spin"></i>');
-            // this.trigger ('indicate');
+            $('#update-order').html('<i class="fa fa-gear fa-spin btn"></i>');
+            $('#copy-order').html('<i class="fa fa-gear fa-spin btn"></i>');
         },
 
         disindicate: function () {
-            $('#indicator').hide();
             $('#update-order').html('Save changes');
-            // this.trigger ('dismissIndicate');
+            $('#copy-order').html('Save as new');
         },
     }); 
 
